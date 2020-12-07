@@ -1,41 +1,29 @@
 {
   "name": "labs-api-starter",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "private": false,
   "license": "MIT",
   "repository": "github:Lambda-School-Labs/labs-api-starter",
   "scripts": {
     "start": "node server.js",
+    "server": "nodemon server.js",
     "watch:dev": "nodemon",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint --fix .",
     "format": "npx prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md)\"",
     "knex": "npx knex --knexfile config/knexfile.js",
-    "tests": "npx jest",
+    "tests": "npx jest --forceExit",
     "coverage": "CI=true npx jest --coverage --detectOpenHandles --forceExit"
-  },
-  "lint-staged": {
-    "api/**/*.js": [
-      "eslint --fix",
-      "prettier-eslint --write"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "jest": {
     "testEnvironment": "node",
-    "testResultsProcessor": "jest-sonar-reporter",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/__tests__/",
-      "/vendor/",
-      "/coverage/"
-    ],
     "collectCoverageFrom": [
-      "**/*.js"
+      "**/*.js",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/__tests__/**",
+      "!**/coverage/**",
+      "!**/apidoc/**"
     ]
   },
   "nodemonConfig": {
@@ -57,12 +45,13 @@
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
-    "express": "~4.16.1",
+    "express": "^4.16.4",
     "faker": "^4.1.0",
     "helmet": "^3.23.1",
     "http-errors": "~1.6.3",
-    "knex": "^0.21.1",
+    "knex": "^0.21.6",
     "morgan": "~1.9.1",
+    "node-cron": "^2.0.3",
     "pg": "^8.2.1",
     "swagger-jsdoc": "^4.0.0",
     "swagger-ui-express": "^4.1.4"
@@ -78,10 +67,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "husky": "^4.3.0",
     "jest": "^25.2.4",
-    "jest-sonar-reporter": "^2.0.0",
-    "lint-staged": "^10.4.2",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
     "supertest": "^4.0.2"
