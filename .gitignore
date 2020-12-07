@@ -1,10 +1,7 @@
 .vscode
+coverage
 apidoc
 dist-api
-
-# test output
-coverage
-test-report.xml
 
 #docker generated files
 data/pg

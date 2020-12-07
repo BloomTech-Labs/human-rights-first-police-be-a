@@ -3,7 +3,7 @@ module.exports = {
     openapi: '3.0.1',
     info: {
       title: 'Lambda Labs Starter API',
-      version: '1.0.0',
+      version: '0.0.1',
       description:
         'A basic API server to act as a starting point for Labs projects',
       license: {
@@ -24,10 +24,14 @@ module.exports = {
         name: 'data',
         description: 'Operations for data science service',
       },
+      {
+        name: 'incidents',
+        description: 'Operations for incidents found in database',
+      },
     ],
     externalDocs: {
       description: 'Data Science scaffold service docs',
-      url: 'https://ds.labsscaffolding.dev/',
+      url: 'https://ds-bw-test.herokuapp.com/',
     },
     components: {
       securitySchemes: {

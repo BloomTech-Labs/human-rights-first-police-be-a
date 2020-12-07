@@ -10,7 +10,7 @@ describe('index router endpoints', () => {
       const res = await request(server).get('/');
 
       expect(res.status).toBe(200);
-      expect(res.body.api).toBe('up');
+      expect(res.body.api).toBe('Hello World');
     });
 
     it('should return 404 for /ping', async () => {

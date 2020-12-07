@@ -181,7 +181,7 @@ router.post('/', authRequired, async (req, res) => {
       res.status(500).json({ message: e.message });
     }
   } else {
-    res.status(404).json({ message: 'Profile missing' });
+    res.status(400).json({ message: 'Profile missing' });
   }
 });
 /**
@@ -275,22 +275,20 @@ router.put('/', authRequired, (req, res) => {
  *                profile:
  *                  $ref: '#/components/schemas/Profile'
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', authRequired, (req, res) => {
   const id = req.params.id;
-  try {
-    Profiles.findById(id).then((profile) => {
-      Profiles.remove(profile.id).then(() => {
-        res
-          .status(200)
-          .json({ message: `Profile '${id}' was deleted.`, profile: profile });
+  Profiles.remove(id)
+    .then((deleted) => {
+      res
+        .status(200)
+        .json({ message: `Profile '${id}' was deleted.`, profile: deleted });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: `Could not delete profile with ID: ${id}`,
+        error: err.message,
       });
     });
-  } catch (err) {
-    res.status(500).json({
-      message: `Could not delete profile with ID: ${id}`,
-      error: err.message,
-    });
-  }
 });
 
 module.exports = router;
