@@ -13,7 +13,7 @@ async function getAllIncidents() {
 }
 
 async function getTimelineIncidents(limit) {
-  return await db('incidents').orderBy('date', 'desc').limit(limit);
+  return await db('incidents').whereNot({ date: null }).orderBy('date', 'desc').limit(limit);
 }
 
 // this set of queries will require some updates
