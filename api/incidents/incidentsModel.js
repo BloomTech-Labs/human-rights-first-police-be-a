@@ -4,11 +4,16 @@ module.exports = {
   getAllIncidents,
   getIncidentById,
   createIncident,
+  getTimelineIncidents,
   deleteDB,
 };
 
 async function getAllIncidents() {
-  return await db('incidents');
+  return await db('incidents').orderBy('date', 'desc');
+}
+
+async function getTimelineIncidents(limit) {
+  return await db('incidents').orderBy('date', 'desc').limit(limit);
 }
 
 // this set of queries will require some updates
