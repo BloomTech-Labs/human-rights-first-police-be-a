@@ -11,9 +11,9 @@ const { dsFetch } = require('../dsService/dsUtil');
 // ⬇️ swagger docs code generation ⬇️
 /**
  * @swagger
- * /incidents/showallincidents:
+ * /incidents/getincidents:
  *  get:
- *    summary: path returning all incidents in database
+ *    summary: path returning all incidents in database in reverse chronological order
  *    tags:
  *      - incidents
  *    produces:
@@ -107,7 +107,7 @@ const { dsFetch } = require('../dsService/dsUtil');
  *                  type: string
  *                  example: "Request Error"
  */
-router.get('/showallincidents', async (req, res) => {
+router.get('/getincidents', async (req, res) => {
   try {
     const incidents = await Incidents.getAllIncidents();
 
@@ -117,7 +117,24 @@ router.get('/showallincidents', async (req, res) => {
       return incident;
     });
     res.json(queryResponse);
+  } catch (e) {
+    res.status(500).json({ message: 'Request Error' });
+  }
+});
 
+router.get('/gettimeline', async (req, res) => {
+  let limit = req.query.limit || 5;
+
+  try {
+    const incidents = await Incidents.getTimelineIncidents(limit);
+
+    const queryResponse = incidents.map((incident) => {
+      incident.src = JSON.parse(incident.src);
+      incident.categories = JSON.parse(incident.categories);
+      return incident;
+    });
+
+    res.json(queryResponse);
   } catch (e) {
     res.status(500).json({ message: 'Request Error' });
   }
