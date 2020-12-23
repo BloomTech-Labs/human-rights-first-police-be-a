@@ -4,6 +4,7 @@ const router = express.Router();
 // Model and util imports
 const Incidents = require('./incidentsModel');
 const { dsFetch } = require('../dsService/dsUtil');
+const { parseAsync } = require('json2csv');
 
 // ''' ---------> Incidents Routes <--------- '''
 // ### GET /showallincidents ###
@@ -288,6 +289,90 @@ router.post('/fetchfromds', async (req, res) => {
     res.json({ message: 'Operation successful' });
   } catch (e) {
     res.json({ message: 'Error with operation', error: e });
+  }
+});
+
+router.get('/download', async (req, res) => {
+  try {
+    // Get Incidents from Database:
+    const incidents = await Incidents.getAllIncidents();
+    // Create Field Names:
+    const fields = [
+      {
+        label: 'Incident ID',
+        value: 'incident_id',
+      },
+      {
+        label: 'Source',
+        value: 'src',
+      },
+      {
+        label: 'Categories',
+        value: 'categories',
+      },
+      {
+        label: 'City',
+        value: 'city',
+      },
+      {
+        label: 'State',
+        value: 'state',
+      },
+      {
+        label: 'Latitude',
+        value: 'lat',
+      },
+      {
+        label: 'Longitude',
+        value: 'long',
+      },
+      {
+        label: 'Title',
+        value: 'title',
+      },
+      {
+        label: 'Description',
+        value: 'desc',
+      },
+      {
+        label: 'Date',
+        value: 'date',
+      },
+      {
+        label: 'Verbalization',
+        value: 'verbalization',
+      },
+      {
+        label: 'Empty Hand Soft',
+        value: 'empty_hand_soft',
+      },
+      {
+        label: 'Empty Hand Hard',
+        value: 'empty_hand_hard',
+      },
+      {
+        label: 'Less Lethal Methods',
+        value: 'less_lethal_methods',
+      },
+      {
+        label: 'Lethal Force',
+        value: 'lethal_force',
+      },
+      {
+        label: 'Uncategorized',
+        value: 'uncategorized',
+      },
+    ];
+    // Create CSV from data and serve it to User:
+    parseAsync(incidents, { fields })
+      .then((result) => {
+        res.header('Content-Type', 'text/csv');
+        res.attachment('incidents.csv');
+        return res.send(result);
+      })
+      .catch((error) => console.log(error));
+  } catch (error) {
+    res.status(500).json(error);
   }
 });
 
