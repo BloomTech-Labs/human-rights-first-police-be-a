@@ -364,13 +364,11 @@ router.get('/download', async (req, res) => {
       },
     ];
     // Create CSV from data and serve it to User:
-    parseAsync(incidents, { fields })
-      .then((result) => {
-        res.header('Content-Type', 'text/csv');
-        res.attachment('incidents.csv');
-        return res.send(result);
-      })
-      .catch((error) => console.log(error));
+    parseAsync(incidents, { fields }).then((result) => {
+      res.header('Content-Type', 'text/csv');
+      res.attachment('incidents.csv');
+      return res.send(result);
+    });
   } catch (error) {
     res.status(500).json(error);
   }
