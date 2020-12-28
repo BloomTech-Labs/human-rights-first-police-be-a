@@ -108,7 +108,6 @@ const { dsFetch } = require('../dsService/dsUtil');
  *                  example: "Request Error"
  */
 
-
 router.get('/try', async (req, res) => {
   try {
     const incidents = await Incidents.getAllIncidents();
@@ -124,11 +123,16 @@ router.get('/try', async (req, res) => {
     let filterResponse = queryResponse.filter((item) => {
       let searchStartDate = +req.query.startDate;
       let searchEndDate = +req.query.endDate;
-      return (
-        item.date >= searchStartDate &&
-        item.date <= searchEndDate &&
-        item.state === req.query.state
-      );
+
+      if (req.query.state) {
+        return (
+          item.date >= searchStartDate &&
+          item.date <= searchEndDate &&
+          item.state === req.query.state
+        );
+      } else {
+        return item.date >= searchStartDate && item.date <= searchEndDate;
+      }
     });
 
     res.json(filterResponse);
