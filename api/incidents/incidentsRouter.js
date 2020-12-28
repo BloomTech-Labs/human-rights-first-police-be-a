@@ -108,7 +108,7 @@ const { dsFetch } = require('../dsService/dsUtil');
  *                  example: "Request Error"
  */
 
-router.get('/try', async (req, res) => {
+router.get('/queryincidents', async (req, res) => {
   try {
     const incidents = await Incidents.getAllIncidents();
 
