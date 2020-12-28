@@ -107,6 +107,36 @@ const { dsFetch } = require('../dsService/dsUtil');
  *                  type: string
  *                  example: "Request Error"
  */
+
+
+router.get('/try', async (req, res) => {
+  try {
+    const incidents = await Incidents.getAllIncidents();
+
+    const queryResponse = incidents.map((incident) => {
+      let dateObj = new Date(incident.date);
+      incident.src = JSON.parse(incident.src);
+      incident.categories = JSON.parse(incident.categories);
+      incident.date = dateObj.getMonth();
+      return incident;
+    });
+
+    let filterResponse = queryResponse.filter((item) => {
+      let searchStartDate = +req.query.startDate;
+      let searchEndDate = +req.query.endDate;
+      return (
+        item.date >= searchStartDate &&
+        item.date <= searchEndDate &&
+        item.state === req.query.state
+      );
+    });
+
+    res.json(filterResponse);
+  } catch (e) {
+    res.status(500).json({ message: 'Request Error' });
+  }
+});
+
 router.get('/getincidents', async (req, res) => {
   try {
     const incidents = await Incidents.getAllIncidents();
