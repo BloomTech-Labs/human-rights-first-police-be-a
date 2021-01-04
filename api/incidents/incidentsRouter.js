@@ -4,6 +4,8 @@ const router = express.Router();
 // Model and util imports
 const Incidents = require('./incidentsModel');
 const { dsFetch } = require('../dsService/dsUtil');
+const { parseAsync } = require('json2csv');
+const { fields } = require('../util/fields');
 
 // ''' ---------> Incidents Routes <--------- '''
 // ### GET /showallincidents ###
@@ -288,6 +290,21 @@ router.post('/fetchfromds', async (req, res) => {
     res.json({ message: 'Operation successful' });
   } catch (e) {
     res.json({ message: 'Error with operation', error: e });
+  }
+});
+
+router.get('/download', async (req, res) => {
+  try {
+    // Get Incidents from Database:
+    const incidents = await Incidents.getAllIncidents();
+    // Create CSV from data and serve it to User:
+    parseAsync(incidents, { fields }).then((result) => {
+      res.header('Content-Type', 'text/csv');
+      res.attachment('incidents.csv');
+      return res.send(result);
+    });
+  } catch (error) {
+    res.status(500).json(error);
   }
 });
 
