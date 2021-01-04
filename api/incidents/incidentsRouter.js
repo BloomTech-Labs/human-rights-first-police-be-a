@@ -6,6 +6,12 @@ const Incidents = require('./incidentsModel');
 const { dsFetch } = require('../dsService/dsUtil');
 const { parseAsync } = require('json2csv');
 const { fields } = require('../util/fields');
+const {
+  filterDataByDate,
+  filterDataByState,
+  createRange,
+} = require('../util/filters');
+const { DateTime } = require('luxon');
 
 // ''' ---------> Incidents Routes <--------- '''
 // ### GET /showallincidents ###
@@ -327,10 +333,50 @@ router.post('/fetchfromds', async (req, res) => {
   }
 });
 
+// Possible Query Strings:
+// /download?state=*StateName Here*
+// /download?startDate=*StartDate Here*&endDate=*End Date Here*
+// /download?state=*StateName Here*&start=*StartDate Here*&end=*End Date Here*
+// State name ex: "New York" default: null
+// Start Date ex: "05-13-2020" default: One year ago from Today
+// End Date ex: "12-04-2020" default: Today
+
 router.get('/download', async (req, res) => {
+  // NOTE:  Incident Dates must be converted to milliseconds using JavaScript's getTime() method,
+  //        then converted to a Luxon DateTime Object using the DateTime.fromMillis() method
+
   try {
     // Get Incidents from Database:
-    const incidents = await Incidents.getAllIncidents();
+    let incidents = await Incidents.getAllIncidents();
+    const state = req.query.state || null;
+    let start = req.query.start || null;
+    let end = req.query.end || null;
+    // Filter data from incidents:
+    if (state) {
+      incidents = filterDataByState(incidents, state);
+    }
+
+    if (start && end) {
+      // Create ISO format from dates:
+      start = DateTime.fromISO(start);
+      end = DateTime.fromISO(end);
+      // Create range and filter:
+      const range = createRange([start, end]);
+      incidents = filterDataByDate(incidents, range);
+    } else if (!start && end) {
+      // Search for dates that are equal or before the end date
+      end = DateTime.fromISO(end);
+      incidents = incidents.filter(
+        (incident) => DateTime.fromMillis(incident.date.getTime()) <= end
+      );
+    } else if (start && !end) {
+      // Create a range using today as the end date
+      start = DateTime.fromISO(start);
+      const today = DateTime.fromISO(DateTime.local());
+      const range = createRange([start, today]);
+      incidents = filterDataByDate(incidents, range);
+    }
+
     // Create CSV from data and serve it to User:
     parseAsync(incidents, { fields }).then((result) => {
       res.header('Content-Type', 'text/csv');
