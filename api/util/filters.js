@@ -12,9 +12,7 @@ const createRange = (range) => {
 
 const filterDataByDate = (data, range) => {
   return data.filter((incident) =>
-    range.contains(
-      DateTime.fromMillis(incident.date.getTime()).plus({ day: 1 })
-    )
+    range.contains(DateTime.fromMillis(incident.date.getTime()))
   );
 };
 

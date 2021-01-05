@@ -347,6 +347,7 @@ router.get('/download', async (req, res) => {
     parseAsync(incidents, { fields }).then((result) => {
       res.header('Content-Type', 'text/csv');
       res.attachment('incidents.csv');
+      console.log(result);
       return res.send(result);
     });
   } catch (error) {
