@@ -4,9 +4,9 @@ You can find the deployed project at [Human Rights First - Police Brutality Acro
 
 ## Contributors
 
-|                                                      [Matthew Molloy](https://github.com/)                                                       |                                                       [Jason Schwartz](https://github.com/)                                                        |                                                      [Emilio Diaz-Goico](https://github.com/)                                                       |                                                       [Steele Helbling](https://github.com/)                                                        |     |                                                 
+|                                                      [Mark Rivera](https://github.com/MarkRivera)                                                       |                                                       [Michael Rockingham](https://github.com/mrockingham)                                                        |                                                      [Jen Stewart](https://github.com/jstewart8053)                                                       |                                                       [Anthony Carrillo](https://github.com/anthony2698)                                                        |     |                                                 
 | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://ca.slack-edge.com/ESZCHB482-W012H6TKTBP-791655a057b9-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012QNY40TW-13608abc8792-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012JQ52B0B-dbe5d49f721f-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/ESZCHB482-W0123RSMJQP-dd8a48c8def2-512" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "0" />](https://github.com/) |
+| [<img src="https://avatars3.githubusercontent.com/u/6520868?s=460&u=64f1fbd9fe4ee6c48f4a0a02147d1c606d443d59&v=4" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012BRSM0CE-4185df18f7ee-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/ESZCHB482-W016369SB7T-5bc27b0171fc-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012JQ3D2AX-e0654ed5ac8d-512" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "0" />](https://github.com/) |
 |                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Mister-Corn)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)                            |
 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
 
@@ -54,21 +54,24 @@ Our team is developing an interactive map that identifies instances of police us
 
 #### 🚫 back end framework goes here (link to BE REPO)
 ### dependencies
-    @okta/jwt-verifier: ^1.0.0
-    axios: ^0.19.2
-    cookie-parser: ~1.4.4
-    cors: ^2.8.5
-    debug: ~2.6.9
-    dotenv: ^8.2.0
-    express: ^4.16.4
-    faker": ^4.1.0
-    helmet": ^3.23.1
-    http-errors: ~1.6.3
-    knex: ^0.21.6
-    morgan: ~1.9.1
-    pg: ^8.2.1
-    swagger-jsdoc: ^4.0.0
-    swagger-ui-express: ^4.1.4
+    "@okta/jwt-verifier": "^1.0.0",
+    "axios": "^0.19.2",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "^4.16.4",
+    "faker": "^4.1.0",
+    "helmet": "^3.23.1",
+    "http-errors": "~1.6.3",
+    "json2csv": "^5.0.5",
+    "knex": "^0.21.6",
+    "luxon": "^1.25.0",
+    "morgan": "~1.9.1",
+    "node-cron": "^2.0.3",
+    "pg": "^8.2.1",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4"
 
   
 ### incidents table 
