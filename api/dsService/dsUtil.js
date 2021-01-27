@@ -79,7 +79,7 @@ function dsFetch() {
   // end date format
 
   return axios
-    .get(`${dsURL}getdata/?date_added=2020-12-01`)
+    .get(`${dsURL}getdata/?date_added=${today}`)
     .then((response) => {
       response.data.forEach((incident) => {
         Incidents.createIncident(incident);
