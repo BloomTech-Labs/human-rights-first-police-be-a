@@ -3,7 +3,6 @@ const router = express.Router();
 
 // Model and util imports
 const Incidents = require('./incidentsModel');
-const { dsFetch } = require('../dsService/dsUtil');
 const { parseAsync } = require('json2csv');
 const { fields } = require('../util/fields');
 const {
@@ -300,38 +299,6 @@ router.get('/incident/:id', async (req, res) => {
  *                  type: string
  *                  example: "Request Error"
  */
-
-router.post('/createincidents', (req, res) => {
-  req.body.forEach((incident) => {
-    Incidents.createIncident(incident)
-      .then((post) => {
-        res.status(201).json(post);
-      })
-      .catch((err) => {
-        res.status(500).json({ message: 'Error creating Record' });
-      });
-  });
-});
-
-// ###Utility Routes###
-router.delete('/cleardb', (req, res) => {
-  Incidents.deleteDB()
-    .then((response) => {
-      res.json({ message: 'All database contents have been deleted' });
-    })
-    .catch((error) => {
-      res.json(error);
-    });
-});
-
-router.post('/fetchfromds', async (req, res) => {
-  try {
-    await dsFetch();
-    res.json({ message: 'Operation successful' });
-  } catch (e) {
-    res.json({ message: 'Error with operation', error: e });
-  }
-});
 
 // Possible Query Strings:
 // /download?state=*StateName Here*
