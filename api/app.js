@@ -10,7 +10,6 @@ const jsdocConfig = require('../config/jsdoc');
 const dotenv = require('dotenv');
 const config_result = dotenv.config();
 const cron = require('node-cron');
-const axios = require('axios')
 
 if (process.env.NODE_ENV != 'production' && config_result.error) {
   throw config_result.error;
@@ -26,10 +25,9 @@ const indexRouter = require('./index/indexRouter');
 const profileRouter = require('./profile/profileRouter');
 const dsRouter = require('./dsService/dsRouter');
 const incidentsRouter = require('./incidents/incidentsRouter');
-const incidentsModel = require('./incidents/incidentsModel');
+const dataRouter = require('./util/dataRouter');
 
 //###[ Models ]###
-const incidentModel = require('./incidents/incidentsModel');
 const { dsFetch } = require('./dsService/dsUtil');
 
 const app = express();
@@ -61,6 +59,7 @@ app.use('/', indexRouter);
 app.use(['/profile', '/profiles'], profileRouter);
 app.use('/data', dsRouter);
 app.use('/incidents', incidentsRouter);
+app.use('/data', dataRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
