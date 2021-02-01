@@ -13,7 +13,9 @@
     "format": "npx prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md)\"",
     "knex": "npx knex --knexfile config/knexfile.js",
     "tests": "npx jest --forceExit",
-    "coverage": "CI=true npx jest --coverage --detectOpenHandles --forceExit"
+    "coverage": "CI=true npx jest --coverage --detectOpenHandles --forceExit",
+    "cleardb": "node scripts/clear_db.js",
+    "initialfetch": "node scripts/populate_db.js"
   },
   "jest": {
     "testEnvironment": "node",

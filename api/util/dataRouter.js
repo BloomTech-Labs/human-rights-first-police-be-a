@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Incidents = require('../incidents/incidentsModel');
-const { dsFetch, dsInitialFetch } = require('../dsService/dsUtil');
+const { dsFetch } = require('../dsService/dsUtil');
 
 router.post('/createincidents', (req, res) => {
     req.body.forEach((incident) => {
@@ -14,25 +14,6 @@ router.post('/createincidents', (req, res) => {
           res.status(500).json({ message: 'Error creating Record' });
         });
     });
-  });
-  
-  router.delete('/cleardb', (req, res) => {
-    Incidents.deleteDB()
-      .then((response) => {
-        res.json({ message: 'All database contents have been deleted' });
-      })
-      .catch((error) => {
-        res.json(error);
-      });
-  });
-  
-  router.post('/fetchfromds', async (req, res) => {
-    try {
-      await dsInitialFetch();
-      res.json({ message: 'Operation successful' });
-    } catch (e) {
-      res.json({ message: 'Error with operation', error: e });
-    }
   });
   
   router.post('/dailyupdate', async (req, res) => {

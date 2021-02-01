@@ -30,17 +30,6 @@ Our team is developing an interactive map that identifies instances of police us
 ## 1️⃣ Tech Stack
 
 ### Data Science API built using:
-
-#### _Data Science goes here_
-
-🚫 Why did you choose this framework?
-
-- Works well with FastAPI
-- Recommended to us
-- Wanted to learn an in-demand framework
-
-🚫List the rest of the data science features and libraries in the same format as the framework above.
-
 - Pandas
 - scikit-learn
 - spacy
@@ -48,11 +37,18 @@ Our team is developing an interactive map that identifies instances of police us
 - PRAW
 - Tweepy
 
+### Reasons for selection:
+
+- Works well with FastAPI
+- Recommended to us
+- Wanted to learn an in-demand framework
+
+
 #### Data Science API deployed to AWS
 
-#### [Back end](🚫link to back end repo here) built using:
+#### [Back end](https://humanrightsfirst-a-api.herokuapp.com/) built using:
 
-#### 🚫 back end framework goes here (link to BE REPO)
+#### [Back end Repo](https://github.com/Lambda-School-Labs/human-rights-first-be-a/)
 ### dependencies
     "@okta/jwt-verifier": "^1.0.0",
     "axios": "^0.19.2",
@@ -72,260 +68,6 @@ Our team is developing an interactive map that identifies instances of police us
     "pg": "^8.2.1",
     "swagger-jsdoc": "^4.0.0",
     "swagger-ui-express": "^4.1.4"
-
-  
-### incidents table 
-
-| Name        | Type       | Required | Description                                          |
-| ----------- | ---------- | -------- | ---------------------------------------------------- |
-| incident_id | increments | Yes      | records the number of the entreys                    |
-| id          | String     | Yes      | gives it unque id                                    |
-| city        | String     | Yes      | gives the city the incident took place               |
-| state       | String     | Yes      | gives the state the incident took place              |
-| lat         | float      | Yes      | gives the latitude of the incident on the world map  |
-| long        | float      | Yes      | gives the longitude of the incident on the world map |
-| title       | String     | Yes      | gives the title of the incident                      |
-| desc        | varchar    | No       | gives the description of the incident                |
-| date        | date       | No       | gives the date of the incident                       |
-
-### sources table 
-
-| Name        | Type       | Required | Description                                          |
-| ----------- | ---------- | -------- | ---------------------------------------------------- |
-| src_id      | increments | Yes      | records the number of the entreys                    |
-| incident_id | integer    | No       | gives it unque id                                    |
-| src_url     | String     | No       | gives url of the incident                            |
-| src_type    | String     | No       | gives url type                                       |
-
-### incident_type_of_force table 
-
-| Name             | Type       | Required | Description                                          |
-| ---------------- | ---------- | -------- | ---------------------------------------------------- |
-| itof_id          | increments | Yes      | records the number of the entreys                    |
-| type_of_force_id | integer    | Yes      | gives it unque id                                    |
-| incident_id      | integer    | Yes      | key tells it what incident it is                     |
-
-### type_of_force table 
-
-| Name             | Type       | Required | Description                                          |
-| ---------------- | ---------- | -------- | ---------------------------------------------------- |
-| type_of_force_id | increments | No       | key tells it what incident_type_of_force it is       |
-| type_of_force    | String     | No       | gives type of force tag                              |
-
-#### Example
-```javascript
-{
-    "incident_id": "Test",
-    "id": "Test",
-    "city": "test",
-    "state": "test"
-    "lat": "test"
-    "long": "test"
-    "title": "test"
-    "desc": "test"
-    "date": "test"
-}
-```
-#### Responses:
-
->/showallincidents Will receive a **200 (OK)** response with an array of incidents if the request is successful
-
-```javascript
-[
-  {
-    "incident_id": "Test",
-    "id": "Test",
-    "city": "test",
-    "state": "test"
-    "lat": "test"
-    "long": "test"
-    "title": "test"
-    "desc": "test"
-    "date": "test"
-  },
-  {
-    "incident_id": "Test",
-    "id": "Test",
-    "city": "test",
-    "state": "test"
-    "lat": "test"
-    "long": "test"
-    "title": "test"
-    "desc": "test"
-    "date": "test"
-  },
-];
-```
-> Will receive a **500 (Internal Server Error)** response if there is an issue with grabing the data
-
-```javascript
-{
-  "message": "Request Error"
-}
-```
-
----
-
->/createincidents Will receive a **201 (Created)** response along wtih the newly created incident if successful
-
-```javascript
-[
-  {
-    "incident_id": "Test",
-    "id": "Test",
-    "city": "test",
-    "state": "test"
-    "lat": "test"
-    "long": "test"
-    "title": "test"
-    "desc": "test"
-    "date": "test"
-  },
-];
-```
-
-> Will receive a **500 (Internal Server Error)** response if there is an issue with the API server
-
-```javascript
-{
-    "message": "Error creating Record"
-}
-```
----
-
->/sources Will receive a **200 (OK)** response with an array of sources if the request is successful
-
-```javascript
-[
-  {
-    "src_id": "Test",
-    "incident_id": "Test",
-    "src_url": "test",
-    "src_type": "test"
-  },
-  {
-    "src_id": "Test",
-    "incident_id": "Test",
-    "src_url": "test",
-    "src_type": "test"
-
-  },
-  {
-    "src_id": "Test",
-    "incident_id": "Test",
-    "src_url": "test",
-    "src_type": "test"
-  },
-];
-```
-> Will receive a **500 (Internal Server Error)** response if there is an issue with grabing the data
-
-```javascript
-{
-  "message": "Request Error"
-}
-```
-
----
->/tags Will receive a **200 (OK)** response with an array of tags if the request is successful
-
-```javascript
-[
-  {
-    "itof_id": "Test",
-    "type_of_force_id": "Test",
-    "incident_id": "test",
-  },
-  {
-    "itof_id": "Test",
-    "type_of_force_id": "Test",
-    "incident_id": "test",
-
-  },
-  {
-    "itof_id": "Test",
-    "type_of_force_id": "Test",
-    "incident_id": "test",
-  },
-];
-```
-> Will receive a **500 (Internal Server Error)** response if there is an issue with grabing the data
-
-```javascript
-{
-  "message": "Request Error"
-}
-```
-
----
->/tagtypes Will receive a **200 (OK)** response with an array of tagtypes if the request is successful
-
-```javascript
-[
-  {
-    "type_of_force_id": "test"
-    "type_of_force": "test"
-  },
-  {
-    "type_of_force_id": "test"
-    "type_of_force": "test"
-
-  },
-  {
-    "type_of_force_id": "test"
-    "type_of_force": "test"
-  },
-];
-```
-> Will receive a **500 (Internal Server Error)** response if there is an issue with grabing the data
-
-```javascript
-{
-  "message": "Request Error"
-}
-```
->/sources/:id Will receive a **200 (OK)** response with an array of tagtypes if the request is successful
-
-```javascript
-[
-  {
-    "src_id": "Test",
-    "incident_id": "Test",
-    "src_url": "test",
-    "src_type": "test"
-  },
-];
-```
-> Will receive a **500 (Internal Server Error)** response if there is an issue with grabing the data
-
-```javascript
-{
-  "message": "Request Error"
-}
-```
-
->/createsource Will receive a **201 (Created)** response along wtih the newly created incident if successful
-
-```javascript
-[
-    "src_id": "Test",
-    "incident_id": "Test",
-    "src_url": "test",
-    "src_type": "test"
-  },
-];
-```
-
-> Will receive a **500 (Internal Server Error)** response if there is an issue with the API server
-
-```javascript
-{
-    "message": "Error creating Record"
-}
-```
----
-
-
 
 ---
 # APIs
@@ -354,7 +96,7 @@ DATABASE_URL = postgres://ugkakqld:oZSXjtaGFA1r1psfCfIfv1ZEJID1j4KM@raja.db.elep
 
 # Testing
 
-No testing implemented as of October 16th, 2020. 
+No testing implemented as of January 31st, 2021. 
 
 # Installation Instructions
 
@@ -362,7 +104,11 @@ Run 'npm install' to install all necessary dependencies.
 
 ## Other Scripts
 
-    * node server.js - must be executed from /server folder - runs local server for development 
+    * npm run server - must be executed from /server folder - runs local server for development 
+
+    * npm run cleardb - must be executed from /server folder - deletes all records from Incidents table
+
+    * npm run initialfetch - must be executed from /server folder - performs initial population of Incidents table
 
 # Contributing
 
