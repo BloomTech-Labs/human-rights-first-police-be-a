@@ -115,6 +115,123 @@ const { DateTime } = require('luxon');
  *                  example: "Request Error"
  */
 
+router.get('/getincidents', async (req, res) => {
+  try {
+    const incidents = await Incidents.getAllIncidents();
+
+    const queryResponse = incidents.map((incident) => {
+      incident.src = JSON.parse(incident.src);
+      incident.categories = JSON.parse(incident.categories);
+      return incident;
+    });
+    res.json(queryResponse);
+  } catch (e) {
+    res.status(500).json({ message: 'Request Error' });
+  }
+});
+
+// ### GET /queryincidents ###
+// - returns incident data based on provided date range
+// ⬇️ swagger docs code generation ⬇️
+/**
+ * @swagger
+ * /incidents/queryincidents:
+ *  get:
+ *    summary: path returning all incidents in database restricted to provided date range and provided state parameter
+ *    tags:
+ *      - incidents
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      200:
+ *        description: success ... returns an array of incident objects
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              required:
+ *                - api
+ *              properties:
+ *                data:
+ *                  type: array
+ *                  example: [
+  {
+    incident_id: 'mn-minneapolis-14',
+    src: [
+      'https://www.facebook.com/1462345700/posts/10220863688809651',
+      'https://www.facebook.com/1462345700/posts/10220863812572745'
+    ],
+    categories: [ 'less-lethal', 'rubber-bullet', 'stun-grenade', 'tear-gas' ],
+    city: 'Minneapolis',
+    state: 'Minnesota',
+    lat: 44.94811,
+    long: -93.23699,
+    title: 'Police shoot flashbang grenades into crowd',
+    desc: 'Police on the rooftop of the 3rd precinct fire flashbang grenades into crowd of peaceful protesters.',
+    date: 2020-05-26T05:00:00.000Z,
+    verbalization: false,
+    empty_hand_soft: false,
+    empty_hand_hard: false,
+    less_lethal_methods: true,
+    lethal_force: false,
+    uncategorized: false
+  },
+  {
+    incident_id: 'mn-minneapolis-28',
+    src: [
+      'https://www.facebook.com/damicedsota.thespiritflow/videos/10216865788705633/UzpfSTEwMDAxMTAzODkyNjEwMzpWSzoyNjczNDU4ODUyOTMzODE2/'
+    ],
+    categories: [ 'abuse-of-power', 'arrest' ],
+    city: 'Minneapolis',
+    state: 'Minnesota',
+    lat: 44.941326,
+    long: -93.26261,
+    title: 'Man has his gun confiscated in an open carry state, violating his 2nd amendment rights',
+    desc: 'Man encounters police arresting people open carrying (~3 minutes in), man is then also put in handcuffs (~5 minutes in) and his gun taken.',
+    date: 2020-05-26T05:00:00.000Z,
+    verbalization: false,
+    empty_hand_soft: false,
+    empty_hand_hard: false,
+    less_lethal_methods: false,
+    lethal_force: false,
+    uncategorized: true
+  },
+  {
+    incident_id: 'co-denver-1',
+    src: [
+      'https://www.denverpost.com/2020/05/29/denver-post-photographer-pepper-balls-george-floyd-protest/',
+      'https://www.nytimes.com/2020/06/01/business/media/reporters-protests-george-floyd.html'
+    ],
+    categories: [ 'less-lethal', 'pepper-ball', 'shoot' ],
+    city: 'Denver',
+    state: 'Colorado',
+    lat: 39.73844,
+    long: -104.98626,
+    title: 'Reporter shot with multiple pepper balls',
+    desc: 'He states the officer aimed at him, and the pepper balls broke his press badge and drew blood',
+    date: 2020-05-28T05:00:00.000Z,
+    verbalization: false,
+    empty_hand_soft: false,
+    empty_hand_hard: false,
+    less_lethal_methods: true,
+    lethal_force: false,
+    uncategorized: false
+  }
+]
+ *      500:
+ *        description: Server response error
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              required:
+ *                -api
+ *              properties:
+ *                message:
+ *                  type: string
+ *                  example: "Request Error"
+ */
+
 router.get('/queryincidents', async (req, res) => {
   try {
     const incidents = await Incidents.getAllIncidents();
@@ -148,21 +265,9 @@ router.get('/queryincidents', async (req, res) => {
   }
 });
 
-router.get('/getincidents', async (req, res) => {
-  try {
-    const incidents = await Incidents.getAllIncidents();
-
-    const queryResponse = incidents.map((incident) => {
-      incident.src = JSON.parse(incident.src);
-      incident.categories = JSON.parse(incident.categories);
-      return incident;
-    });
-    res.json(queryResponse);
-  } catch (e) {
-    res.status(500).json({ message: 'Request Error' });
-  }
-});
-
+/**
+ * Route to supply Timeline component with limited data response
+ */
 router.get('/gettimeline', async (req, res) => {
   let limit = req.query.limit || 5;
 
@@ -300,13 +405,19 @@ router.get('/incident/:id', async (req, res) => {
  *                  example: "Request Error"
  */
 
-// Possible Query Strings:
-// /download?state=*StateName Here*
-// /download?startDate=*StartDate Here*&endDate=*End Date Here*
-// /download?state=*StateName Here*&start=*StartDate Here*&end=*End Date Here*
-// State name ex: "New York" default: null
-// Start Date ex: "05-13-2020" default: One year ago from Today
-// End Date ex: "12-04-2020" default: Today
+ /**
+  * Returns a CSV of incidents
+  * By default returns all incidents
+  * Optional query string can limit responses by date range or state
+  * 
+  * Possible Query Strings:
+  * /download?state=*StateName Here*
+  * /download?startDate=*StartDate Here*&endDate=*End Date Here*
+  * /download?state=*StateName Here*&start=*StartDate Here*&end=*End Date Here*
+  * State name ex: "New York" default: null
+  * Start Date ex: "05-13-2020" default: One year ago from Today
+  * End Date ex: "12-04-2020" default: Today
+  */
 
 router.get('/download', async (req, res) => {
   // NOTE:  Incident Dates must be converted to milliseconds using JavaScript's getTime() method,

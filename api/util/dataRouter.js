@@ -4,6 +4,9 @@ const router = express.Router();
 const Incidents = require('../incidents/incidentsModel');
 const { dsFetch } = require('../dsService/dsUtil');
 
+/**
+ * Utility route that creates a singular incident
+ */
 router.post('/createincidents', (req, res) => {
     req.body.forEach((incident) => {
       Incidents.createIncident(incident)
@@ -16,6 +19,9 @@ router.post('/createincidents', (req, res) => {
     });
   });
   
+  /**
+   * Utility route that performs daily update of database from DS API
+   */
   router.post('/dailyupdate', async (req, res) => {
     try {
       const result = await dsFetch();

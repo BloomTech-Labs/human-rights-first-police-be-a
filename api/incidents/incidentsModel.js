@@ -8,10 +8,18 @@ module.exports = {
   deleteDB,
 };
 
+/**
+ * Returns all incidents in the db sorted by newest incident first
+ */
 async function getAllIncidents() {
   return await db('incidents').whereNot({ date: null }).orderBy('date', 'desc');
 }
 
+/**
+ * 
+ * @param {number} limit 
+ * Returns incidents in the database sorted by newest incident first limited by the number defined in limit parameter
+ */
 async function getTimelineIncidents(limit) {
   return await db('incidents')
     .whereNot({ date: null })
@@ -19,6 +27,10 @@ async function getTimelineIncidents(limit) {
     .limit(limit);
 }
 
+/**
+ * @param {object} incident
+ * Helper function for individual incident insertion
+ */
 async function createIncident(incident) {
   const newIncident = {
     incident_id: incident.case_id,
@@ -41,10 +53,17 @@ async function createIncident(incident) {
   return db('incidents').insert(newIncident);
 }
 
+/**
+ * Utility function to clear database contents
+ */
 async function deleteDB() {
   return await db('incidents').del();
 }
 
+/**
+ * @param {string} id 
+ * Function to return a specific incident by provided id
+ */
 function getIncidentById(id) {
   return db('incidents').where('incident_id', id);
 }

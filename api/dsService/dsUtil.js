@@ -8,7 +8,10 @@ module.exports = {
   dsInitialFetch,
   dsFetch,
 };
-
+/**
+ * This function is used for the initial population of an empty database
+ * Data source: DS API
+ */
 function dsInitialFetch() {
   const incomingIncidents = [];
 
@@ -60,6 +63,10 @@ function dsInitialFetch() {
     });
 }
 
+/**
+ * This function is for regular updates supplying new data from DS API
+ * This function has not been fully tested due to issues with DS API in absense of DS team to resolve
+ */
 function dsFetch() {
   // gets current date and formats it
   let today = new Date();
