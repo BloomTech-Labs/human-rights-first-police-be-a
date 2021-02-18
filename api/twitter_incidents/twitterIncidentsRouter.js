@@ -28,5 +28,18 @@ router.get('/incidents/approved', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+router.put('/incidents/:id', async (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+  try {
+    const updatedTwitterIncident = await twitterIncidentHelper.updateTwitterIncident(
+      id,
+      changes
+    );
+    res.status(200).json(updatedTwitterIncident);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 module.exports = router;
