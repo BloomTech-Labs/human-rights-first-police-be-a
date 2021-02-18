@@ -6,6 +6,7 @@ module.exports = {
   getAllApprovedIncidents,
   getTwitterIncidentById,
   updateTwitterIncident,
+  cleanTwitterIncident,
 };
 
 /**
@@ -54,4 +55,12 @@ async function updateTwitterIncident(id, changes) {
   } catch (error) {
     throw new Error(error.message);
   }
+}
+
+function cleanTwitterIncident(twitterIncident) {
+  twitterIncident.map((incident) => {
+    incident.src = JSON.parse(incident.src);
+    incident.categories = JSON.parse(incident.categories);
+    return incident;
+  });
 }
