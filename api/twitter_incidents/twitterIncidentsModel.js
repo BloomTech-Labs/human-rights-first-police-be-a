@@ -2,17 +2,14 @@ const db = require('../../data/db-config');
 
 module.exports = {
   getAllPendingIncidents,
-  getIncidentById,
-  createIncident,
-  getTimelineIncidents,
-  deleteDB,
+  getTwitterIncidentById,
 };
 
 /**
  * Returns all incidents in the db sorted by newest incident first
  */
-async function getAllPendingIncidents() {
-  return await db('twitter_incidents')
+function getAllPendingIncidents() {
+  return db('twitter_incidents')
     .where({ pending: true })
     .orderBy('date', 'desc');
 }
