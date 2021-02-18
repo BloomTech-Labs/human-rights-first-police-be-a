@@ -1,12 +1,12 @@
 exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex('table_name')
+  return knex('twitter_incidents')
     .del()
     .then(function () {
       // Inserts seed entries
-      return knex('table_name').insert([
+      return knex('twitter_incidents').insert([
         {
-          incident_id: 'mn-minneapolis-21',
+          twitter_incident_id: 'mn-minneapolis-21',
           src: JSON.stringify([
             'https://youtu.be/XAa5xb6JitI?t=5982',
             'https://gfycat.com/distinctsecretgrasshopper-minneapolis-protest-police-acab',
@@ -31,7 +31,7 @@ exports.seed = function (knex) {
           rejected: false,
         },
         {
-          incident_id: 'mn-minneapolis-14',
+          twitter_incident_id: 'mn-minneapolis-14',
           src: JSON.stringify([
             'https://www.facebook.com/1462345700/posts/10220863688809651',
             'https://www.facebook.com/1462345700/posts/10220863812572745',
@@ -61,7 +61,7 @@ exports.seed = function (knex) {
           rejected: false,
         },
         {
-          incident_id: 'mn-minneapolis-28',
+          twitter_incident_id: 'mn-minneapolis-28',
           src: JSON.stringify([
             'https://www.facebook.com/damicedsota.thespiritflow/videos/10216865788705633/UzpfSTEwMDAxMTAzODkyNjEwMzpWSzoyNjczNDU4ODUyOTMzODE2/',
           ]),
@@ -86,7 +86,7 @@ exports.seed = function (knex) {
           rejected: false,
         },
         {
-          incident_id: 'co-denver-1',
+          twitter_incident_id: 'co-denver-1',
           src: JSON.stringify([
             'https://www.denverpost.com/2020/05/29/denver-post-photographer-pepper-balls-george-floyd-protest/',
             'https://www.nytimes.com/2020/06/01/business/media/reporters-protests-george-floyd.html',
@@ -111,7 +111,7 @@ exports.seed = function (knex) {
           rejected: false,
         },
         {
-          incident_id: 'ny-newyorkcity-55',
+          twitter_incident_id: 'ny-newyorkcity-55',
           src: JSON.stringify([
             'https://twitter.com/ShimonPro/status/1266136557871869952',
           ]),
@@ -142,7 +142,7 @@ exports.seed = function (knex) {
           rejected: false,
         },
         {
-          incident_id: 'ny-newyorkcity-56',
+          twitter_incident_id: 'ny-newyorkcity-56',
           src: JSON.stringify([
             'https://twitter.com/NY1/status/1266159669262893057',
           ]),
