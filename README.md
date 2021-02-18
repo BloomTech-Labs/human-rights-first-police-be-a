@@ -1,18 +1,17 @@
-# Human Rights First: Police Brutality Across America
+# Human Rights First: Police Brutality Across America.
 
 You can find the deployed project at [Human Rights First - Police Brutality Across America](https://main.d17v0exvwwwzgz.amplifyapp.com/).
 
 ## Contributors
 
-|                                                      [Mark Rivera](https://github.com/MarkRivera)                                                       |                                                       [Michael Rockingham](https://github.com/mrockingham)                                                        |                                                      [Jen Stewart](https://github.com/jstewart8053)                                                       |                                                       [Anthony Carrillo](https://github.com/anthony2698)                                                        |     |                                                 
-| :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                       [Mark Rivera](https://github.com/MarkRivera)                                                       |                                [Michael Rockingham](https://github.com/mrockingham)                                 |                                   [Jen Stewart](https://github.com/jstewart8053)                                    |                                 [Anthony Carrillo](https://github.com/anthony2698)                                  |                                                                                                                                           |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------: |
 | [<img src="https://avatars3.githubusercontent.com/u/6520868?s=460&u=64f1fbd9fe4ee6c48f4a0a02147d1c606d443d59&v=4" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012BRSM0CE-4185df18f7ee-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/ESZCHB482-W016369SB7T-5bc27b0171fc-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012JQ3D2AX-e0654ed5ac8d-512" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "0" />](https://github.com/) |
-|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Mister-Corn)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)                            |
-|                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
+|                                      [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                       |               [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)                |              [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Mister-Corn)               |             [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)              |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)                           |
+|                      [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                       |    [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)    |    [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)    |    [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)    |               [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)               |
 
 <br>
 <br>
-
 
 ## Project Overview
 
@@ -25,11 +24,12 @@ Our team is developing an interactive map that identifies instances of police us
 ### Key Features
 
 - User can view incidents of police brutality and get more information on specific incidents
-- User can seearch map based on type of force, location, and date 
+- User can seearch map based on type of force, location, and date
 
 ## 1️⃣ Tech Stack
 
 ### Data Science API built using:
+
 - Pandas
 - scikit-learn
 - spacy
@@ -43,13 +43,14 @@ Our team is developing an interactive map that identifies instances of police us
 - Recommended to us
 - Wanted to learn an in-demand framework
 
-
 #### Data Science API deployed to AWS
 
 #### [Back end](https://humanrightsfirst-a-api.herokuapp.com/) built using:
 
 #### [Back end Repo](https://github.com/Lambda-School-Labs/human-rights-first-be-a/)
+
 ### dependencies
+
     "@okta/jwt-verifier": "^1.0.0",
     "axios": "^0.19.2",
     "cookie-parser": "~1.4.4",
@@ -70,6 +71,7 @@ Our team is developing an interactive map that identifies instances of police us
     "swagger-ui-express": "^4.1.4"
 
 ---
+
 # APIs
 
 ## 2️⃣ Data Science API
@@ -96,15 +98,15 @@ DATABASE_URL = postgres://ugkakqld:oZSXjtaGFA1r1psfCfIfv1ZEJID1j4KM@raja.db.elep
 
 # Testing
 
-No testing implemented as of January 31st, 2021. 
+No testing implemented as of January 31st, 2021.
 
 # Installation Instructions
 
-Run 'npm install' to install all necessary dependencies. 
+Run 'npm install' to install all necessary dependencies.
 
 ## Other Scripts
 
-    * npm run server - must be executed from /server folder - runs local server for development 
+    * npm run server - must be executed from /server folder - runs local server for development
 
     * npm run cleardb - must be executed from /server folder - deletes all records from Incidents table
 
@@ -150,5 +152,3 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 ## Documentation
 
 See [Frontend Documentation](https://github.com/Lambda-School-Labs/Labs27-C-HRF-FE) for details on the frontend of our project.
-      
-
