@@ -56,6 +56,10 @@ async function updateTwitterIncident(id, changes) {
     throw new Error(error.message);
   }
 }
+/**
+ * @param {Object} twitterIncident
+ * Retuns Twitter incident that matches the shape of the Reddit incident
+ */
 
 function cleanTwitterIncident(twitterIncident) {
   twitterIncident.map((incident) => {
