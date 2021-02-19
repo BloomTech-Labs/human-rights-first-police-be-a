@@ -39,6 +39,12 @@ router.put('/incidents/:id', async (req, res) => {
       id,
       changes
     );
+    if (updatedTwitterIncident.length < 1) {
+      res.status(400).json({
+        message:
+          'ERROR: The incident requested does not exist. Please choose a valid incident.',
+      });
+    }
     twitterIncidentHelper.cleanTwitterIncident(updatedTwitterIncident);
     res.status(200).json(updatedTwitterIncident);
   } catch (error) {
