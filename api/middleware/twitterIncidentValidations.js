@@ -5,9 +5,10 @@ const validateTwitterPost = (req, res, next) => {
     src: JSON.stringify(newIncident.src),
     categories: JSON.stringify(newIncident.categories),
   };
-  console.log('READY TO POST?', readyToPost);
-};
 
+  req.Twitter = readyToPost;
+  next();
+};
 module.exports = {
   validateTwitterPost,
 };

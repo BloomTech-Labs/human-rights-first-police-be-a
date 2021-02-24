@@ -34,9 +34,9 @@ router.get('/incidents/approved', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-router.put('/incidents/:id', async (req, res) => {
+router.put('/incidents/:id', validateTwitterPost, async (req, res) => {
   const { id } = req.params;
-  const changes = req.body;
+  const changes = req.Twitter;
   try {
     const updatedTwitterIncident = await twitterIncidentHelper.updateTwitterIncident(
       id,
@@ -55,9 +55,11 @@ router.put('/incidents/:id', async (req, res) => {
   }
 });
 router.post('/incidents', validateTwitterPost, async (req, res) => {
-  const incident = req.body;
   try {
-    res.send('ok');
+    const newPostedIncident = await twitterIncidentHelper.createTwitterIncident(
+      req.Twitter
+    );
+    res.status(201).json(newPostedIncident);
   } catch (error) {
     res.status(500).json({
       message: 'There was a problem with creating your issue',
