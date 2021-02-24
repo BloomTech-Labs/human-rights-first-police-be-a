@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const {
+  validateTwitterPost,
+} = require('../middleware/twitterIncidentValidations');
 // Model and util imports
 const twitterIncidentHelper = require('./twitterIncidentsModel');
 
@@ -49,6 +52,17 @@ router.put('/incidents/:id', async (req, res) => {
     res.status(200).json(updatedTwitterIncident);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+});
+router.post('/incidents', validateTwitterPost, async (req, res) => {
+  const incident = req.body;
+  try {
+    res.send('ok');
+  } catch (error) {
+    res.status(500).json({
+      message: 'There was a problem with creating your issue',
+      Error_message: error.message,
+    });
   }
 });
 

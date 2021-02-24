@@ -7,6 +7,7 @@ module.exports = {
   getTwitterIncidentById,
   updateTwitterIncident,
   cleanTwitterIncident,
+  createTwitterIncident,
 };
 
 /**
@@ -52,6 +53,18 @@ async function updateTwitterIncident(id, changes) {
       .where('twitter_incident_id', id)
       .update(changes);
     return db('twitter_incidents').where('twitter_incident_id', id);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+/**
+ * @param {Object} incident
+ * Function to Edit and return a specific Twitter incident by provided id
+ */
+async function createTwitterIncident(incident) {
+  try {
+    await db('twitter_incidents').insert(incident);
+    return 'New incident Created';
   } catch (error) {
     throw new Error(error.message);
   }
