@@ -20,11 +20,7 @@ exports.up = function (knex) {
       incidents.boolean('uncategorized').defaultsTo(0);
     })
     .createTable('twitter_incidents', (twitter_incidents) => {
-      twitter_incidents
-        .string('twitter_incident_id')
-        .unique()
-        .primary()
-        .notNullable();
+      twitter_incidents.increments('server_id');
       twitter_incidents.text('src');
       twitter_incidents.string('categories');
       twitter_incidents.string('city').notNullable();

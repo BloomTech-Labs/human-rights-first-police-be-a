@@ -6,7 +6,6 @@ exports.seed = function (knex) {
       // Inserts seed entries
       return knex('twitter_incidents').insert([
         {
-          twitter_incident_id: 'mn-minneapolis-21',
           src: JSON.stringify([
             'https://youtu.be/XAa5xb6JitI?t=5982',
             'https://gfycat.com/distinctsecretgrasshopper-minneapolis-protest-police-acab',
@@ -31,7 +30,6 @@ exports.seed = function (knex) {
           rejected: false,
         },
         {
-          twitter_incident_id: 'mn-minneapolis-14',
           src: JSON.stringify([
             'https://www.facebook.com/1462345700/posts/10220863688809651',
             'https://www.facebook.com/1462345700/posts/10220863812572745',
@@ -61,7 +59,6 @@ exports.seed = function (knex) {
           rejected: false,
         },
         {
-          twitter_incident_id: 'mn-minneapolis-28',
           src: JSON.stringify([
             'https://www.facebook.com/damicedsota.thespiritflow/videos/10216865788705633/UzpfSTEwMDAxMTAzODkyNjEwMzpWSzoyNjczNDU4ODUyOTMzODE2/',
           ]),
@@ -86,7 +83,6 @@ exports.seed = function (knex) {
           rejected: false,
         },
         {
-          twitter_incident_id: 'co-denver-1',
           src: JSON.stringify([
             'https://www.denverpost.com/2020/05/29/denver-post-photographer-pepper-balls-george-floyd-protest/',
             'https://www.nytimes.com/2020/06/01/business/media/reporters-protests-george-floyd.html',
@@ -111,7 +107,6 @@ exports.seed = function (knex) {
           rejected: false,
         },
         {
-          twitter_incident_id: 'ny-newyorkcity-55',
           src: JSON.stringify([
             'https://twitter.com/ShimonPro/status/1266136557871869952',
           ]),
@@ -142,7 +137,6 @@ exports.seed = function (knex) {
           rejected: false,
         },
         {
-          twitter_incident_id: 'ny-newyorkcity-56',
           src: JSON.stringify([
             'https://twitter.com/NY1/status/1266159669262893057',
           ]),
@@ -166,7 +160,6 @@ exports.seed = function (knex) {
           rejected: false,
         },
         {
-          twitter_incident_id: 'ny-newyorkcity-2',
           src: JSON.stringify([
             'https://twitter.com/DriveWendys/status/1266555286678048770',
           ]),
@@ -190,7 +183,6 @@ exports.seed = function (knex) {
           rejected: false,
         },
         {
-          twitter_incident_id: 'ny-newyorkcity-1',
           src: JSON.stringify([
             'https://twitter.com/whitney_hu/status/1266540710188195843',
             'https://twitter.com/JasonLemon/status/1266529475757510656',
@@ -218,7 +210,6 @@ exports.seed = function (knex) {
           rejected: true,
         },
         {
-          twitter_incident_id: 'ca-sanjose-5',
           src: JSON.stringify(['https://www.youtube.com/watch?v=89mUHzu3480']),
           categories: JSON.stringify([
             'explosive',
@@ -246,7 +237,6 @@ exports.seed = function (knex) {
           rejected: false,
         },
         {
-          twitter_incident_id: 'ca-losangeles-37',
           src: JSON.stringify([
             'https://vimeo.com/424352612',
             'https://www.reddit.com/r/LosAngeles/comments/gti4eg/la_riots_5292020_police_line_advances_with_their/',
