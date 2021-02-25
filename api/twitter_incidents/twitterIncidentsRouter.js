@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const {
-  validateTwitterPost,
+  cleanTwitterPost,
+  validatePostBody,
 } = require('../middleware/twitterIncidentValidations');
 // Model and util imports
 const twitterIncidentHelper = require('./twitterIncidentsModel');
@@ -34,7 +35,7 @@ router.get('/incidents/approved', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-router.put('/incidents/:id', validateTwitterPost, async (req, res) => {
+router.put('/incidents/:id', cleanTwitterPost, async (req, res) => {
   const { id } = req.params;
   const changes = req.Twitter;
   try {
@@ -54,18 +55,23 @@ router.put('/incidents/:id', validateTwitterPost, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-router.post('/incidents', validateTwitterPost, async (req, res) => {
-  try {
-    const newPostedIncident = await twitterIncidentHelper.createTwitterIncident(
-      req.Twitter
-    );
-    res.status(201).json(newPostedIncident);
-  } catch (error) {
-    res.status(500).json({
-      message: 'There was a problem with creating your issue',
-      Error_message: error.message,
-    });
+router.post(
+  '/incidents',
+  validatePostBody,
+  cleanTwitterPost,
+  async (req, res) => {
+    try {
+      const newPostedIncident = await twitterIncidentHelper.createTwitterIncident(
+        req.TwitterNewIncidentReadyToPost
+      );
+      res.status(201).json(newPostedIncident);
+    } catch (error) {
+      res.status(500).json({
+        message: 'There was a problem with creating your issue',
+        Error_message: error.message,
+      });
+    }
   }
-});
+);
 
 module.exports = router;

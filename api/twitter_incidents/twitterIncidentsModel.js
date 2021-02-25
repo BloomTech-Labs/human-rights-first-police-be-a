@@ -4,6 +4,7 @@ module.exports = {
   getAllPendingIncidents,
   getAllRejectedIncidents,
   getAllApprovedIncidents,
+  getLastID,
   getTwitterIncidentById,
   updateTwitterIncident,
   cleanTwitterIncident,
@@ -33,6 +34,12 @@ function getAllApprovedIncidents() {
   return db('twitter_incidents')
     .where({ approved: true })
     .orderBy('date', 'desc');
+}
+/**
+ * Returns all approved Twitter incidents in the db sorted by newest incident first
+ */
+function getLastID() {
+  return db('twitter_incidents').max('server_id');
 }
 /**
  * @param {string} id
