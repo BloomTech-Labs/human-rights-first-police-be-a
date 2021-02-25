@@ -20,6 +20,21 @@ const validatePostBody = (req, res, next) => {
 
 const cleanTwitterPost = async (req, res, next) => {
   try {
+    const readyToUpdate = {
+      ...req.newIncident,
+      src: JSON.stringify(req.newIncident.src),
+      categories: JSON.stringify(req.newIncident.categories),
+    };
+
+    req.TwitterIncidentUpdate = readyToUpdate;
+    next();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const addIdtoPost = async (req, res, next) => {
+  try {
     const [lastKnownId] = await twitterIncidentHelper.getLastID();
     const newIncidentID = lastKnownId.max + 1;
     const readyToPost = {
@@ -28,8 +43,7 @@ const cleanTwitterPost = async (req, res, next) => {
       src: JSON.stringify(req.newIncident.src),
       categories: JSON.stringify(req.newIncident.categories),
     };
-
-    req.TwitterNewIncidentReadyToPost = readyToPost;
+    req.TwitterUpdatedReadyToPost = readyToPost;
     next();
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -38,4 +52,5 @@ const cleanTwitterPost = async (req, res, next) => {
 module.exports = {
   cleanTwitterPost,
   validatePostBody,
+  addIdtoPost,
 };
