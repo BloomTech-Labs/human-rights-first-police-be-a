@@ -1,7 +1,6 @@
 const axios = require('axios');
 const knex = require('../../data/db-config');
 const Incidents = require('../incidents/incidentsModel');
-const Helper = require('../incidents/incidentsModel');
 const dsURL = process.env.DS_API_URL;
 
 module.exports = {
@@ -59,22 +58,10 @@ function dsInitialFetch() {
       console.log('Server Error', err);
     });
 }
-
-const getLastRedditID = async () => {
-  try {
-    const [lastKnownId] = await Helper.getLastID();
-    console.log('IM RUNNING', lastKnownId);
-    return lastKnownId;
-  } catch (error) {
-    console.log('Error retrieving last id', error.message);
-  }
-};
-
-function dsUpdateFetch() {
+function dsUpdateFetch(lastKnownId) {
   const incomingNewIncidents = [];
-  const last = getLastRedditID();
   return axios
-    .get(`${dsURL}/last_id_added=${last}`)
+    .get(`${dsURL}?last_id_added=${lastKnownId}`)
     .then((response) => {
       response.data.forEach((incident) => {
         let newIncident = {
@@ -93,12 +80,12 @@ function dsUpdateFetch() {
           force_rank: incident.force_rank,
         };
 
-        incomingIncidents.push(newIncident);
+        incomingNewIncidents.push(newIncident);
       });
 
       const chunkSize = 30;
       knex
-        .batchInsert('incidents', incomingIncidents, chunkSize)
+        .batchInsert('incidents', incomingNewIncidents, chunkSize)
         .then((batchResponse) => {
           return {
             status: 201,
