@@ -405,19 +405,19 @@ router.get('/incident/:id', async (req, res) => {
  *                  example: "Request Error"
  */
 
- /**
-  * Returns a CSV of incidents
-  * By default returns all incidents
-  * Optional query string can limit responses by date range or state
-  * 
-  * Possible Query Strings:
-  * /download?state=*StateName Here*
-  * /download?startDate=*StartDate Here*&endDate=*End Date Here*
-  * /download?state=*StateName Here*&start=*StartDate Here*&end=*End Date Here*
-  * State name ex: "New York" default: null
-  * Start Date ex: "05-13-2020" default: One year ago from Today
-  * End Date ex: "12-04-2020" default: Today
-  */
+/**
+ * Returns a CSV of incidents
+ * By default returns all incidents
+ * Optional query string can limit responses by date range or state
+ *
+ * Possible Query Strings:
+ * /download?state=*StateName Here*
+ * /download?startDate=*StartDate Here*&endDate=*End Date Here*
+ * /download?state=*StateName Here*&start=*StartDate Here*&end=*End Date Here*
+ * State name ex: "New York" default: null
+ * Start Date ex: "05-13-2020" default: One year ago from Today
+ * End Date ex: "12-04-2020" default: Today
+ */
 
 router.get('/download', async (req, res) => {
   // NOTE:  Incident Dates must be converted to milliseconds using JavaScript's getTime() method,

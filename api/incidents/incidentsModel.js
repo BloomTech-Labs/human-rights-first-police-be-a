@@ -3,6 +3,7 @@ const db = require('../../data/db-config');
 module.exports = {
   getAllIncidents,
   getIncidentById,
+  getLastRedditID,
   createIncident,
   getTimelineIncidents,
   deleteDB,
@@ -16,8 +17,8 @@ async function getAllIncidents() {
 }
 
 /**
- * 
- * @param {number} limit 
+ *
+ * @param {number} limit
  * Returns incidents in the database sorted by newest incident first limited by the number defined in limit parameter
  */
 async function getTimelineIncidents(limit) {
@@ -25,6 +26,13 @@ async function getTimelineIncidents(limit) {
     .whereNot({ date: null })
     .orderBy('date', 'desc')
     .limit(limit);
+}
+
+/**
+ * Returns the last known id in the database
+ */
+function getLastRedditID() {
+  return db('incidents').max('id');
 }
 
 /**
@@ -61,7 +69,7 @@ async function deleteDB() {
 }
 
 /**
- * @param {string} id 
+ * @param {string} id
  * Function to return a specific incident by provided id
  */
 function getIncidentById(id) {

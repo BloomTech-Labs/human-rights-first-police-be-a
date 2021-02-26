@@ -28,7 +28,7 @@ const twitterIncidentsRouter = require('./twitter_incidents/twitterIncidentsRout
 const dataRouter = require('./util/dataRouter');
 
 //###[ Models ]###
-const { dsFetch } = require('./dsService/dsUtil');
+const { dsUpdateFetch } = require('./dsService/dsUtil');
 
 const app = express();
 
@@ -61,6 +61,11 @@ app.use('/incidents', incidentsRouter);
 app.use('/data', dataRouter);
 app.use('/dashboard', twitterIncidentsRouter);
 
+// cron job to retrieve data from DS API
+const updateReddit = cron.schedule('5 * * * *', () => {
+  console.log('hello from cron');
+});
+updateReddit.start();
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -86,11 +91,6 @@ app.use(function (err, req, res, next) {
     return res.json(errObject);
   }
   next(err);
-});
-
-// cron job to retrieve data from DS API
-cron.schedule('* * 12 * *', () => {
-  //dsFetch();
 });
 
 module.exports = app;
