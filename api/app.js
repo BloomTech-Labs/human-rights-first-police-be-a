@@ -90,7 +90,7 @@ app.use(function (err, req, res, next) {
 
 // cron job to retrieve data from DS API
 cron.schedule('* * 12 * *', () => {
-  dsFetch();
+  //dsFetch();
 });
 
 module.exports = app;

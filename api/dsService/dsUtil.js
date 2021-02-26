@@ -6,7 +6,6 @@ const dsURL = process.env.DS_API_URL;
 
 module.exports = {
   dsInitialFetch,
-  dsFetch,
 };
 /**
  * This function is used for the initial population of an empty database
@@ -57,39 +56,5 @@ function dsInitialFetch() {
     })
     .catch((err) => {
       console.log('Server Error', err);
-    });
-}
-
-/**
- * This function is for regular updates supplying new data from DS API
- * This function has not been fully tested due to issues with DS API in absense of DS team to resolve
- */
-function dsFetch() {
-  // gets current date and formats it
-  let today = new Date();
-  let dd = today.getDate();
-  let mm = today.getMonth() + 1;
-  const yyyy = today.getFullYear();
-
-  if (dd < 10) {
-    dd = `0${dd}`;
-  }
-
-  if (mm < 10) {
-    mm = `0${mm}`;
-  }
-
-  today = `${yyyy}-${mm}-${dd}`;
-  // end date format
-
-  return axios
-    .get(`${dsURL}getdata/?date_added=${today}`)
-    .then((response) => {
-      response.data.forEach((incident) => {
-        Incidents.createIncident(incident);
-      });
-    })
-    .catch((error) => {
-      return error;
     });
 }
