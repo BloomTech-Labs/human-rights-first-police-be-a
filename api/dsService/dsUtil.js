@@ -16,10 +16,11 @@ function dsInitialFetch() {
   const incomingIncidents = [];
 
   return axios
-    .get(`${dsURL}/getdata/`)
+    .get(`${dsURL}`)
     .then((response) => {
       response.data.forEach((incident) => {
         let newIncident = {
+          id: incident.id,
           incident_id: incident.case_id,
           src: JSON.stringify(incident.links),
           categories: JSON.stringify(incident.tags),
@@ -30,12 +31,8 @@ function dsInitialFetch() {
           long: incident.long,
           desc: incident.description,
           date: incident.dates,
-          verbalization: incident.verbalization,
-          empty_hand_soft: incident.empty_hand_soft,
-          empty_hand_hard: incident.empty_hand_hard,
-          less_lethal_methods: incident.less_lethal_methods,
-          lethal_force: incident.lethal_force,
-          uncategorized: incident.uncategorized,
+          added_on: incident.added_on,
+          force_rank: incident.force_rank,
         };
 
         incomingIncidents.push(newIncident);
