@@ -39,14 +39,14 @@ function getAllApprovedIncidents() {
  * Returns the last known id in the database
  */
 function getLastID() {
-  return db('twitter_incidents').max('server_id');
+  return db('twitter_incidents').max('id');
 }
 /**
  * @param {string} id
  * Function to return a specific Twitter incident by provided id
  */
 function getTwitterIncidentById(id) {
-  return db('twitter_incidents').where('server_id', id);
+  return db('twitter_incidents').where('id', id);
 }
 
 /**
@@ -56,8 +56,8 @@ function getTwitterIncidentById(id) {
  */
 async function updateTwitterIncident(id, changes) {
   try {
-    await db('twitter_incidents').where('server_id', id).update(changes);
-    return db('twitter_incidents').where('server_id', id);
+    await db('twitter_incidents').where('id', id).update(changes);
+    return db('twitter_incidents').where('id', id);
   } catch (error) {
     throw new Error(error.message);
   }
