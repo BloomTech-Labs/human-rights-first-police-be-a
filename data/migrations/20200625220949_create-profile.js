@@ -29,6 +29,9 @@ exports.up = function (knex) {
       twitter_incidents.varchar('desc', 10000);
       twitter_incidents.string('language');
       twitter_incidents.string('force_rank');
+      twitter_incidents.boolean('pending');
+      twitter_incidents.boolean('approved');
+      twitter_incidents.boolean('rejected');
     });
 };
 exports.down = function (knex) {
