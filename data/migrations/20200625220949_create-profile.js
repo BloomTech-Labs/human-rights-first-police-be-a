@@ -17,25 +17,18 @@ exports.up = function (knex) {
       incidents.string('force_rank');
     })
     .createTable('twitter_incidents', (twitter_incidents) => {
-      twitter_incidents.increments('server_id');
-      twitter_incidents.text('src');
-      twitter_incidents.string('categories');
-      twitter_incidents.string('city').notNullable();
-      twitter_incidents.string('state').notNullable();
-      twitter_incidents.float('lat').notNullable();
-      twitter_incidents.float('long').notNullable();
-      twitter_incidents.string('title').notNullable();
-      twitter_incidents.varchar('desc', 10000);
+      twitter_incidents.integer('id').unique().primary().notNullable();
       twitter_incidents.date('date');
-      twitter_incidents.boolean('verbalization').defaultsTo(0);
-      twitter_incidents.boolean('empty_hand_soft').defaultsTo(0);
-      twitter_incidents.boolean('empty_hand_hard').defaultsTo(0);
-      twitter_incidents.boolean('less_lethal_methods').defaultsTo(0);
-      twitter_incidents.boolean('lethal_force').defaultsTo(0);
-      twitter_incidents.boolean('uncategorized').defaultsTo(0);
-      twitter_incidents.boolean('pending').defaultsTo(1);
-      twitter_incidents.boolean('approved').defaultsTo(0);
-      twitter_incidents.boolean('rejected').defaultsTo(0);
+      twitter_incidents.string('user_name');
+      twitter_incidents.string('user_description');
+      twitter_incidents.string('user_location');
+      twitter_incidents.string('coordinates');
+      twitter_incidents.string('geo');
+      twitter_incidents.string('incident_id');
+      twitter_incidents.text('src');
+      twitter_incidents.varchar('desc', 10000);
+      twitter_incidents.string('language');
+      twitter_incidents.string('force_rank');
     });
 };
 exports.down = function (knex) {
