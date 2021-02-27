@@ -32,6 +32,15 @@ router.get('/incidents/approved', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+router.get('/incidents/dstraining', async (req, res) => {
+  try {
+    const learningData = await twitterIncidentHelper.getLearningData();
+    res.status(200).json(learningData);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 router.put('/incidents/:id', validatePostBody, async (req, res) => {
   const { id } = req.params;
   const changes = req.newIncident;

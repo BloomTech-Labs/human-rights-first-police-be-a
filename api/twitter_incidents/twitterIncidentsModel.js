@@ -4,10 +4,10 @@ module.exports = {
   getAllPendingIncidents,
   getAllRejectedIncidents,
   getAllApprovedIncidents,
+  getLearningData,
   getLastID,
   getTwitterIncidentById,
   updateTwitterIncident,
-  cleanTwitterIncident,
   createTwitterIncident,
 };
 
@@ -35,6 +35,15 @@ function getAllApprovedIncidents() {
     .where({ approved: true })
     .orderBy('date', 'desc');
 }
+/**
+ * Returns all approved/rejected Twitter incidents for DS Training Data
+ */
+function getLearningData() {
+  return db('twitter_incidents')
+    .whereNot({ pending: true })
+    .orderBy('date', 'desc');
+}
+
 /**
  * Returns the last known id in the database
  */
