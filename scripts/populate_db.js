@@ -2,6 +2,10 @@
  * This file runs a command that initially populates the incidents database
  */
 
- const { dsInitialFetch } = require('../api/dsService/dsUtil');
+const {
+  dsInitialFetch,
+  dsTwitterInitialFetch,
+} = require('../api/dsService/dsUtil');
 
- dsInitialFetch();
+dsInitialFetch();
+dsTwitterInitialFetch();
