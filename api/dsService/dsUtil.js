@@ -128,7 +128,7 @@ function dsTwitterInitialFetch() {
           coordinates: incident.coordinates,
           geo: incident.geo,
           incident_id: incident.id_str,
-          src: incident.source,
+          src: [incident.source],
           desc: incident.text,
           language: incident.language,
           force_rank: incident.category,

@@ -5,6 +5,8 @@ const {
   addIdtoPost,
   validateManyPosts,
 } = require('../middleware/twitterIncidentValidations');
+const authRequired = require('../middleware/authRequired');
+
 // Model and util imports
 const twitterIncidentHelper = require('./twitterIncidentsModel');
 
