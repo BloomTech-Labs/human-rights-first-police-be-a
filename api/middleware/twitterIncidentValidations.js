@@ -11,6 +11,19 @@ const validatePostBody = (req, res, next) => {
     });
   }
 };
+const validateManyPosts = (req, res, next) => {
+  const updates = req.body;
+  updates.forEach((incident) => {
+    console.log(incident);
+    if ('desc' in incident && 'date' in incident) {
+      next();
+    } else {
+      res.status(400).json({
+        message: 'Missing Fields. Please ensure all fields are completed.',
+      });
+    }
+  });
+};
 
 const addIdtoPost = async (req, res, next) => {
   try {
@@ -29,4 +42,5 @@ const addIdtoPost = async (req, res, next) => {
 module.exports = {
   validatePostBody,
   addIdtoPost,
+  validateManyPosts,
 };

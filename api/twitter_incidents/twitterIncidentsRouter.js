@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   validatePostBody,
   addIdtoPost,
+  validateManyPosts,
 } = require('../middleware/twitterIncidentValidations');
 // Model and util imports
 const twitterIncidentHelper = require('./twitterIncidentsModel');
@@ -56,6 +57,17 @@ router.put('/incidents/:id', validatePostBody, async (req, res) => {
       });
     }
     res.status(201).json(updatedTwitterIncident);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+router.put('/incidents/', async (req, res) => {
+  const changes = req.body;
+  try {
+    await changes.forEach((change) => {
+      twitterIncidentHelper.updateTwitterIncident(change.id, change);
+    });
+    res.status(201).json({ message: 'Incidents Successfully Updated' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

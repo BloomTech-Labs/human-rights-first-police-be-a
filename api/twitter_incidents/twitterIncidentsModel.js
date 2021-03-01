@@ -71,6 +71,7 @@ async function updateTwitterIncident(id, changes) {
     throw new Error(error.message);
   }
 }
+
 /**
  * @param {Object} incident
  * Function to Edit and return a specific Twitter incident by provided id
