@@ -19,8 +19,16 @@ exports.up = function (knex) {
       incidents.boolean('lethal_force').defaultsTo(0);
       incidents.boolean('uncategorized').defaultsTo(0);
     })
+    .createTable('profiles', function (table) {
+      table.string('id').notNullable().unique().primary();
+      table.string('email');
+      table.string('name');
+      table.string('avatarUrl');
+      table.timestamps(true, true);
+    });
 };
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists('incidents');
+    .dropTableIfExists('incidents')
+    .dropTableIfExists('profiles');
 };
