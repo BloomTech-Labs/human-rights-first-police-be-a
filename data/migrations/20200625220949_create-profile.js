@@ -25,6 +25,7 @@ exports.up = function (knex) {
       twitter_incidents.string('coordinates');
       twitter_incidents.string('geo');
       twitter_incidents.string('incident_id');
+      twitter_incidents.string('src');
       twitter_incidents.string('city');
       twitter_incidents.string('state');
       twitter_incidents.float('lat');
