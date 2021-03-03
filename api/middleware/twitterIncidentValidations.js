@@ -2,13 +2,7 @@ const twitterIncidentHelper = require('../twitter_incidents/twitterIncidentsMode
 
 const validatePostBody = (req, res, next) => {
   const newTwitterIncident = req.body;
-  if (
-    'city' in newTwitterIncident &&
-    'state' in newTwitterIncident &&
-    'lat' in newTwitterIncident &&
-    'long' in newTwitterIncident &&
-    'title' in newTwitterIncident
-  ) {
+  if ('desc' in newTwitterIncident && 'date' in newTwitterIncident) {
     req.newIncident = newTwitterIncident;
     next();
   } else {
@@ -17,20 +11,18 @@ const validatePostBody = (req, res, next) => {
     });
   }
 };
-
-const cleanTwitterPost = async (req, res, next) => {
-  try {
-    const readyToUpdate = {
-      ...req.newIncident,
-      src: JSON.stringify(req.newIncident.src),
-      categories: JSON.stringify(req.newIncident.categories),
-    };
-
-    req.TwitterIncidentUpdate = readyToUpdate;
-    next();
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+const validateManyPosts = (req, res, next) => {
+  const updates = req.body;
+  updates.forEach((incident) => {
+    console.log(incident);
+    if ('desc' in incident && 'date' in incident) {
+      next();
+    } else {
+      res.status(400).json({
+        message: 'Missing Fields. Please ensure all fields are completed.',
+      });
+    }
+  });
 };
 
 const addIdtoPost = async (req, res, next) => {
@@ -38,10 +30,8 @@ const addIdtoPost = async (req, res, next) => {
     const [lastKnownId] = await twitterIncidentHelper.getLastID();
     const newIncidentID = lastKnownId.max + 1;
     const readyToPost = {
-      server_id: newIncidentID,
+      id: newIncidentID,
       ...req.newIncident,
-      src: JSON.stringify(req.newIncident.src),
-      categories: JSON.stringify(req.newIncident.categories),
     };
     req.TwitterUpdatedReadyToPost = readyToPost;
     next();
@@ -50,7 +40,7 @@ const addIdtoPost = async (req, res, next) => {
   }
 };
 module.exports = {
-  cleanTwitterPost,
   validatePostBody,
   addIdtoPost,
+  validateManyPosts,
 };
