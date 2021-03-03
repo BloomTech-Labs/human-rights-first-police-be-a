@@ -8,6 +8,7 @@ module.exports = {
   dsInitialFetch,
   dsUpdateFetch,
   dsTwitterInitialFetch,
+  dsTwitterUpdateFetch,
 };
 /**
  * This function is used for the initial population of an empty database
