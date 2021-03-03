@@ -172,12 +172,12 @@ function dsTwitterInitialFetch() {
  * Data source: DS Twitter API
  */
 function dsTwitterUpdateFetch(lastKnownId) {
-  const incomingTwitterNewIncidents = [];
+  const incomingTwitterIncidents = [];
   return axios
     .get(`${dsTwitterURL}?last_id_added=${lastKnownId}`)
     .then((response) => {
       response.data.forEach((incident) => {
-        let newTwitterIncident = {
+        let newIncident = {
           id: incident.id,
           date: incident.created,
           user_name: incident.user_name,
@@ -195,12 +195,12 @@ function dsTwitterUpdateFetch(lastKnownId) {
           rejected: false,
         };
 
-        incomingTwitterNewIncidents.push(newTwitterIncident);
+        incomingTwitterIncidents.push(newIncident);
       });
 
       const chunkSize = 30;
       knex
-        .batchInsert('incidents', incomingTwitterNewIncidents, chunkSize)
+        .batchInsert('twitter_incidents', incomingTwitterIncidents, chunkSize)
         .then((batchResponse) => {
           return {
             status: 201,

@@ -9,7 +9,8 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const jsdocConfig = require('../config/jsdoc');
 const dotenv = require('dotenv');
 const config_result = dotenv.config();
-const Helper = require('./incidents/incidentsModel');
+const RedditHelper = require('./incidents/incidentsModel');
+const TwitterHelper = require('./twitter_incidents/twitterIncidentsModel');
 
 const cron = require('node-cron');
 
@@ -68,12 +69,13 @@ app.use('/data', dataRouter);
 app.use('/dashboard', twitterIncidentsRouter);
 
 // cron job to retrieve data from DS API
-cron.schedule(' * 9 * * * *', async function () {
-  console.log('The answer to life, the universe, and everything!');
+cron.schedule('8 * * * * *', async function () {
   try {
-    const [lastId] = await Helper.getLastRedditID();
+    const [lastId] = await RedditHelper.getLastRedditID();
+    const [lastTwitterId] = await TwitterHelper.getLastID();
+    dsTwitterUpdateFetch(lastTwitterId.max);
     dsUpdateFetch(lastId.max);
-    dsTwitterUpdateFetch(lastId.max);
+    console.log('The answer to life, the universe, and everything!');
   } catch (error) {
     console.log('Unable to get last id', error.message);
   }
