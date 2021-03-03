@@ -19,6 +19,7 @@ exports.up = function (knex) {
       incidents.boolean('lethal_force').defaultsTo(0);
       incidents.boolean('uncategorized').defaultsTo(0);
     })
+
     .createTable('twitter_incidents', (twitter_incidents) => {
       twitter_incidents.increments('server_id');
       twitter_incidents.text('src');
@@ -39,10 +40,20 @@ exports.up = function (knex) {
       twitter_incidents.boolean('pending').defaultsTo(1);
       twitter_incidents.boolean('approved').defaultsTo(0);
       twitter_incidents.boolean('rejected').defaultsTo(0);
+
+    .createTable('profiles', function (table) {
+      table.string('id').notNullable().unique().primary();
+      table.string('email');
+      table.string('name');
+      table.string('avatarUrl');
+      table.timestamps(true, true);
+
     });
 };
 exports.down = function (knex) {
   return knex.schema
     .dropTableIfExists('incidents')
     .dropTableIfExists('twitter_incidents');
+    .dropTableIfExists('profiles');
+
 };
