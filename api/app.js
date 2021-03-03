@@ -69,13 +69,13 @@ app.use('/data', dataRouter);
 app.use('/dashboard', twitterIncidentsRouter);
 
 // cron job to retrieve data from DS API
-cron.schedule('8 * * * * *', async function () {
+cron.schedule('* * 20 * * *', async function () {
   try {
     const [lastId] = await RedditHelper.getLastRedditID();
     const [lastTwitterId] = await TwitterHelper.getLastID();
     dsTwitterUpdateFetch(lastTwitterId.max);
     dsUpdateFetch(lastId.max);
-    console.log('The answer to life, the universe, and everything!');
+    console.log("You've got mail");
   } catch (error) {
     console.log('Unable to get last id', error.message);
   }
