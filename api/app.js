@@ -30,7 +30,11 @@ const twitterIncidentsRouter = require('./twitter_incidents/twitterIncidentsRout
 const dataRouter = require('./util/dataRouter');
 
 //###[ Models ]###
-const { dsUpdateFetch, getLastId } = require('./dsService/dsUtil');
+const {
+  dsUpdateFetch,
+  getLastId,
+  dsTwitterUpdateFetch,
+} = require('./dsService/dsUtil');
 
 const app = express();
 
@@ -64,11 +68,12 @@ app.use('/data', dataRouter);
 app.use('/dashboard', twitterIncidentsRouter);
 
 // cron job to retrieve data from DS API
-cron.schedule('* * 12 * *', async function () {
+cron.schedule('9 * * * * *', async function () {
   console.log('The answer to life, the universe, and everything!');
   try {
     const [lastId] = await Helper.getLastRedditID();
     dsUpdateFetch(lastId.max);
+    dsTwitterUpdateFetch(lastId.max);
   } catch (error) {
     console.log('Unable to get last id', error.message);
   }
