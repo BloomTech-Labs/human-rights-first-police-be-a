@@ -4,7 +4,6 @@ const {
   validatePostBody,
   addIdtoPost,
   validateManyPosts,
-  cleanTwitterPost,
 } = require('../middleware/twitterIncidentValidations');
 const authRequired = require('../middleware/authRequired');
 
