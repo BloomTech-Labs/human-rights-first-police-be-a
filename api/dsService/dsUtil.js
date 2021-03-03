@@ -112,6 +112,10 @@ function dsUpdateFetch(lastKnownId) {
     });
 }
 
+/**
+ * This function is used for the initial population of an empty database
+ * Data source: DS TWITTER API
+ */
 function dsTwitterInitialFetch() {
   const incomingTwitterIncidents = [];
 
@@ -143,6 +147,59 @@ function dsTwitterInitialFetch() {
       const chunkSize = 30;
       knex
         .batchInsert('twitter_incidents', incomingTwitterIncidents, chunkSize)
+        .then((batchResponse) => {
+          return {
+            status: 201,
+            message: 'Batch insertion success',
+          };
+        })
+        .catch((error) => {
+          return {
+            status: 500,
+            message: 'Batch insertion failed',
+            error: error,
+          };
+        });
+    })
+    .catch((err) => {
+      console.log('Server Error', err);
+    });
+}
+
+/**
+ * This function is used to refresh data from the Twitter API
+ * Data source: DS Twitter API
+ */
+function dsTwitterUpdateFetch(lastKnownId) {
+  const incomingTwitterNewIncidents = [];
+  return axios
+    .get(`${dsTwitterURL}?last_id_added=${lastKnownId}`)
+    .then((response) => {
+      response.data.forEach((incident) => {
+        let newTwitterIncident = {
+          id: incident.id,
+          date: incident.created,
+          user_name: incident.user_name,
+          user_description: incident.user_description,
+          user_location: incident.user_location,
+          coordinates: incident.coordinates,
+          geo: incident.geo,
+          incident_id: incident.id_str,
+          src: incident.source,
+          desc: incident.text,
+          language: incident.language,
+          force_rank: incident.category,
+          pending: true,
+          approved: false,
+          rejected: false,
+        };
+
+        incomingTwitterNewIncidents.push(newTwitterIncident);
+      });
+
+      const chunkSize = 30;
+      knex
+        .batchInsert('incidents', incomingTwitterNewIncidents, chunkSize)
         .then((batchResponse) => {
           return {
             status: 201,
