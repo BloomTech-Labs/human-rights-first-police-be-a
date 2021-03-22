@@ -1,4 +1,4 @@
-const createError = require('http-errors')
+const createError = require('http-errors');
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -9,6 +9,9 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const jsdocConfig = require('../config/jsdoc');
 const dotenv = require('dotenv');
 const config_result = dotenv.config();
+const RedditHelper = require('./incidents/incidentsModel');
+const TwitterHelper = require('./twitter_incidents/twitterIncidentsModel');
+
 const cron = require('node-cron');
 
 if (process.env.NODE_ENV != 'production' && config_result.error) {
@@ -24,10 +27,15 @@ const swaggerUIOptions = {
 const indexRouter = require('./index/indexRouter');
 const profileRouter = require('./profile/profileRouter');
 const incidentsRouter = require('./incidents/incidentsRouter');
+const twitterIncidentsRouter = require('./twitter_incidents/twitterIncidentsRouter');
 const dataRouter = require('./util/dataRouter');
 
 //###[ Models ]###
-const { dsFetch } = require('./dsService/dsUtil');
+const {
+  dsUpdateFetch,
+  getLastId,
+  dsTwitterUpdateFetch,
+} = require('./dsService/dsUtil');
 
 const app = express();
 
@@ -58,6 +66,20 @@ app.use('/', indexRouter);
 app.use(['/profile', '/profiles'], profileRouter);
 app.use('/incidents', incidentsRouter);
 app.use('/data', dataRouter);
+app.use('/dashboard', twitterIncidentsRouter);
+
+// cron job to retrieve data from DS API
+cron.schedule(' * 23 * * *', async function () {
+  try {
+    const [lastId] = await RedditHelper.getLastRedditID();
+    const [lastTwitterId] = await TwitterHelper.getLastID();
+    dsTwitterUpdateFetch(lastTwitterId.max);
+    dsUpdateFetch(lastId.max);
+    console.log("You've got mail");
+  } catch (error) {
+    console.log('Unable to get last id', error.message);
+  }
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -84,11 +106,6 @@ app.use(function (err, req, res, next) {
     return res.json(errObject);
   }
   next(err);
-});
-
-// cron job to retrieve data from DS API
-cron.schedule('* * 12 * *', () => {
-  dsFetch()
 });
 
 module.exports = app;
