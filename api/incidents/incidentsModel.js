@@ -7,6 +7,7 @@ module.exports = {
   createIncident,
   getTimelineIncidents,
   deleteDB,
+  deleteIncident,
 };
 
 /**
@@ -74,4 +75,8 @@ async function deleteDB() {
  */
 function getIncidentById(id) {
   return db('incidents').where('incident_id', id);
+}
+
+function deleteIncident(id) {
+  return db('incidents').where({ id }).del();
 }
