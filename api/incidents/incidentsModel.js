@@ -39,24 +39,42 @@ function getLastRedditID() {
  * @param {object} incident
  * Helper function for individual incident insertion
  */
+// async function createIncident(incident) {
+//   const newIncident = {
+//     incident_id: incident.case_id,
+//     src: JSON.stringify(incident.links),
+//     categories: JSON.stringify(incident.tags),
+//     city: incident.city,
+//     state: incident.state,
+//     title: incident.title,
+//     lat: incident.lat,
+//     long: incident.long,
+//     desc: incident.description,
+//     date: incident.dates,
+//     verbalization: incident.verbalization,
+//     empty_hand_soft: incident.empty_hand_soft,
+//     empty_hand_hard: incident.empty_hand_hard,
+//     less_lethal_methods: incident.less_lethal_methods,
+//     lethal_force: incident.lethal_force,
+//     uncategorized: incident.uncategorized,
+//   };
+//   return db('incidents').insert(newIncident);
+// }
+
 async function createIncident(incident) {
   const newIncident = {
-    incident_id: incident.case_id,
-    src: JSON.stringify(incident.links),
-    categories: JSON.stringify(incident.tags),
+    date: incident.date,
+    added_on: incident.added_on,
+    src: JSON.stringify(incident.src),
+    incident_id: incident.incident_id,
     city: incident.city,
     state: incident.state,
-    title: incident.title,
     lat: incident.lat,
     long: incident.long,
-    desc: incident.description,
-    date: incident.dates,
-    verbalization: incident.verbalization,
-    empty_hand_soft: incident.empty_hand_soft,
-    empty_hand_hard: incident.empty_hand_hard,
-    less_lethal_methods: incident.less_lethal_methods,
-    lethal_force: incident.lethal_force,
-    uncategorized: incident.uncategorized,
+    title: incident.title,
+    desc: incident.desc,
+    categories: JSON.stringify(incident.categories),
+    force_rank: incident.force_rank
   };
   return db('incidents').insert(newIncident);
 }

@@ -2,7 +2,7 @@ exports.up = function (knex) {
   return knex.schema
     .raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
     .createTable('incidents', (incidents) => {
-      incidents.integer('id').unique().primary().notNullable();
+      incidents.increments('id');
       incidents.date('date');
       incidents.date('added_on');
       incidents.text('src');
@@ -26,11 +26,11 @@ exports.up = function (knex) {
       twitter_incidents.string('geo');
       twitter_incidents.string('incident_id');
       twitter_incidents.string('src');
-      twitter_incidents.string('city');
-      twitter_incidents.string('state');
-      twitter_incidents.float('lat');
-      twitter_incidents.float('long');
-      twitter_incidents.string('title');
+      twitter_incidents.string('city'); // need
+      twitter_incidents.string('state'); // need
+      twitter_incidents.float('lat'); // need
+      twitter_incidents.float('long'); // need
+      twitter_incidents.string('title'); // need
       twitter_incidents.varchar('desc', 10000);
       twitter_incidents.string('language');
       twitter_incidents.string('force_rank');
