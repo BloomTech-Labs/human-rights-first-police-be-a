@@ -8,13 +8,14 @@ const { dsFetch } = require('../dsService/dsUtil');
  * Utility route that creates a singular incident
  */
 router.post('/createincidents', (req, res) => {
+    console.log(req.body)
     req.body.forEach((incident) => {
       Incidents.createIncident(incident)
         .then((post) => {
           res.status(201).json(post);
         })
         .catch((err) => {
-          res.status(500).json({ message: 'Error creating Record' });
+          res.status(500).json({ message: err.message });
         });
     });
   });

@@ -22,7 +22,6 @@ function dsInitialFetch() {
     .then((response) => {
       response.data.forEach((incident) => {
         let newIncident = {
-          id: incident.id,
           incident_id: incident.case_id,
           src: JSON.stringify(incident.links),
           categories: JSON.stringify(incident.tags),
