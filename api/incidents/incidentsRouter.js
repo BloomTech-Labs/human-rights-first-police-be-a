@@ -466,4 +466,22 @@ router.get('/download', async (req, res) => {
   }
 });
 
+router.delete("/:id", (req, res) => {
+  const id = req.params.id
+
+  Incidents.deleteIncident(id)
+    .then((res) => {
+      if (res === 1) {
+        res.status(204).json({
+          message: `The incident with the id ${id} was successfully deleted`,
+        })
+      } else {
+        res.status(400).json({ message: `No incident with the id ${id}` });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "Database error", error: err.message });
+    })
+})
+
 module.exports = router;
