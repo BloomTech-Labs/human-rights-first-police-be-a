@@ -31,7 +31,7 @@ function dsInitialFetch() {
           lat: incident.lat,
           long: incident.long,
           desc: incident.description,
-          date: incident.dates,
+          date: incident.date,
           added_on: incident.added_on,
           force_rank: incident.force_rank,
         };
@@ -82,7 +82,7 @@ function dsUpdateFetch(lastKnownId) {
           lat: incident.lat,
           long: incident.long,
           desc: incident.description,
-          date: incident.dates,
+          date: incident.date,
           added_on: incident.added_on,
           force_rank: incident.force_rank,
         };
