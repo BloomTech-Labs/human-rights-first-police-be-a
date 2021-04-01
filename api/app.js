@@ -69,7 +69,7 @@ app.use('/data', dataRouter);
 app.use('/dashboard', twitterIncidentsRouter);
 
 // cron job to retrieve data from DS API
-cron.schedule(' * 23 * * *', async function () {
+cron.schedule(' 0 23 * * *', async function () {
   try {
     const [lastId] = await RedditHelper.getLastRedditID();
     const [lastTwitterId] = await TwitterHelper.getLastID();
