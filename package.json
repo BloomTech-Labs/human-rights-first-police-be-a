@@ -11,7 +11,7 @@
     "lint": "npx eslint .",
     "lint:fix": "npx eslint --fix .",
     "format": "npx prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md)\"",
-    "knex": "npx knex --knexfile config/knexfile.js",
+    "knex": "npx knex --knexfile knexfile.js",
     "tests": "npx jest --forceExit",
     "coverage": "CI=true npx jest --coverage --detectOpenHandles --forceExit",
     "cleardb": "node scripts/clear_db.js",
