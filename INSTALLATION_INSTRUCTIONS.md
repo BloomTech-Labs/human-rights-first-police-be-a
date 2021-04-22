@@ -12,7 +12,7 @@ The following examples can be found in this project template.
 - A Knex model providing CRUD methods for DB operations
 - Some route tests with mocks on the database calls
 - Okta authentication verification middleware
-- eslint setup and prettier formating.
+- eslint setup and prettier formatting.
 - Jest coverage setup
 - Inline Swagger docs with a live route at `/api-docs`
 - Github workflow config setup to run linting, tests and upload coverage to code climate
