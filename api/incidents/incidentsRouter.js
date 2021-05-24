@@ -429,6 +429,9 @@ router.get('/download', async (req, res) => {
     const state = req.query.state || null;
     let start = req.query.start || null;
     let end = req.query.end || null;
+    let selectedIncidents = req.body.selectedIncidents || null;
+    let selectedTags = req.body.selecteTags || null;
+    console.log(req.body);
     // Filter data from incidents:
     if (state) {
       incidents = filterDataByState(incidents, state);
@@ -455,6 +458,23 @@ router.get('/download', async (req, res) => {
       incidents = filterDataByDate(incidents, range);
     }
 
+    if (selectedIncidents) {
+      incidents = incidents.filter((incident) => {
+        return selectedIncidents.indexOf(incident.id) > -1;
+      });
+    }
+    if (selectedTags) {
+      let output = [];
+      selectedTags.forEach((tag) => {
+        incidents.forEach((incident) => {
+          if (incident.categories.indexOf(tag) > 0) {
+            output.push(incident);
+          }
+        });
+      });
+      incidents = output;
+    }
+
     // Create CSV from data and serve it to User:
     parseAsync(incidents, { fields }).then((result) => {
       res.header('Content-Type', 'text/csv');
@@ -466,22 +486,22 @@ router.get('/download', async (req, res) => {
   }
 });
 
-router.delete("/:id", (req, res) => {
-  const id = req.params.id
+router.delete('/:id', (req, res) => {
+  const id = req.params.id;
 
   Incidents.deleteIncident(id)
     .then((res) => {
       if (res === 1) {
         res.status(204).json({
           message: `The incident with the id ${id} was successfully deleted`,
-        })
+        });
       } else {
         res.status(400).json({ message: `No incident with the id ${id}` });
       }
     })
     .catch((err) => {
-      res.status(500).json({ message: "Database error", error: err.message });
-    })
-})
+      res.status(500).json({ message: 'Database error', error: err.message });
+    });
+});
 
 module.exports = router;
