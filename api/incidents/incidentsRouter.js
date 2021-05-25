@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const queryString = require('query-string');
 // Model and util imports
 const Incidents = require('./incidentsModel');
 const { parseAsync } = require('json2csv');
@@ -429,9 +429,8 @@ router.get('/download', async (req, res) => {
     const state = req.query.state || null;
     let start = req.query.start || null;
     let end = req.query.end || null;
-    let selectedIncidents = req.body.selectedIncidents || null;
-    let selectedTags = req.body.selecteTags || null;
-    console.log(req.body);
+
+  
     // Filter data from incidents:
     if (state) {
       incidents = filterDataByState(incidents, state);
@@ -458,21 +457,13 @@ router.get('/download', async (req, res) => {
       incidents = filterDataByDate(incidents, range);
     }
 
-    if (selectedIncidents) {
+    let ids = req.query.ids || null;
+
+    if (ids) {
+      let { ids } = queryString.parse(ids, { arrayFormat: 'comma' });
       incidents = incidents.filter((incident) => {
-        return selectedIncidents.indexOf(incident.id) > -1;
+        return ids.indexOf(incident.id) > -1;
       });
-    }
-    if (selectedTags) {
-      let output = [];
-      selectedTags.forEach((tag) => {
-        incidents.forEach((incident) => {
-          if (incident.categories.indexOf(tag) > 0) {
-            output.push(incident);
-          }
-        });
-      });
-      incidents = output;
     }
 
     // Create CSV from data and serve it to User:
