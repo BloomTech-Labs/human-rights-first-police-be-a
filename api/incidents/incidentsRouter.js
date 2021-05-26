@@ -460,7 +460,6 @@ router.get('/download', async (req, res) => {
     let ids = req.query.ids || null;
 
     if (ids) {
-      let { ids } = queryString.parse(ids, { arrayFormat: 'comma' });
       incidents = incidents.filter((incident) => {
         return ids.indexOf(incident.id) > -1;
       });
