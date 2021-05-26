@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const queryString = require('query-string');
+
 // Model and util imports
 const Incidents = require('./incidentsModel');
 const { parseAsync } = require('json2csv');
@@ -430,7 +430,6 @@ router.get('/download', async (req, res) => {
     let start = req.query.start || null;
     let end = req.query.end || null;
 
-  
     // Filter data from incidents:
     if (state) {
       incidents = filterDataByState(incidents, state);
@@ -456,7 +455,6 @@ router.get('/download', async (req, res) => {
       const range = createRange([start, today]);
       incidents = filterDataByDate(incidents, range);
     }
-
     let ids = req.query.ids || null;
 
     if (ids) {
@@ -464,6 +462,23 @@ router.get('/download', async (req, res) => {
         return ids.indexOf(incident.id) > -1;
       });
     }
+
+    let rank = req.query.rank || null;
+    let ranks = [
+      'Rank 1 - Police Presence',
+      'Rank 2 — Empty-hand',
+      'Rank 3 — Blunt Force',
+      'Rank 4 — Chemical & Electric',
+      'Rank 5 — Lethal Force',
+    ];
+    if (rank !== 'All') {
+      incidents = incidents.filter((incident) => {
+        console.log(incident.force_rank, ranks[parseInt(rank) - 1]);
+        return incident.force_rank === ranks[parseInt(rank) - 1];
+      });
+    }
+
+    console.log(incidents)
 
     // Create CSV from data and serve it to User:
     parseAsync(incidents, { fields }).then((result) => {
