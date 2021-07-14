@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const Incidents = require('./incidentsModel');
-const { validateQueries, authRequired }  }= require('../middleware'); //TODO add query validation
-
-
+const {
+  validateQueries,
+  authRequired,
+  checkIncidentExists,
+  validateIncident,
+} = require('../middleware'); //TODO add query validation
 
 /**
  * @swagger
@@ -27,14 +30,44 @@ const { validateQueries, authRequired }  }= require('../middleware'); //TODO add
  *        description: Server response error
  */
 
- router.get('/all', authRequired, async (req, res, next) => {
+router.use(authRequired);
+
+router.get('/', validateQueries, async (req, res, next) => {
   const sanitizedQueries = req.sanitizedQueries;
 
   try {
-    const incidents = await Incidents.getApprovedIncidents(sanitizedQueries);
+    const incidents = await Incidents.getIncidents(sanitizedQueries);
 
     res.json(incidents);
   } catch {
     res.status(500).json({ message: 'Request Error' });
   }
 });
+
+router.get('/:incident_id', checkIncidentExists, async (req, res, next) => {
+  const { id } = req.params.incident_id;
+
+  try {
+    const incident = await Incidents.getIncidentById(id);
+
+    res.status(200).json(incident);
+  } catch {
+    res.status(500).json({ message: 'Request Error' });
+  }
+});
+
+router.put(
+  '/incidents/:id',
+  checkIncidentExists,
+  validateIncident,
+  async (req, res) => {
+    const { id } = req.params;
+    const changes = req.sanitizedIncident;
+    try {
+      const updatedIncident = await Incidents.updateIncident(id, changes);
+      res.status(201).json(updatedIncident);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+);
