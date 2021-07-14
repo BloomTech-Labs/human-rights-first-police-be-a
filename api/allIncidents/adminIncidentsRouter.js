@@ -6,7 +6,7 @@ const {
   authRequired,
   checkIncidentExists,
   validateIncident,
-} = require('../middleware'); //TODO add query validation
+} = require('../middleware'); //TODO add/build middleware
 
 /**
  * @swagger
@@ -67,7 +67,16 @@ router.put(
       const updatedIncident = await Incidents.updateIncident(id, changes);
       res.status(201).json(updatedIncident);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      res.status(500).json({ message: 'Request Error' });
     }
   }
 );
+
+router.post('/', validateIncident, async (req, res) => {
+  try {
+    const newIncident = await Incidents.createIncident(req.sanitizedIncident);
+    res.status(201).json(newIncident);
+  } catch (error) {
+    res.status(500).json({ message: 'Request Error' });
+  }
+});
