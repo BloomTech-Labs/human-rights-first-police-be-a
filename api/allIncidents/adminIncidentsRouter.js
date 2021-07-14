@@ -40,13 +40,11 @@ router.use(authRequired);
 router.get('/', validateQueries, async (req, res, next) => {
   const sanitizedQueries = req.sanitizedQueries;
 
-  try {
-    const incidents = await Incidents.getIncidents(sanitizedQueries);
-
-    res.json(incidents);
-  } catch {
-    res.status(500).json({ message: 'Request Error' });
-  }
+  Incidents.getIncidents(sanitizedQueries)
+    .then((incidents) => {
+      res.status(200).json(incidents);
+    })
+    .catch(next);
 });
 
 /**
@@ -68,13 +66,11 @@ router.get('/', validateQueries, async (req, res, next) => {
 router.get('/:incident_id', checkIncidentExists, async (req, res, next) => {
   const id = req.params.incident_id;
 
-  try {
-    const incident = await Incidents.getIncidentById(id);
-
-    res.status(200).json(incident);
-  } catch {
-    res.status(500).json({ message: 'Request Error' });
-  }
+  Incidents.getIncidentById(id)
+    .then((incident) => {
+      res.status(200).json(incident);
+    })
+    .catch(next);
 });
 
 /**
@@ -97,15 +93,14 @@ router.put(
   '/:incident_id',
   checkIncidentExists,
   validateIncident,
-  async (req, res) => {
+  (req, res, next) => {
     const id = req.params.incident_id;
-    const changes = req.sanitizedIncident;
-    try {
-      const updatedIncident = await Incidents.updateIncident(id, changes);
-      res.status(201).json(updatedIncident);
-    } catch (error) {
-      res.status(500).json({ message: 'Request Error' });
-    }
+
+    Incidents.updateIncident(id, req.sanitizedIncident)
+      .then((updatedIncident) => {
+        res.status(201).json(updatedIncident);
+      })
+      .catch(next);
   }
 );
 
@@ -125,13 +120,12 @@ router.put(
  *        description: Server response error
  */
 
-router.post('/', validateIncident, async (req, res) => {
-  try {
-    const newIncident = await Incidents.createIncident(req.sanitizedIncident);
-    res.status(201).json(newIncident);
-  } catch (error) {
-    res.status(500).json({ message: 'Request Error' });
-  }
+router.post('/', validateIncident, async (req, res, next) => {
+  Incidents.createIncident(req.sanitizedIncident)
+    .then((newIncident) => {
+      res.status(201).json(newIncident);
+    })
+    .catch(next);
 });
 
 /**
@@ -159,6 +153,13 @@ router.delete('/:incident_id', checkIncidentExists, async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: 'Request Error' });
   }
+});
+
+// eslint-disable-next-line no-unused-vars
+router.use((err, _req, res, _next) => {
+  res
+    .status(err.status || 500)
+    .json({ message: err.message || 'Database Error', stack: err.stack });
 });
 
 module.exports = router;
