@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Incidents = require('./incidentsModel');
-const { validateQueries } = require('../middleware'); //TODO add query validation
+const { validateQueries, checkIncidentExists } = require('../middleware');
+
+//TODO add query validation
+// TODO refractor error handling into single error handler
+// TODO document shape of objects coming and going
 
 // get approved incidents
 // model:
@@ -10,7 +14,7 @@ const { validateQueries } = require('../middleware'); //TODO add query validatio
 
 /**
  * @swagger
- * /incidents:
+ * /:
  *  GET:
  *    Summary: Path returning all approved incidents in reverse chronological order and filtered according to req.queries:
  *      {
@@ -30,21 +34,19 @@ const { validateQueries } = require('../middleware'); //TODO add query validatio
  *        description: Server response error
  */
 
-router.get('/', validateQueries, async (req, res, next) => {
+router.get('/', validateQueries, (req, res, next) => {
   const sanitizedQueries = { ...req.sanitizedQueries };
 
-  try {
-    const incidents = await Incidents.getApprovedIncidents(sanitizedQueries);
-
-    res.status(200).json(incidents);
-  } catch {
-    res.status(500).json({ message: 'Request Error' });
-  }
+  Incidents.getApprovedIncidents(sanitizedQueries)
+    .then((incidents) => {
+      res.status(200).json(incidents);
+    })
+    .catch(next);
 });
 
 /**
  * @swagger
- * /incidents/{incident_id}:
+ * /{incident_id}:
  *  GET:
  *    Summary: Path returning single incident by incident_id
  *    tags:
@@ -58,14 +60,19 @@ router.get('/', validateQueries, async (req, res, next) => {
  *        description: Server response error
  */
 
-router.get('/:incident_id', validateQueries, async (req, res, next) => {
+router.get('/:incident_id', checkIncidentExists, (req, res, next) => {
   const id = req.params.incident_id;
 
-  try {
-    const incident = await Incidents.getApprovedIncidentById(id);
+  Incidents.getApprovedIncidentById(id)
+    .then((incident) => {
+      res.status(200).json(incident);
+    })
+    .catch(next);
+});
 
-    res.status(200).json(incident);
-  } catch {
-    res.status(500).json({ message: 'Request Error' });
-  }
+// eslint-disable-next-line no-unused-vars
+router.use((err, _req, res, _next) => {
+  res
+    .status(err.status || 500)
+    .json({ message: err.message || 'Database Error' });
 });
