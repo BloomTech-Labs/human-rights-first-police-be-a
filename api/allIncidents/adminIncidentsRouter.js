@@ -2,15 +2,13 @@ const express = require('express');
 const router = express.Router();
 const Incidents = require('./incidentsModel');
 const {
-  validateQueries,
+  validateAndSanitizeIncidentQueries,
   authRequired,
   checkIncidentExists,
   validateIncident,
 } = require('../middleware');
 
 //TODO add/build middleware
-// TODO refractor error handling into single error handler
-// ? Admin gets direct error messages from database?
 // TODO document shape of objects coming and going
 
 router.use(authRequired);
@@ -37,7 +35,7 @@ router.use(authRequired);
  *        description: Server response error
  */
 
-router.get('/', validateQueries, async (req, res, next) => {
+router.get('/', validateAndSanitizeIncidentQueries, async (req, res, next) => {
   const sanitizedQueries = req.sanitizedQueries;
 
   Incidents.getIncidents(sanitizedQueries)

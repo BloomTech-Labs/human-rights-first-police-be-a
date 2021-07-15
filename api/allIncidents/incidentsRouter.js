@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const Incidents = require('./incidentsModel');
-const { validateQueries, checkIncidentExists } = require('../middleware');
+const {
+  validateAndSanitizeIncidentQueries,
+  checkIncidentExists,
+} = require('../middleware');
 
 //TODO add query validation
-// TODO refractor error handling into single error handler
 // TODO document shape of objects coming and going
 
 // get approved incidents
@@ -34,7 +36,7 @@ const { validateQueries, checkIncidentExists } = require('../middleware');
  *        description: Server response error
  */
 
-router.get('/', validateQueries, (req, res, next) => {
+router.get('/', validateAndSanitizeIncidentQueries, (req, res, next) => {
   const sanitizedQueries = { ...req.sanitizedQueries };
 
   Incidents.getApprovedIncidents(sanitizedQueries)
