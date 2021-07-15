@@ -62,13 +62,7 @@ router.get('/', validateAndSanitizeIncidentQueries, async (req, res, next) => {
  */
 
 router.get('/:incident_id', checkIncidentExists, async (req, res, next) => {
-  const id = req.params.incident_id;
-
-  Incidents.getIncidentById(id)
-    .then((incident) => {
-      res.status(200).json(incident);
-    })
-    .catch(next);
+  res.status(200).json(req.incident);
 });
 
 /**
@@ -92,7 +86,7 @@ router.put(
   checkIncidentExists,
   validateIncident,
   (req, res, next) => {
-    const id = req.params.incident_id;
+    const id = req.incident.incident_id;
 
     Incidents.updateIncident(id, req.sanitizedIncident)
       .then((updatedIncident) => {
@@ -143,14 +137,14 @@ router.post('/', validateIncident, async (req, res, next) => {
  */
 
 router.delete('/:incident_id', checkIncidentExists, async (req, res, next) => {
-  const id = req.params.incident_id;
+  const id = req.incident.incident_id;
+  const deletedIncident = req.incident;
 
-  try {
-    const deletedIncident = await Incidents.delete(id);
-    res.status(200).json(deletedIncident);
-  } catch (error) {
-    res.status(500).json({ message: 'Request Error' });
-  }
+  Incidents.delete(id)
+    .then(() => {
+      res.status(200).json(deletedIncident);
+    })
+    .catch(next);
 });
 
 // eslint-disable-next-line no-unused-vars
