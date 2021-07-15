@@ -1,12 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Incidents = require('./incidentsModel');
-const {
-  validateAndSanitizeIncidentQueries,
-  checkIncidentExists,
-} = require('../middleware');
+const { checkIncidentExists } = require('../middleware');
 
-//TODO add query validation
 // TODO document shape of objects coming and going
 
 // get approved incidents
@@ -36,14 +32,12 @@ const {
  *        description: Server response error
  */
 
-router.get('/', validateAndSanitizeIncidentQueries, (req, res, next) => {
-  const sanitizedQueries = { ...req.sanitizedQueries };
-
-  Incidents.getApprovedIncidents(sanitizedQueries)
+router.get('/', (req, res, next) => {
+  Incidents.getApprovedIncidents()
     .then((incidents) => {
       res.status(200).json(incidents);
     })
-    .catch(next);
+    .catch(() => next(res.status(500)));
 });
 
 /**
