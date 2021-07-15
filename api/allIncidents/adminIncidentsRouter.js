@@ -139,7 +139,7 @@ router.delete('/:incident_id', checkIncidentExists, async (req, res, next) => {
   const id = req.incident.incident_id;
   const deletedIncident = req.incident;
 
-  Incidents.delete(id)
+  Incidents.deleteIncident(id)
     .then(() => {
       res.status(200).json(deletedIncident);
     })
