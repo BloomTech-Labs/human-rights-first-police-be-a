@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Incidents = require('./incidentsModel');
-const { checkIncidentExists } = require('../middleware');
+const {
+  checkIncidentExists,
+  validateAndSanitizeIncidentQueries,
+} = require('../middleware');
 
 // TODO document shape of objects coming and going
 
@@ -21,8 +24,10 @@ const { checkIncidentExists } = require('../middleware');
  *        description: Server response error
  */
 
-router.get('/', (req, res, next) => {
-  Incidents.getApprovedIncidents()
+router.get('/', validateAndSanitizeIncidentQueries, (req, res, next) => {
+  const sanitizedQueries = req.sanitizedQueries;
+
+  Incidents.getApprovedIncidents(sanitizedQueries)
     .then((incidents) => {
       res.status(200).json(incidents);
     })
