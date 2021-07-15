@@ -5,22 +5,11 @@ const { checkIncidentExists } = require('../middleware');
 
 // TODO document shape of objects coming and going
 
-// get approved incidents
-// model:
-// explicitly limited to approved incidents
-// takes req.{state, start-end dates}
-
 /**
  * @swagger
  * /:
  *  GET:
- *    Summary: Path returning all approved incidents in reverse chronological order and filtered according to req.queries:
- *      {
- *        state: string,
- *        startDate: integer,
- *        endDate: integer,
- *        limit: integer
- *      }
+ *    Summary: Path returning all approved incidents in reverse chronological order
  *    tags:
  *      - incidents
  *    produces:

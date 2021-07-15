@@ -1,4 +1,8 @@
-exports.validateAndSanitizeIncidentQueries = (req, res, next) => {
+const {
+  incidentQuery: incidentQuerySchema,
+} = require('../util/validationSchemas');
+
+exports.validateAndSanitizeIncidentQueries = async (req, _res, next) => {
   if (!req.body) {
     return next();
   }

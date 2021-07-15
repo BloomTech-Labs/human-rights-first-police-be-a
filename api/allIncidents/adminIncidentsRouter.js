@@ -8,7 +8,6 @@ const {
   validateIncident,
 } = require('../middleware');
 
-//TODO add/build middleware
 // TODO document shape of objects coming and going
 
 router.use(authRequired);
@@ -17,13 +16,13 @@ router.use(authRequired);
  * @swagger
  * /:
  *  GET:
- *    Summary: Path returning all incidents in reverse chronological order and filtered according to req.queries:
- *      {
- *        state: string,
- *        startDate: number,
- *        endDate: number,
- *        limit: integer
+ *    Summary: Path returning all incidents in reverse chronological order and filtered according to queries  *      {
+ *        state as string,
+ *        startDate as integer,
+ *        endDate as integer,
+ *        limit as integer
  *      }
+ *
  *    tags:
  *      - incidents
  *    produces:
@@ -61,7 +60,7 @@ router.get('/', validateAndSanitizeIncidentQueries, async (req, res, next) => {
  *        description: Server response error
  */
 
-router.get('/:incident_id', checkIncidentExists, async (req, res, next) => {
+router.get('/:incident_id', checkIncidentExists, async (req, res) => {
   res.status(200).json(req.incident);
 });
 
