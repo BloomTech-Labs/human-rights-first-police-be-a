@@ -63,13 +63,11 @@ router.get('/', validateAndSanitizeIncidentQueries, (req, res, next) => {
  */
 
 router.get('/:incident_id', checkIncidentExists, (req, res, next) => {
-  const id = req.params.incident_id;
-
-  Incidents.getApprovedIncidentById(id)
-    .then((incident) => {
-      res.status(200).json(incident);
-    })
-    .catch(next);
+  if (req.incident.status === 'approved') {
+    res.status(200).json(req.incident);
+  } else {
+    next({ status: 400, message: 'Incident unavailable' });
+  }
 });
 
 // eslint-disable-next-line no-unused-vars
