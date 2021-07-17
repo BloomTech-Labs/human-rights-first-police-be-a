@@ -60,7 +60,7 @@ function getAllApprovedIncidents() {
  * Returns the last known id in the database
  */
 function getLastID() {
-  return db('twitter_incidents').max('id');
+  return db('incidents').max('id');
 }
 /**
  * @param {object} incident
@@ -76,7 +76,7 @@ async function createIncident(incident) {
     long: incident.long,
     title: incident.title,
     desc: incident.desc,
-    tags: JSON.stringify(incident.categories),
+    tags: JSON.stringify(incident.tags),
     force_rank: incident.force_rank,
     confidence: incident.confidence,
     status: incident.status,
