@@ -1,6 +1,6 @@
 const {
   incidentQuery: incidentQuerySchema,
-  incidentObjectSchema,
+  incidentObjectSchema: incidentObject,
 } = require('../util/validationSchemas');
 
 exports.validateAndSanitizeIncidentQueries = async (req, _res, next) => {
@@ -19,13 +19,13 @@ exports.validateAndSanitizeIncidentQueries = async (req, _res, next) => {
   }
 };
 
-exports.validateIncident = async (req, _res, next) => {
+exports.validateAndSanitizeIncidentObject = async (req, _res, next) => {
   if (!req.body) {
     return next({ status: 400, message: 'incident object required' });
   }
 
   try {
-    const validIncident = await incidentObjectSchema.validate(req.body, {
+    const validIncident = await incidentObject.validate(req.body, {
       stripUnknown: true,
     });
 
