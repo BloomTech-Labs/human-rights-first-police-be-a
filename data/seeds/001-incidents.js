@@ -6,6 +6,7 @@ exports.seed = function (knex) {
       // Inserts seed entries
       return knex('incidents').insert([
         {
+          incident_id: 1,
           date_created: '2021-03-01T00:00:00.000Z',
           tweet_id: '1366291653267513344',
           user_name: 'shafiur',
@@ -22,6 +23,7 @@ exports.seed = function (knex) {
           tags: JSON.stringify(['police', 'kick', 'beat']),
         },
         {
+          incident_id: 2,
           date_created: '2021-03-01T00:00:00.000Z',
           tweet_id: '1366320977223835648',
           user_name: 'campbellclaret',
@@ -38,6 +40,7 @@ exports.seed = function (knex) {
           tags: JSON.stringify(['police', 'lock', 'shut']),
         },
         {
+          incident_id: 3,
           date_created: '2021-03-01T00:00:00.000Z',
           tweet_id: '1366398255588921351',
           user_name: 'walone4',
