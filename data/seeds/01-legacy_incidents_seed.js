@@ -1,8 +1,6 @@
 const legacyIncidents = require('./legacyData/legacyIncidents');
 
 const formatLegacyIncidents = (incidentsArray) => {
-  console.log(incidentsArray[0]);
-
   const getTweetIdAndUsername = (sources) => {
     const twitterLink = sources.find((src) => src.includes('twitter.com'));
 
@@ -36,8 +34,6 @@ const formatLegacyIncidents = (incidentsArray) => {
 
     return incident;
   });
-
-  console.log(formattedIncidents[0]);
 
   return formattedIncidents;
 };
