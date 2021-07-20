@@ -111,7 +111,7 @@ router.put(
  *        description: Server response error
  */
 
-router.post('/', validateIncident, async (req, res, next) => {
+router.post('/', validateAndSanitizeIncidentObject, async (req, res, next) => {
   Incidents.createIncident(req.sanitizedIncident)
     .then((newIncident) => {
       res.status(201).json(newIncident);
