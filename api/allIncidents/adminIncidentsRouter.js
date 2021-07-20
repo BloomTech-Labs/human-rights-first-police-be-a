@@ -5,7 +5,7 @@ const {
   validateAndSanitizeIncidentQueries,
   authRequired,
   checkIncidentExists,
-  validateIncident,
+  validateAndSanitizeIncidentObject,
 } = require('../middleware');
 
 // TODO document shape of objects coming and going
@@ -83,7 +83,7 @@ router.get('/:incident_id', checkIncidentExists, async (req, res) => {
 router.put(
   '/:incident_id',
   checkIncidentExists,
-  validateIncident,
+  validateAndSanitizeIncidentObject,
   (req, res, next) => {
     const id = req.incident.incident_id;
 
@@ -111,7 +111,7 @@ router.put(
  *        description: Server response error
  */
 
-router.post('/', validateIncident, async (req, res, next) => {
+router.post('/', validateAndSanitizeIncidentObject, async (req, res, next) => {
   Incidents.createIncident(req.sanitizedIncident)
     .then((newIncident) => {
       res.status(201).json(newIncident);
