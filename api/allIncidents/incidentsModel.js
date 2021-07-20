@@ -18,7 +18,9 @@ module.exports = {
  * Returns all incidents in the db sorted by newest incident first
  */
 async function getIncidents() {
-  return await db('incidents').whereNot({ date: null }).orderBy('date', 'desc');
+  return await db('incidents')
+    .whereNot({ date_created: null })
+    .orderBy('date', 'desc');
 }
 /**
  * @param {string} id
@@ -35,26 +37,59 @@ function getIncidentById(id) {
 async function getTimelineIncidents(limit) {
   return await db('incidents')
     .whereNot({ date: null })
-    .orderBy('date', 'desc')
+    .orderBy('date_created', 'desc')
     .limit(limit);
 }
 /**
  * Returns all pending Twitter incidents in the db sorted by newest incident first
  */
-function getAllPendingIncidents() {
-  return db('incidents').where({ status: 'pending' }).orderBy('date', 'desc');
+async function getAllPendingIncidents() {
+  const incidents = await db('incidents')
+    .where({ status: 'pending' })
+    .orderBy('date_created', 'desc');
+
+  const formattedIncidents = incidents.map((incident) => {
+    incident.tags = JSON.parse(incident.tags);
+    incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
+    delete incident.tweet_id;
+    return incident;
+  });
+
+  return formattedIncidents;
 }
 /**
  * Returns all rejected Twitter incidents in the db sorted by newest incident first
  */
-function getAllRejectedIncidents() {
-  return db('incidents').where({ status: 'rejected' }).orderBy('date', 'desc');
+async function getAllRejectedIncidents() {
+  const incidents = await db('incidents')
+    .where({ status: 'rejected' })
+    .orderBy('date_created', 'desc');
+
+  const formattedIncidents = incidents.map((incident) => {
+    incident.tags = JSON.parse(incident.tags);
+    incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
+    delete incident.tweet_id;
+    return incident;
+  });
+
+  return formattedIncidents;
 }
 /**
  * Returns all approved Twitter incidents in the db sorted by newest incident first
  */
-function getAllApprovedIncidents() {
-  return db('incidents').where({ status: 'approved' }).orderBy('date', 'desc');
+async function getAllApprovedIncidents() {
+  const incidents = await db('incidents')
+    .where({ status: 'approved' })
+    .orderBy('date_created', 'desc');
+
+  const formattedIncidents = incidents.map((incident) => {
+    incident.tags = JSON.parse(incident.tags);
+    incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
+    delete incident.tweet_id;
+    return incident;
+  });
+
+  return formattedIncidents;
 }
 /**
  * Returns the last known id in the database
@@ -69,7 +104,6 @@ function getLastID() {
 async function createIncident(incident) {
   const newIncident = {
     date_created: incident.date,
-    incident_id: incident.incident_id,
     city: incident.city,
     state: incident.state,
     lat: incident.lat,
@@ -80,7 +114,7 @@ async function createIncident(incident) {
     force_rank: incident.force_rank,
     confidence: incident.confidence,
     status: incident.status,
-    username: incident.username,
+    user_name: incident.username,
   };
   return db('incidents').insert(newIncident);
 }
@@ -91,7 +125,7 @@ async function createIncident(incident) {
  */
 async function updateIncident(id, changes) {
   try {
-    await db('incidents').where('id', id).update(changes);
+    await db('incidents').where('incident_id', id).update(changes);
     return getIncidentById(id);
   } catch (error) {
     throw new Error(error.message);

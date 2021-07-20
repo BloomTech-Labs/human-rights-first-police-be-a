@@ -25,13 +25,11 @@ const {
  */
 
 router.get('/', validateAndSanitizeIncidentQueries, (req, res, next) => {
-  const sanitizedQueries = req.sanitizedQueries;
-
-  Incidents.getApprovedIncidents(sanitizedQueries)
+  Incidents.getAllApprovedIncidents()
     .then((incidents) => {
       res.status(200).json(incidents);
     })
-    .catch(() => next(res.status(500)));
+    .catch(() => next({ status: 500 }));
 });
 
 /**
@@ -51,12 +49,26 @@ router.get('/', validateAndSanitizeIncidentQueries, (req, res, next) => {
  */
 
 router.get('/:incident_id', checkIncidentExists, (req, res, next) => {
-  if (req.incident.status === 'approved') {
-    res.status(200).json(req.incident);
+  let incident = req.incident;
+  if (incident.status === 'approved') {
+    incident.tags = JSON.parse(incident.tags);
+    incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
+    res.status(200).json(incident);
   } else {
     next({ status: 400, message: 'Incident unavailable' });
   }
 });
+
+// router.get('/gettimeline', (req, res, next) => {
+//   let limit = req.query.limit || 5;
+
+//   Incidents.getTimelineIncidents(limit)
+//     .then((incidents) => {
+//       const queryResponse = incidents.map((incident) => {
+//         incident.src = JSON.parse(in)
+//       })
+//     })
+// });
 
 // eslint-disable-next-line no-unused-vars
 router.use((err, _req, res, _next) => {
@@ -64,3 +76,5 @@ router.use((err, _req, res, _next) => {
     .status(err.status || 500)
     .json({ message: err.message || 'Database Error' });
 });
+
+module.exports = router;
