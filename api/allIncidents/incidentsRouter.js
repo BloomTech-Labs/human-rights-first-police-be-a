@@ -64,3 +64,5 @@ router.use((err, _req, res, _next) => {
     .status(err.status || 500)
     .json({ message: err.message || 'Database Error' });
 });
+
+module.exports = router;

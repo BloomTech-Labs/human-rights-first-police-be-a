@@ -3,6 +3,7 @@ const db = require('../../data/db-config');
 
 module.exports = {
   getIncidents,
+  getBy,
   getIncidentById,
   getTimelineIncidents,
   getAllPendingIncidents,
@@ -39,22 +40,34 @@ async function getTimelineIncidents(limit) {
     .limit(limit);
 }
 /**
+ * Returns all filtered column Twitter incidents in the db
+ */
+function getBy(filter) {
+  return db('incidents').where(filter);
+}
+/**
  * Returns all pending Twitter incidents in the db sorted by newest incident first
  */
 function getAllPendingIncidents() {
-  return db('incidents').where({ status: 'pending' }).orderBy('date', 'desc');
+  return db('incidents')
+    .where({ status: 'pending' })
+    .orderBy('date_created', 'desc');
 }
 /**
  * Returns all rejected Twitter incidents in the db sorted by newest incident first
  */
 function getAllRejectedIncidents() {
-  return db('incidents').where({ status: 'rejected' }).orderBy('date', 'desc');
+  return db('incidents')
+    .where({ status: 'rejected' })
+    .orderBy('date_created', 'desc');
 }
 /**
  * Returns all approved Twitter incidents in the db sorted by newest incident first
  */
 function getAllApprovedIncidents() {
-  return db('incidents').where({ status: 'approved' }).orderBy('date', 'desc');
+  return db('incidents')
+    .where({ status: 'approved' })
+    .orderBy('date_created', 'desc');
 }
 /**
  * Returns the last known id in the database
