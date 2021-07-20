@@ -2,7 +2,7 @@ const {
   incidentQuery: incidentQuerySchema,
 } = require('../util/validationSchemas');
 
-exports.validateAndSanitizeIncidentQueries = async (req, _res, next) => {
+const validateAndSanitizeIncidentQueries = async (req, _res, next) => {
   if (!req.body) {
     return next();
   }
@@ -16,4 +16,8 @@ exports.validateAndSanitizeIncidentQueries = async (req, _res, next) => {
   } catch (err) {
     next({ status: 400, message: err.message });
   }
+};
+
+module.exports = {
+  validateAndSanitizeIncidentQueries,
 };
