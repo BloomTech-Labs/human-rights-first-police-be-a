@@ -1,4 +1,4 @@
-const legacyIncidents = require('./legacyIncidents');
+const legacyIncidents = require('./legacyData/legacyIncidents');
 
 const formatLegacyIncidents = (incidentsArray) => {
   console.log(incidentsArray[0]);
