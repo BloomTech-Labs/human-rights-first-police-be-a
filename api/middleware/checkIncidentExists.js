@@ -1,4 +1,4 @@
-const Incidents = require('../incidents/incidentsModel');
+const Incidents = require('../allIncidents/incidentsModel');
 
 const checkIncidentExists = (req, res, next) => {
   const id = req.params.incident_id;
@@ -12,6 +12,7 @@ const checkIncidentExists = (req, res, next) => {
         .then(([incident]) => {
           if (incident) {
             req.incident = incident;
+            next();
           } else {
             next({
               status: 404,
