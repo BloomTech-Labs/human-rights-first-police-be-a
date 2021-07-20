@@ -33,7 +33,7 @@ exports.incidentObject = yup.object({
     .string()
     .required()
     .trim()
-    .matches(/(pending|approved|rejected)/i, { excludeEmptyString: true }),
+    .matches(/(pending|approved|rejected)/i),
   confidence: yup.number(),
   tags: yup.string().required().trim(),
 });
