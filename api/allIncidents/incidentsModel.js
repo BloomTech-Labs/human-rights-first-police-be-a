@@ -35,10 +35,20 @@ function getIncidentById(id) {
  * Returns incidents in the database sorted by newest incident first limited by the number defined in limit parameter
  */
 async function getTimelineIncidents(limit) {
-  return await db('incidents')
-    .whereNot({ date: null })
+  const incidents = await db('incidents')
+    .where({ status: 'approved' })
+    .whereNot({ date_created: null })
     .orderBy('date_created', 'desc')
     .limit(limit);
+
+  const formattedIncidents = incidents.map((incident) => {
+    incident.tags = JSON.parse(incident.tags);
+    incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
+    delete incident.tweet_id;
+    return incident;
+  });
+
+  return formattedIncidents;
 }
 /**
  * Returns all pending Twitter incidents in the db sorted by newest incident first
@@ -139,5 +149,5 @@ async function deleteDB() {
 }
 
 function deleteIncident(id) {
-  return db('incidents').where({ id }).del();
+  return db('incidents').where('incident_id', id).del();
 }
