@@ -105,26 +105,28 @@ async function getAllApprovedIncidents() {
  * Returns the last known id in the database
  */
 function getLastID() {
-  return db('incidents').max('id');
+  return db('incidents').max('incident_id');
 }
 /**
  * @param {object} incident
  * Helper function for individual incident insertion
+ * Ideally google maps API can take city/state and populate lat/long on backend.
  */
 async function createIncident(incident) {
   const newIncident = {
     date_created: incident.date,
+    tweet_id: incident.tweet_id,
     city: incident.city,
     state: incident.state,
-    lat: incident.lat,
-    long: incident.long,
+    lat: incident.lat || null,
+    long: incident.long || null,
     title: incident.title,
     desc: incident.desc,
     tags: JSON.stringify(incident.tags),
     force_rank: incident.force_rank,
     confidence: incident.confidence,
     status: incident.status,
-    user_name: incident.username,
+    user_name: incident.user_name,
   };
   return db('incidents').insert(newIncident);
 }
@@ -147,7 +149,9 @@ async function updateIncident(id, changes) {
 async function deleteDB() {
   return await db('incidents').del();
 }
-
+/**
+ * Utility function to delete single incident
+ */
 function deleteIncident(id) {
   return db('incidents').where('incident_id', id).del();
 }
