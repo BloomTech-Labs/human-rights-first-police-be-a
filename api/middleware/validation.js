@@ -3,7 +3,7 @@ const {
   incidentObjectSchema: incidentObject,
 } = require('../util/validationSchemas');
 
-exports.validateAndSanitizeIncidentQueries = async (req, _res, next) => {
+const validateAndSanitizeIncidentQueries = async (req, _res, next) => {
   if (!req.body) {
     return next();
   }
@@ -19,7 +19,7 @@ exports.validateAndSanitizeIncidentQueries = async (req, _res, next) => {
   }
 };
 
-exports.validateAndSanitizeIncidentObject = async (req, _res, next) => {
+const validateAndSanitizeIncidentObject = async (req, _res, next) => {
   if (!req.body) {
     return next({ status: 400, message: 'incident object required' });
   }
@@ -35,4 +35,9 @@ exports.validateAndSanitizeIncidentObject = async (req, _res, next) => {
   } catch (err) {
     next({ status: 400, message: err.message });
   }
+};
+
+module.exports = {
+  validateAndSanitizeIncidentObject,
+  validateAndSanitizeIncidentQueries,
 };
