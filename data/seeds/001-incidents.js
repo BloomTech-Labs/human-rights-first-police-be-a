@@ -86,7 +86,7 @@ exports.seed = function (knex) {
           long: null,
           title: null,
           force_rank: 'Rank 2 - Empty-hand',
-          status: 'approved',
+          status: 'rejected',
           confidence: 20,
           tags: JSON.stringify(['police', 'kick', 'beat']),
         },
