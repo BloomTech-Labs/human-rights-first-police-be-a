@@ -1,6 +1,6 @@
 const {
-  incidentQuery: incidentQuerySchema,
-  incidentObjectSchema: incidentObject,
+  incidentQuerySchema,
+  incidentObject,
 } = require('../util/validationSchemas');
 
 const validateAndSanitizeIncidentQueries = async (req, _res, next) => {
@@ -25,6 +25,7 @@ const validateAndSanitizeIncidentObject = async (req, _res, next) => {
   }
 
   try {
+    req.body.tags = String(req.body.tags);
     const validIncident = await incidentObject.validate(req.body, {
       stripUnknown: true,
     });

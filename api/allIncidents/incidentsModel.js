@@ -26,8 +26,13 @@ async function getIncidents() {
  * @param {string} id
  * Function to return a specific incident by provided id
  */
-function getIncidentById(id) {
-  return db('incidents').where('incident_id', id);
+async function getIncidentById(id) {
+  const [incident] = await db('incidents').where('incident_id', id);
+
+  incident.tags = JSON.parse(incident.tags);
+  incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
+
+  return [incident];
 }
 /**
  *

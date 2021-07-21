@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Incidents = require('./incidentsModel');
 const {
-  validateAndSanitizeIncidentQueries,
   authRequired,
   checkIncidentExists,
   validateAndSanitizeIncidentObject,
@@ -26,18 +25,13 @@ router.use(authRequired);
  *      500:
  *        description: Server response error
  */
-// validateAndSanitizeIncidentQueries is middleware to clean queries by city/state/date to the database. Functionality not yet in place.
-router.get(
-  '/incidents',
-  validateAndSanitizeIncidentQueries,
-  async (req, res, next) => {
-    Incidents.getAllPendingIncidents()
-      .then((incidents) => {
-        res.status(200).json(incidents);
-      })
-      .catch(next);
-  }
-);
+router.get('/incidents', async (req, res, next) => {
+  Incidents.getAllPendingIncidents()
+    .then((incidents) => {
+      res.status(200).json(incidents);
+    })
+    .catch(next);
+});
 
 /**
  * @swagger
@@ -101,7 +95,7 @@ router.get('/incidents/rejected', async (req, res, next) => {
  *        description: Server response error
  */
 
-router.get('/:incident_id', checkIncidentExists, async (req, res) => {
+router.get('/incident/:incident_id', checkIncidentExists, async (req, res) => {
   res.status(200).json(req.incident);
 });
 
@@ -121,20 +115,15 @@ router.get('/:incident_id', checkIncidentExists, async (req, res) => {
  *        description: Server response error
  */
 
-router.put(
-  '/:incident_id',
-  checkIncidentExists,
-  validateAndSanitizeIncidentObject,
-  (req, res, next) => {
-    const id = req.incident.incident_id;
+router.put('/incident/:incident_id', checkIncidentExists, (req, res, next) => {
+  const id = req.incident.incident_id;
 
-    Incidents.updateIncident(id, req.sanitizedIncident)
-      .then((updatedIncident) => {
-        res.status(201).json(updatedIncident);
-      })
-      .catch(next);
-  }
-);
+  Incidents.updateIncident(id, req.body)
+    .then((updatedIncident) => {
+      res.status(201).json(updatedIncident);
+    })
+    .catch(next);
+});
 
 /**
  * @swagger
