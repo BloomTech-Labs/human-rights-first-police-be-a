@@ -2,27 +2,19 @@ const express = require('express');
 const router = express.Router();
 const Incidents = require('./incidentsModel');
 const {
-  validateAndSanitizeIncidentQueries,
   authRequired,
   checkIncidentExists,
   validateAndSanitizeIncidentObject,
 } = require('../middleware');
 
 // TODO document shape of objects coming and going
-
 router.use(authRequired);
 
 /**
  * @swagger
  * /:
  *  GET:
- *    Summary: Path returning all incidents in reverse chronological order and filtered according to queries  *      {
- *        state as string,
- *        startDate as integer,
- *        endDate as integer,
- *        limit as integer
- *      }
- *
+ *    Summary: Path returning all pending incidents in reverse chronological order
  *    tags:
  *      - incidents
  *    produces:
@@ -33,11 +25,54 @@ router.use(authRequired);
  *      500:
  *        description: Server response error
  */
+router.get('/incidents', async (req, res, next) => {
+  Incidents.getAllPendingIncidents()
+    .then((incidents) => {
+      res.status(200).json(incidents);
+    })
+    .catch(next);
+});
 
-router.get('/', validateAndSanitizeIncidentQueries, async (req, res, next) => {
-  const sanitizedQueries = req.sanitizedQueries;
+/**
+ * @swagger
+ * /:
+ *  GET:
+ *    Summary: Path returning all approved incidents in reverse chronological order
+ *    tags:
+ *      - incidents
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      200:
+ *        description: Success ... returns an array of incident objects
+ *      500:
+ *        description: Server response error
+ */
+router.get('/incidents/approved', async (req, res, next) => {
+  Incidents.getAllApprovedIncidents()
+    .then((incidents) => {
+      res.status(200).json(incidents);
+    })
+    .catch(next);
+});
 
-  Incidents.getIncidents(sanitizedQueries)
+/**
+ * @swagger
+ * /:
+ *  GET:
+ *    Summary: Path returning all rejected incidents in reverse chronological order
+ *    tags:
+ *      - incidents
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      200:
+ *        description: Success ... returns an array of incident objects
+ *      500:
+ *        description: Server response error
+ */
+router.get('/incidents/rejected', async (req, res, next) => {
+  Incidents.getAllRejectedIncidents()
     .then((incidents) => {
       res.status(200).json(incidents);
     })
@@ -60,7 +95,7 @@ router.get('/', validateAndSanitizeIncidentQueries, async (req, res, next) => {
  *        description: Server response error
  */
 
-router.get('/:incident_id', checkIncidentExists, async (req, res) => {
+router.get('/incidents/:incident_id', checkIncidentExists, async (req, res) => {
   res.status(200).json(req.incident);
 });
 
@@ -80,20 +115,43 @@ router.get('/:incident_id', checkIncidentExists, async (req, res) => {
  *        description: Server response error
  */
 
-router.put(
-  '/:incident_id',
-  checkIncidentExists,
-  validateAndSanitizeIncidentObject,
-  (req, res, next) => {
-    const id = req.incident.incident_id;
+router.put('/incidents/:incident_id', checkIncidentExists, (req, res, next) => {
+  const id = req.incident.incident_id;
 
-    Incidents.updateIncident(id, req.sanitizedIncident)
-      .then((updatedIncident) => {
-        res.status(201).json(updatedIncident);
-      })
-      .catch(next);
+  Incidents.updateIncident(id, req.body)
+    .then((updatedIncident) => {
+      res.status(201).json(updatedIncident);
+    })
+    .catch(next);
+});
+
+/**
+ * @swagger
+ * /{incident_id}:
+ *  PUT:
+ *    Summary: Path for batch updating multiple incidents
+ *    tags:
+ *      - incidents
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      201:
+ *        description: Success ... returns updated incident object
+ *      500:
+ *        description: Server response error
+ */
+
+router.put('/incidents', async (req, res) => {
+  const changes = req.body;
+  try {
+    await changes.forEach((change) => {
+      Incidents.updateIncident(change.incident_id, change);
+    });
+    res.status(201).json({ message: 'Incidents Successfully Updated' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-);
+});
 
 /**
  * @swagger
@@ -111,13 +169,17 @@ router.put(
  *        description: Server response error
  */
 
-router.post('/', validateAndSanitizeIncidentObject, async (req, res, next) => {
-  Incidents.createIncident(req.sanitizedIncident)
-    .then((newIncident) => {
-      res.status(201).json(newIncident);
-    })
-    .catch(next);
-});
+router.post(
+  '/incidents',
+  validateAndSanitizeIncidentObject,
+  async (req, res, next) => {
+    Incidents.createIncident(req.sanitizedIncident)
+      .then((newIncident) => {
+        res.status(201).json(newIncident);
+      })
+      .catch(next);
+  }
+);
 
 /**
  * @swagger
@@ -135,16 +197,19 @@ router.post('/', validateAndSanitizeIncidentObject, async (req, res, next) => {
  *        description: Server response error
  */
 
-router.delete('/:incident_id', checkIncidentExists, async (req, res, next) => {
-  const id = req.incident.incident_id;
-  const deletedIncident = req.incident;
+router.delete(
+  '/incidents/:incident_id',
+  checkIncidentExists,
+  async (req, res, next) => {
+    const id = req.incident.incident_id;
 
-  Incidents.deleteIncident(id)
-    .then(() => {
-      res.status(200).json(deletedIncident);
-    })
-    .catch(next);
-});
+    Incidents.deleteIncident(id)
+      .then(() => {
+        res.status(200).json({ message: 'Incident Successfully Deleted' });
+      })
+      .catch(next);
+  }
+);
 
 // eslint-disable-next-line no-unused-vars
 router.use((err, _req, res, _next) => {

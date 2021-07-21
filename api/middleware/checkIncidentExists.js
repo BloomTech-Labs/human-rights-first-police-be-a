@@ -1,4 +1,4 @@
-const Incidents = require('../incidents/incidentsModel');
+const Incidents = require('../allIncidents/incidentsModel');
 
 const checkIncidentExists = (req, res, next) => {
   const id = req.params.incident_id;
@@ -11,7 +11,10 @@ const checkIncidentExists = (req, res, next) => {
     : Incidents.getIncidentById(id)
         .then(([incident]) => {
           if (incident) {
+            incident.tags = JSON.parse(incident.tags);
+            incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
             req.incident = incident;
+            next();
           } else {
             next({
               status: 404,

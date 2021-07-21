@@ -23,15 +23,12 @@ const {
  *      500:
  *        description: Server response error
  */
-
 router.get('/', validateAndSanitizeIncidentQueries, (req, res, next) => {
-  const sanitizedQueries = req.sanitizedQueries;
-
-  Incidents.getApprovedIncidents(sanitizedQueries)
+  Incidents.getAllApprovedIncidents()
     .then((incidents) => {
       res.status(200).json(incidents);
     })
-    .catch(() => next(res.status(500)));
+    .catch(() => next({ status: 500 }));
 });
 
 /**
@@ -49,13 +46,38 @@ router.get('/', validateAndSanitizeIncidentQueries, (req, res, next) => {
  *      500:
  *        description: Server response error
  */
-
-router.get('/:incident_id', checkIncidentExists, (req, res, next) => {
-  if (req.incident.status === 'approved') {
-    res.status(200).json(req.incident);
+router.get('/incident/:incident_id', checkIncidentExists, (req, res, next) => {
+  let incident = req.incident;
+  if (incident.status === 'approved') {
+    res.status(200).json(incident);
   } else {
     next({ status: 400, message: 'Incident unavailable' });
   }
+});
+
+/**
+ * @swagger
+ * /{incident_id}:
+ *  GET:
+ *    Summary: Path returning timeline of incidents in reverse chronological order.. Limit can be chosen in query or default to 5
+ *    tags:
+ *      - incidents
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      200:
+ *        description: Success ... returns an array of incident objects
+ *      500:
+ *        description: Server response error
+ */
+router.get('/gettimeline', (req, res, next) => {
+  let limit = req.query.limit || 5;
+
+  Incidents.getTimelineIncidents(Number(limit))
+    .then((incidents) => {
+      res.status(200).json(incidents);
+    })
+    .catch(() => next({ status: 500 }));
 });
 
 // eslint-disable-next-line no-unused-vars
@@ -64,3 +86,5 @@ router.use((err, _req, res, _next) => {
     .status(err.status || 500)
     .json({ message: err.message || 'Database Error' });
 });
+
+module.exports = router;
