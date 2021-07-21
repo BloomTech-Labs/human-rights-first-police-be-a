@@ -16,13 +16,7 @@ router.use(authRequired);
  * @swagger
  * /:
  *  GET:
- *    Summary: Path returning all incidents in reverse chronological order and filtered according to queries  *      {
- *        state as string,
- *        startDate as integer,
- *        endDate as integer,
- *        limit as integer
- *      }
- *
+ *    Summary: Path returning all pending incidents in reverse chronological order
  *    tags:
  *      - incidents
  *    produces:
@@ -38,9 +32,6 @@ router.get(
   '/incidents',
   validateAndSanitizeIncidentQueries,
   async (req, res, next) => {
-    //incidents gets pending
-    //incidents/rejected gets rejected
-    //incidents/approved gets approved
     Incidents.getAllPendingIncidents()
       .then((incidents) => {
         res.status(200).json(incidents);
@@ -48,6 +39,29 @@ router.get(
       .catch(next);
   }
 );
+
+/**
+ * @swagger
+ * /:
+ *  GET:
+ *    Summary: Path returning all approved incidents in reverse chronological order
+ *    tags:
+ *      - incidents
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      200:
+ *        description: Success ... returns an array of incident objects
+ *      500:
+ *        description: Server response error
+ */
+router.get('/incidents/approved', async (req, res, next) => {
+  Incidents.getAllApprovedIncidents()
+    .then((incidents) => {
+      res.status(200).json(incidents);
+    })
+    .catch(next);
+});
 
 /**
  * @swagger
