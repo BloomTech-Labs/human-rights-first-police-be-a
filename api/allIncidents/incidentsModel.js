@@ -19,8 +19,8 @@ module.exports = {
  */
 async function getIncidents() {
   return await db('incidents')
-    .whereNot({ date_created: null })
-    .orderBy('date_created', 'desc');
+    .whereNot({ incident_date: null })
+    .orderBy('incident_date', 'desc');
 }
 /**
  * @param {string} id
@@ -42,8 +42,8 @@ async function getIncidentById(id) {
 async function getTimelineIncidents(limit) {
   const incidents = await db('incidents')
     .where({ status: 'approved' })
-    .whereNot({ date_created: null })
-    .orderBy('date_created', 'desc')
+    .whereNot({ incident_date: null })
+    .orderBy('incident_date', 'desc')
     .limit(limit);
 
   const formattedIncidents = incidents.map((incident) => {
@@ -61,7 +61,7 @@ async function getTimelineIncidents(limit) {
 async function getAllPendingIncidents() {
   const incidents = await db('incidents')
     .where({ status: 'pending' })
-    .orderBy('date_created', 'desc');
+    .orderBy('incident_date', 'desc');
 
   const formattedIncidents = incidents.map((incident) => {
     incident.tags = JSON.parse(incident.tags);
@@ -78,7 +78,7 @@ async function getAllPendingIncidents() {
 async function getAllRejectedIncidents() {
   const incidents = await db('incidents')
     .where({ status: 'rejected' })
-    .orderBy('date_created', 'desc');
+    .orderBy('incident_date', 'desc');
 
   const formattedIncidents = incidents.map((incident) => {
     incident.tags = JSON.parse(incident.tags);
@@ -95,7 +95,7 @@ async function getAllRejectedIncidents() {
 async function getAllApprovedIncidents() {
   const incidents = await db('incidents')
     .where({ status: 'approved' })
-    .orderBy('date_created', 'desc');
+    .orderBy('incident_date', 'desc');
 
   const formattedIncidents = incidents.map((incident) => {
     incident.tags = JSON.parse(incident.tags);
@@ -119,7 +119,7 @@ function getLastID() {
  */
 async function createIncident(incident) {
   const newIncident = {
-    date_created: incident.date_created,
+    incident_date: incident.incident_date,
     tweet_id: incident.tweet_id,
     city: incident.city,
     state: incident.state,
@@ -132,6 +132,7 @@ async function createIncident(incident) {
     confidence: incident.confidence,
     status: incident.status,
     user_name: incident.user_name,
+    src: JSON.stringify(incident.src),
   };
   return db('incidents').insert(newIncident);
 }

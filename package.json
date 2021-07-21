@@ -59,7 +59,8 @@
     "pg": "^8.2.1",
     "query-string": "^7.0.0",
     "swagger-jsdoc": "^4.0.0",
-    "swagger-ui-express": "^4.1.4"
+    "swagger-ui-express": "^4.1.4",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
