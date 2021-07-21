@@ -128,6 +128,34 @@ router.put('/incident/:incident_id', checkIncidentExists, (req, res, next) => {
 /**
  * @swagger
  * /{incident_id}:
+ *  PUT:
+ *    Summary: Path for batch updating multiple incidents
+ *    tags:
+ *      - incidents
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      201:
+ *        description: Success ... returns updated incident object
+ *      500:
+ *        description: Server response error
+ */
+
+router.put('/incidents/', async (req, res) => {
+  const changes = req.body;
+  try {
+    await changes.forEach((change) => {
+      Incidents.updateIncident(change.incident_id, change);
+    });
+    res.status(201).json({ message: 'Incidents Successfully Updated' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+/**
+ * @swagger
+ * /{incident_id}:
  *  POST:
  *    Summary: Path posting new incident
  *    tags:
