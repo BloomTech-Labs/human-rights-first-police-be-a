@@ -9,7 +9,6 @@ const {
 } = require('../middleware');
 
 // TODO document shape of objects coming and going
-
 router.use(authRequired);
 
 /**
@@ -57,6 +56,29 @@ router.get(
  */
 router.get('/incidents/approved', async (req, res, next) => {
   Incidents.getAllApprovedIncidents()
+    .then((incidents) => {
+      res.status(200).json(incidents);
+    })
+    .catch(next);
+});
+
+/**
+ * @swagger
+ * /:
+ *  GET:
+ *    Summary: Path returning all rejected incidents in reverse chronological order
+ *    tags:
+ *      - incidents
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      200:
+ *        description: Success ... returns an array of incident objects
+ *      500:
+ *        description: Server response error
+ */
+router.get('/incidents/rejected', async (req, res, next) => {
+  Incidents.getAllRejectedIncidents()
     .then((incidents) => {
       res.status(200).json(incidents);
     })
