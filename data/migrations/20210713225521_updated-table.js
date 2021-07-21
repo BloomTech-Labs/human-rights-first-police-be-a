@@ -4,7 +4,7 @@ exports.up = function (knex) {
     .createTable('incidents', (incidents) => {
       incidents.increments('incident_id');
       incidents.date('incident_date').notNullable();
-      incidents.string('tweet_id').notNullable();
+      incidents.string('tweet_id');
       incidents.string('user_name').notNullable();
       incidents.varchar('description', 10000).notNullable();
       incidents.string('city').defaultTo(null);
