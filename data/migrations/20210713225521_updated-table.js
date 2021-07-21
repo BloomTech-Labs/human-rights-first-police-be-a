@@ -6,7 +6,7 @@ exports.up = function (knex) {
       incidents.date('incident_date').notNullable();
       incidents.string('tweet_id').notNullable();
       incidents.string('user_name').notNullable();
-      incidents.varchar('desc', 10000).notNullable();
+      incidents.varchar('description', 10000).notNullable();
       incidents.string('city').defaultTo(null);
       incidents.string('state').defaultTo(null);
       incidents.float('lat').defaultTo(null);
