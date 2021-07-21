@@ -19,7 +19,7 @@ module.exports = {
  */
 async function getIncidents() {
   return await db('incidents')
-    .whereNot({ date: null })
+    .whereNot({ incident_date: null })
     .orderBy('incident_date', 'desc');
 }
 /**
@@ -36,7 +36,7 @@ function getIncidentById(id) {
  */
 async function getTimelineIncidents(limit) {
   return await db('incidents')
-    .whereNot({ date: null })
+    .whereNot({ incident_date: null })
     .orderBy('incident_date', 'desc')
     .limit(limit);
 }
