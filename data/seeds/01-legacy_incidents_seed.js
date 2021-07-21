@@ -24,8 +24,8 @@ const formatLegacyIncidents = (incidentsArray) => {
     incident.tweet_id = id;
     incident.user_name = username;
     incident.status = 'approved';
+    incident.src = [incident.src];
     delete incident.id;
-    delete incident.src;
     delete incident.date;
     delete incident.desc;
     delete incident.added_on;
