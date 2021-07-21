@@ -18,7 +18,7 @@ const formatLegacyIncidents = (incidentsArray) => {
     const [id, username] = getTweetIdAndUsername(incident.src);
 
     incident.tags = incident.categories;
-    incident.date_created = incident.date;
+    incident.incident_date = incident.date;
     incident.description =
       incident.desc + '\nSources: ' + incident.src.join(' ');
     incident.tweet_id = id;
