@@ -3,7 +3,7 @@ exports.up = function (knex) {
     .raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
     .createTable('incidents', (incidents) => {
       incidents.increments('incident_id');
-      incidents.date('date_created').notNullable();
+      incidents.date('incident_date').notNullable();
       incidents.string('tweet_id').notNullable();
       incidents.string('user_name').notNullable();
       incidents.varchar('desc', 10000).notNullable();
@@ -16,6 +16,7 @@ exports.up = function (knex) {
       incidents.string('status').defaultTo('pending').notNullable();
       incidents.float('confidence');
       incidents.string('tags').notNullable();
+      incidents.string('src');
     })
     .createTable('profiles', function (table) {
       table.string('id').notNullable().unique().primary();

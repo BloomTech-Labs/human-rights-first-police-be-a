@@ -18,7 +18,9 @@ module.exports = {
  * Returns all incidents in the db sorted by newest incident first
  */
 async function getIncidents() {
-  return await db('incidents').whereNot({ date: null }).orderBy('date', 'desc');
+  return await db('incidents')
+    .whereNot({ date: null })
+    .orderBy('incident_date', 'desc');
 }
 /**
  * @param {string} id
@@ -35,26 +37,32 @@ function getIncidentById(id) {
 async function getTimelineIncidents(limit) {
   return await db('incidents')
     .whereNot({ date: null })
-    .orderBy('date', 'desc')
+    .orderBy('incident_date', 'desc')
     .limit(limit);
 }
 /**
  * Returns all pending Twitter incidents in the db sorted by newest incident first
  */
 function getAllPendingIncidents() {
-  return db('incidents').where({ status: 'pending' }).orderBy('date', 'desc');
+  return db('incidents')
+    .where({ status: 'pending' })
+    .orderBy('incident_date', 'desc');
 }
 /**
  * Returns all rejected Twitter incidents in the db sorted by newest incident first
  */
 function getAllRejectedIncidents() {
-  return db('incidents').where({ status: 'rejected' }).orderBy('date', 'desc');
+  return db('incidents')
+    .where({ status: 'rejected' })
+    .orderBy('incident_date', 'desc');
 }
 /**
  * Returns all approved Twitter incidents in the db sorted by newest incident first
  */
 function getAllApprovedIncidents() {
-  return db('incidents').where({ status: 'approved' }).orderBy('date', 'desc');
+  return db('incidents')
+    .where({ status: 'approved' })
+    .orderBy('incident_date', 'desc');
 }
 /**
  * Returns the last known id in the database
@@ -68,7 +76,7 @@ function getLastID() {
  */
 async function createIncident(incident) {
   const newIncident = {
-    date_created: incident.date,
+    incident_date: incident.incident_date,
     incident_id: incident.incident_id,
     city: incident.city,
     state: incident.state,
@@ -81,6 +89,7 @@ async function createIncident(incident) {
     confidence: incident.confidence,
     status: incident.status,
     username: incident.username,
+    src: JSON.stringify(incident.src),
   };
   return db('incidents').insert(newIncident);
 }
