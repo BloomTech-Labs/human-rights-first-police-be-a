@@ -1,5 +1,5 @@
 const {
-  incidentQuerySchema,
+  incidentQuery: incidentQuerySchema,
   incidentObject,
 } = require('../util/validationSchemas');
 
