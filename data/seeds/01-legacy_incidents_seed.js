@@ -39,5 +39,5 @@ const formatLegacyIncidents = (incidentsArray) => {
 };
 
 exports.seed = function (knex) {
-  return knex('incidents').insert(formatLegacyIncidents([legacyIncidents[0]]));
+  return knex('incidents').insert(formatLegacyIncidents(legacyIncidents));
 };
