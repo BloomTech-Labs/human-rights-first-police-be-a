@@ -33,16 +33,21 @@ router.use(authRequired);
  *      500:
  *        description: Server response error
  */
-
-router.get('/', validateAndSanitizeIncidentQueries, async (req, res, next) => {
-  const sanitizedQueries = req.sanitizedQueries;
-
-  Incidents.getIncidents(sanitizedQueries)
-    .then((incidents) => {
-      res.status(200).json(incidents);
-    })
-    .catch(next);
-});
+// validateAndSanitizeIncidentQueries is middleware to clean queries by city/state/date to the database. Functionality not yet in place.
+router.get(
+  '/incidents',
+  validateAndSanitizeIncidentQueries,
+  async (req, res, next) => {
+    //incidents gets pending
+    //incidents/rejected gets rejected
+    //incidents/approved gets approved
+    Incidents.getAllPendingIncidents()
+      .then((incidents) => {
+        res.status(200).json(incidents);
+      })
+      .catch(next);
+  }
+);
 
 /**
  * @swagger

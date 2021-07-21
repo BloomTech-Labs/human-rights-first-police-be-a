@@ -20,7 +20,7 @@ module.exports = {
 async function getIncidents() {
   return await db('incidents')
     .whereNot({ date_created: null })
-    .orderBy('date', 'desc');
+    .orderBy('date_created', 'desc');
 }
 /**
  * @param {string} id
