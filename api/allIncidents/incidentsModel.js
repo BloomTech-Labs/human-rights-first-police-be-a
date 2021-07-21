@@ -119,7 +119,7 @@ function getLastID() {
  */
 async function createIncident(incident) {
   const newIncident = {
-    date_created: incident.date,
+    date_created: incident.date_created,
     tweet_id: incident.tweet_id,
     city: incident.city,
     state: incident.state,

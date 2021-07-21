@@ -95,7 +95,7 @@ router.get('/incidents/rejected', async (req, res, next) => {
  *        description: Server response error
  */
 
-router.get('/incident/:incident_id', checkIncidentExists, async (req, res) => {
+router.get('/incidents/:incident_id', checkIncidentExists, async (req, res) => {
   res.status(200).json(req.incident);
 });
 
@@ -115,7 +115,7 @@ router.get('/incident/:incident_id', checkIncidentExists, async (req, res) => {
  *        description: Server response error
  */
 
-router.put('/incident/:incident_id', checkIncidentExists, (req, res, next) => {
+router.put('/incidents/:incident_id', checkIncidentExists, (req, res, next) => {
   const id = req.incident.incident_id;
 
   Incidents.updateIncident(id, req.body)
@@ -141,7 +141,7 @@ router.put('/incident/:incident_id', checkIncidentExists, (req, res, next) => {
  *        description: Server response error
  */
 
-router.put('/incidents/', async (req, res) => {
+router.put('/incidents', async (req, res) => {
   const changes = req.body;
   try {
     await changes.forEach((change) => {
@@ -169,13 +169,17 @@ router.put('/incidents/', async (req, res) => {
  *        description: Server response error
  */
 
-router.post('/', validateAndSanitizeIncidentObject, async (req, res, next) => {
-  Incidents.createIncident(req.sanitizedIncident)
-    .then((newIncident) => {
-      res.status(201).json(newIncident);
-    })
-    .catch(next);
-});
+router.post(
+  '/incidents',
+  validateAndSanitizeIncidentObject,
+  async (req, res, next) => {
+    Incidents.createIncident(req.sanitizedIncident)
+      .then((newIncident) => {
+        res.status(201).json(newIncident);
+      })
+      .catch(next);
+  }
+);
 
 /**
  * @swagger
@@ -193,16 +197,19 @@ router.post('/', validateAndSanitizeIncidentObject, async (req, res, next) => {
  *        description: Server response error
  */
 
-router.delete('/:incident_id', checkIncidentExists, async (req, res, next) => {
-  const id = req.incident.incident_id;
-  const deletedIncident = req.incident;
+router.delete(
+  '/incidents/:incident_id',
+  checkIncidentExists,
+  async (req, res, next) => {
+    const id = req.incident.incident_id;
 
-  Incidents.deleteIncident(id)
-    .then(() => {
-      res.status(200).json(deletedIncident);
-    })
-    .catch(next);
-});
+    Incidents.deleteIncident(id)
+      .then(() => {
+        res.status(200).json({ message: 'Incident Successfully Deleted' });
+      })
+      .catch(next);
+  }
+);
 
 // eslint-disable-next-line no-unused-vars
 router.use((err, _req, res, _next) => {
