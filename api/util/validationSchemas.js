@@ -20,9 +20,9 @@ exports.incidentQuery = yup.object({
 
 exports.incidentObject = yup.object({
   date_created: yup.string().trim(),
-  tweet_id: yup.string().required().trim().min(5).max(10),
+  tweet_id: yup.string().required().trim().min(5).max(30),
   user_name: yup.string().required().trim().min(2).max(100),
-  description: yup.string().required().trim().min(2).max(1000),
+  desc: yup.string().required().trim().min(2).max(1000),
   city: yup.string().trim().min(2).max(50),
   state: yup.string().trim().min(2).max(50),
   lat: yup.string().trim().min(2).max(50),
@@ -35,5 +35,5 @@ exports.incidentObject = yup.object({
     .trim()
     .matches(/(pending|approved|rejected)/i),
   confidence: yup.number(),
-  tags: yup.string().required().trim(),
+  tags: yup.string().required(),
 });
