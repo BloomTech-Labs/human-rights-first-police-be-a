@@ -20,12 +20,12 @@ module.exports = {
         name: 'profile',
         description: 'Operations for profile',
       },
+      // {
+      //   name: 'data',
+      //   description: 'Operations for data science service',
+      // },
       {
-        name: 'data',
-        description: 'Operations for data science service',
-      },
-      {
-        name: 'incidents',
+        name: 'allincidents',
         description: 'Operations for incidents found in database',
       },
     ],
