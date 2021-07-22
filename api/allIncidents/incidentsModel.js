@@ -120,19 +120,19 @@ function getLastID() {
 async function createIncident(incident) {
   const newIncident = {
     incident_date: incident.incident_date,
-    tweet_id: incident.tweet_id,
-    city: incident.city,
-    state: incident.state,
+    tweet_id: incident.tweet_id || null,
+    city: incident.city || null,
+    state: incident.state || null,
     lat: incident.lat || null,
     long: incident.long || null,
-    title: incident.title,
-    desc: incident.desc,
-    tags: JSON.stringify(incident.tags),
+    title: incident.title || null,
+    description: incident.description,
+    tags: JSON.stringify(incident.tags) || null,
     force_rank: incident.force_rank,
-    confidence: incident.confidence,
-    status: incident.status,
-    user_name: incident.user_name,
-    src: JSON.stringify(incident.src),
+    confidence: incident.confidence || null,
+    status: incident.status || 'approved',
+    user_name: incident.user_name || null,
+    src: JSON.stringify(incident.src) || null,
   };
   return db('incidents').insert(newIncident);
 }
