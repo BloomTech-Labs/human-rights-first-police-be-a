@@ -12,7 +12,7 @@
     "lint:fix": "npx eslint --fix .",
     "format": "npx prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md)\"",
     "knex": "npx knex --knexfile knexfile.js",
-    "tests": "npx jest --forceExit",
+    "tests": "npx jest --runInBand --forceExit",
     "coverage": "CI=true npx jest --coverage --detectOpenHandles --forceExit",
     "cleardb": "node scripts/clear_db.js",
     "initialfetch": "node scripts/populate_db.js"

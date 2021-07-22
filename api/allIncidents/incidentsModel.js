@@ -30,7 +30,7 @@ async function getIncidentById(id) {
   const [incident] = await db('incidents').where('incident_id', id);
 
   incident.tags = JSON.parse(incident.tags);
-  incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
+  incident.src = JSON.parse(incident.src);
 
   return [incident];
 }
@@ -48,8 +48,7 @@ async function getTimelineIncidents(limit) {
 
   const formattedIncidents = incidents.map((incident) => {
     incident.tags = JSON.parse(incident.tags);
-    incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
-    delete incident.tweet_id;
+    incident.src = JSON.parse(incident.src);
     return incident;
   });
 
@@ -65,8 +64,7 @@ async function getAllPendingIncidents() {
 
   const formattedIncidents = incidents.map((incident) => {
     incident.tags = JSON.parse(incident.tags);
-    incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
-    delete incident.tweet_id;
+    incident.src = JSON.parse(incident.src);
     return incident;
   });
 
@@ -82,8 +80,7 @@ async function getAllRejectedIncidents() {
 
   const formattedIncidents = incidents.map((incident) => {
     incident.tags = JSON.parse(incident.tags);
-    incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
-    delete incident.tweet_id;
+    incident.src = JSON.parse(incident.src);
     return incident;
   });
 
@@ -99,8 +96,7 @@ async function getAllApprovedIncidents() {
 
   const formattedIncidents = incidents.map((incident) => {
     incident.tags = JSON.parse(incident.tags);
-    incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
-    delete incident.tweet_id;
+    incident.src = JSON.parse(incident.src);
     return incident;
   });
 
@@ -120,19 +116,19 @@ function getLastID() {
 async function createIncident(incident) {
   const newIncident = {
     incident_date: incident.incident_date,
-    tweet_id: incident.tweet_id,
-    city: incident.city,
-    state: incident.state,
+    tweet_id: incident.tweet_id || null,
+    city: incident.city || null,
+    state: incident.state || null,
     lat: incident.lat || null,
     long: incident.long || null,
-    title: incident.title,
-    desc: incident.desc,
-    tags: JSON.stringify(incident.tags),
+    title: incident.title || null,
+    description: incident.description,
+    tags: JSON.stringify(incident.tags) || null,
     force_rank: incident.force_rank,
-    confidence: incident.confidence,
-    status: incident.status,
-    user_name: incident.user_name,
-    src: JSON.stringify(incident.src),
+    confidence: incident.confidence || null,
+    status: incident.status || 'approved',
+    user_name: incident.user_name || null,
+    src: JSON.stringify(incident.src) || null,
   };
   return db('incidents').insert(newIncident);
 }
@@ -142,6 +138,8 @@ async function createIncident(incident) {
  * Function to Edit and return a specific Twitter incident by provided id
  */
 async function updateIncident(id, changes) {
+  if (changes.src) changes.src = JSON.stringify(changes.src);
+  if (changes.tags) changes.tags = JSON.stringify(changes.tags);
   try {
     await db('incidents').where('incident_id', id).update(changes);
     return getIncidentById(id);

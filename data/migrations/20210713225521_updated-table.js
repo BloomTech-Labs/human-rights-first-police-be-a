@@ -4,8 +4,8 @@ exports.up = function (knex) {
     .createTable('incidents', (incidents) => {
       incidents.increments('incident_id');
       incidents.date('incident_date').notNullable();
-      incidents.string('tweet_id').notNullable();
-      incidents.string('user_name').notNullable();
+      incidents.string('tweet_id');
+      incidents.string('user_name');
       incidents.varchar('description', 10000).notNullable();
       incidents.string('city').defaultTo(null);
       incidents.string('state').defaultTo(null);
@@ -15,8 +15,8 @@ exports.up = function (knex) {
       incidents.string('force_rank').notNullable();
       incidents.string('status').defaultTo('pending').notNullable();
       incidents.float('confidence');
-      incidents.string('tags').notNullable();
-      incidents.string('src');
+      incidents.string('tags');
+      incidents.string('src', 8000);
     })
     .createTable('profiles', function (table) {
       table.string('id').notNullable().unique().primary();

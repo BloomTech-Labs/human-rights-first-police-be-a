@@ -17,14 +17,13 @@ const formatLegacyIncidents = (incidentsArray) => {
   const formattedIncidents = incidentsArray.map((incident) => {
     const [id, username] = getTweetIdAndUsername(incident.src);
 
-    incident.tags = incident.categories;
+    incident.tags = JSON.stringify(incident.categories);
     incident.incident_date = incident.date;
-    incident.description =
-      incident.desc + '\nSources: ' + incident.src.join(' ');
+    incident.description = incident.desc;
     incident.tweet_id = id;
     incident.user_name = username;
     incident.status = 'approved';
-    incident.src = [incident.src];
+    incident.src = JSON.stringify(incident.src);
     delete incident.id;
     delete incident.date;
     delete incident.desc;
