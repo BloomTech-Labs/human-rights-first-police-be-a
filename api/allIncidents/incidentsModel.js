@@ -30,7 +30,7 @@ async function getIncidentById(id) {
   const [incident] = await db('incidents').where('incident_id', id);
 
   incident.tags = JSON.parse(incident.tags);
-  incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
+  incident.src = JSON.parse(incident.src);
 
   return [incident];
 }
@@ -48,8 +48,7 @@ async function getTimelineIncidents(limit) {
 
   const formattedIncidents = incidents.map((incident) => {
     incident.tags = JSON.parse(incident.tags);
-    incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
-    delete incident.tweet_id;
+    incident.src = JSON.parse(incident.src);
     return incident;
   });
 
@@ -65,8 +64,7 @@ async function getAllPendingIncidents() {
 
   const formattedIncidents = incidents.map((incident) => {
     incident.tags = JSON.parse(incident.tags);
-    incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
-    delete incident.tweet_id;
+    incident.src = JSON.parse(incident.src);
     return incident;
   });
 
@@ -82,8 +80,7 @@ async function getAllRejectedIncidents() {
 
   const formattedIncidents = incidents.map((incident) => {
     incident.tags = JSON.parse(incident.tags);
-    incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
-    delete incident.tweet_id;
+    incident.src = JSON.parse(incident.src);
     return incident;
   });
 
@@ -99,8 +96,7 @@ async function getAllApprovedIncidents() {
 
   const formattedIncidents = incidents.map((incident) => {
     incident.tags = JSON.parse(incident.tags);
-    incident.src = `https://twitter.com/${incident.user_name}/status/${incident.tweet_id}`;
-    delete incident.tweet_id;
+    incident.src = JSON.parse(incident.src);
     return incident;
   });
 
@@ -142,6 +138,8 @@ async function createIncident(incident) {
  * Function to Edit and return a specific Twitter incident by provided id
  */
 async function updateIncident(id, changes) {
+  if (changes.src) changes.src = JSON.stringify(changes.src);
+  if (changes.tags) changes.tags = JSON.stringify(changes.tags);
   try {
     await db('incidents').where('incident_id', id).update(changes);
     return getIncidentById(id);

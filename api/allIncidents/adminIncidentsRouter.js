@@ -143,6 +143,8 @@ router.put('/incidents/:incident_id', checkIncidentExists, (req, res, next) => {
 
 router.put('/incidents', async (req, res) => {
   const changes = req.body;
+  if (changes.src) changes.src = JSON.stringify(changes.src);
+  if (changes.tags) changes.tags = JSON.stringify(changes.tags);
   try {
     await changes.forEach((change) => {
       Incidents.updateIncident(change.incident_id, change);
@@ -174,8 +176,8 @@ router.post(
   validateAndSanitizeIncidentObject,
   async (req, res, next) => {
     Incidents.createIncident(req.sanitizedIncident)
-      .then((newIncident) => {
-        res.status(201).json(newIncident);
+      .then(() => {
+        res.status(201).json({ message: 'Incident Successfully Created' });
       })
       .catch(next);
   }
