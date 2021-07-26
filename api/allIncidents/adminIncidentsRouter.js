@@ -136,7 +136,7 @@ router.put('/incidents/:incident_id', checkIncidentExists, (req, res, next) => {
  *      - application/json
  *    responses:
  *      201:
- *        description: Success ... returns updated incident object
+ *        description: Success ... returns message: 'Incidents Successfully Updated'
  *      500:
  *        description: Server response error
  */
@@ -192,7 +192,7 @@ router.post(
  *      - application/json
  *    responses:
  *      200:
- *        description: Success ... returns new incident object
+ *        description: Success ... returns message: 'Incident Successfully Deleted'
  *      500:
  *        description: Server response error
  */
