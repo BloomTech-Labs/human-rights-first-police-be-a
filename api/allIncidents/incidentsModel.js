@@ -20,6 +20,7 @@ module.exports = {
 async function getIncidents() {
   const incidents = await db('incidents')
     .where({ status: 'approved' })
+    .whereNot({ incident_date: null })
     .orderBy('incident_date', 'desc');
 
   const formattedIncidents = incidents.map((incident) => {
@@ -27,7 +28,6 @@ async function getIncidents() {
     incident.src = JSON.parse(incident.src);
     return incident;
   });
-
   return formattedIncidents;
 }
 /**
@@ -36,11 +36,9 @@ async function getIncidents() {
  */
 async function getIncidentById(id) {
   const [incident] = await db('incidents').where('incident_id', id);
-
   incident.tags = JSON.parse(incident.tags);
   incident.src = JSON.parse(incident.src);
-
-  return [incident];
+  return incident;
 }
 /**
  *
@@ -59,7 +57,6 @@ async function getTimelineIncidents(limit) {
     incident.src = JSON.parse(incident.src);
     return incident;
   });
-
   return formattedIncidents;
 }
 /**
@@ -75,7 +72,6 @@ async function getAllPendingIncidents() {
     incident.src = JSON.parse(incident.src);
     return incident;
   });
-
   return formattedIncidents;
 }
 /**
@@ -91,7 +87,6 @@ async function getAllRejectedIncidents() {
     incident.src = JSON.parse(incident.src);
     return incident;
   });
-
   return formattedIncidents;
 }
 /**
@@ -107,7 +102,6 @@ async function getAllApprovedIncidents() {
     incident.src = JSON.parse(incident.src);
     return incident;
   });
-
   return formattedIncidents;
 }
 /**
