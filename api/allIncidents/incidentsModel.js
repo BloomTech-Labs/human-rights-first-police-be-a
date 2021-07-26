@@ -18,9 +18,8 @@ module.exports = {
  * Returns all incidents in the db sorted by newest incident first
  */
 async function getIncidents() {
-  const incidents = await db('incidents')
+  const incidents = await db('final_test')
     .where({ status: 'approved' })
-    .whereNot({ incident_date: null })
     .orderBy('incident_date', 'desc');
 
   const formattedIncidents = incidents.map((incident) => {
@@ -35,7 +34,7 @@ async function getIncidents() {
  * Function to return a specific incident by provided id
  */
 async function getIncidentById(id) {
-  const [incident] = await db('incidents').where('incident_id', id);
+  const [incident] = await db('final_test').where('incident_id', id);
   incident.tags = JSON.parse(incident.tags);
   incident.src = JSON.parse(incident.src);
   return incident;
@@ -46,7 +45,7 @@ async function getIncidentById(id) {
  * Returns incidents in the database sorted by newest incident first limited by the number defined in limit parameter
  */
 async function getTimelineIncidents(limit) {
-  const incidents = await db('incidents')
+  const incidents = await db('final_test')
     .where({ status: 'approved' })
     .whereNot({ incident_date: null })
     .orderBy('incident_date', 'desc')
@@ -63,7 +62,7 @@ async function getTimelineIncidents(limit) {
  * Returns all pending Twitter incidents in the db sorted by newest incident first
  */
 async function getAllPendingIncidents() {
-  const incidents = await db('incidents')
+  const incidents = await db('final_test')
     .where({ status: 'pending' })
     .orderBy('incident_date', 'desc');
 
@@ -78,7 +77,7 @@ async function getAllPendingIncidents() {
  * Returns all rejected Twitter incidents in the db sorted by newest incident first
  */
 async function getAllRejectedIncidents() {
-  const incidents = await db('incidents')
+  const incidents = await db('final_test')
     .where({ status: 'rejected' })
     .orderBy('incident_date', 'desc');
 
@@ -93,7 +92,7 @@ async function getAllRejectedIncidents() {
  * Returns all approved Twitter incidents in the db sorted by newest incident first
  */
 async function getAllApprovedIncidents() {
-  const incidents = await db('incidents')
+  const incidents = await db('final_test')
     .where({ status: 'approved' })
     .orderBy('incident_date', 'desc');
 
@@ -108,7 +107,7 @@ async function getAllApprovedIncidents() {
  * Returns the last known id in the database
  */
 function getLastID() {
-  return db('incidents').max('incident_id');
+  return db('final_test').max('incident_id');
 }
 /**
  * @param {object} incident
@@ -132,7 +131,7 @@ async function createIncident(incident) {
     user_name: incident.user_name || null,
     src: JSON.stringify(incident.src) || null,
   };
-  return db('incidents').insert(newIncident);
+  return db('final_test').insert(newIncident);
 }
 /**
  * @param {string} id
@@ -143,7 +142,7 @@ async function updateIncident(id, changes) {
   if (changes.src) changes.src = JSON.stringify(changes.src);
   if (changes.tags) changes.tags = JSON.stringify(changes.tags);
   try {
-    await db('incidents').where('incident_id', id).update(changes);
+    await db('final_test').where('incident_id', id).update(changes);
     return getIncidentById(id);
   } catch (error) {
     throw new Error(error.message);
@@ -153,11 +152,11 @@ async function updateIncident(id, changes) {
  * Utility function to clear database contents
  */
 async function deleteDB() {
-  return await db('incidents').del();
+  return await db('final_test').del();
 }
 /**
  * Utility function to delete single incident
  */
 function deleteIncident(id) {
-  return db('incidents').where('incident_id', id).del();
+  return db('final_test').where('incident_id', id).del();
 }
