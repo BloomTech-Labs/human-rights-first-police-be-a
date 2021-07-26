@@ -39,7 +39,7 @@ const {
     incident_date: '2021-03-01T00:00:00.000Z',
     tweet_id: '1366291653267513344',
     user_name: 'shafiur',
-    desc:
+    description:
       '#March1Coup: WATCH as 7 helmeted police beat a civilian with truncheons. Then kick him as he lies on the ground.  S… https://t.co/IJ2cRwRfCL',
     city: 'San Francisco',
     state: 'CA',
@@ -60,7 +60,7 @@ const {
     incident_date: '2021-03-01T00:00:00.000Z',
     tweet_id: '1366320977223835648',
     user_name: 'campbellclaret',
-    desc:
+    description:
       "As pritipatel churns another 'lock 'em up' headline, remember - Tories have shut half of police stations, are refu… https://t.co/qqTF0hTtEd",
     city: null,
     state: null,
@@ -137,7 +137,7 @@ router.get('/', validateAndSanitizeIncidentQueries, (req, res, next) => {
     incident_date: '2021-03-01T00:00:00.000Z',
     tweet_id: '1366291653267513344',
     user_name: 'shafiur',
-    desc:
+    description:
       '#March1Coup: WATCH as 7 helmeted police beat a civilian with truncheons. Then kick him as he lies on the ground.  S… https://t.co/IJ2cRwRfCL',
     city: 'San Francisco',
     state: 'CA',
