@@ -23,13 +23,17 @@ const {
  *      500:
  *        description: Server response error
  */
-router.get('/', validateAndSanitizeIncidentQueries, (req, res, next) => {
-  Incidents.getAllApprovedIncidents()
-    .then((incidents) => {
-      res.status(200).json(incidents);
-    })
-    .catch(() => next({ status: 500 }));
-});
+router.get(
+  '/getincidents',
+  validateAndSanitizeIncidentQueries,
+  (req, res, next) => {
+    Incidents.getIncidents()
+      .then((incidents) => {
+        res.status(200).json(incidents);
+      })
+      .catch(() => next({ status: 500 }));
+  }
+);
 
 /**
  * @swagger

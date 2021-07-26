@@ -18,9 +18,17 @@ module.exports = {
  * Returns all incidents in the db sorted by newest incident first
  */
 async function getIncidents() {
-  return await db('incidents')
-    .whereNot({ incident_date: null })
+  const incidents = await db('incidents')
+    .where({ status: 'approved' })
     .orderBy('incident_date', 'desc');
+
+  const formattedIncidents = incidents.map((incident) => {
+    incident.tags = JSON.parse(incident.tags);
+    incident.src = JSON.parse(incident.src);
+    return incident;
+  });
+
+  return formattedIncidents;
 }
 /**
  * @param {string} id
