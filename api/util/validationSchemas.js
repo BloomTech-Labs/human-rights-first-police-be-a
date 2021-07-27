@@ -23,11 +23,11 @@ exports.incidentObject = yup.object({
   tweet_id: yup.string().trim().max(30),
   user_name: yup.string().trim().max(100),
   description: yup.string().required().trim().min(2).max(10000),
-  city: yup.string().trim().min(2).max(50),
-  state: yup.string().trim().min(2).max(50),
-  lat: yup.string().trim().min(2).max(50),
-  long: yup.string().trim().min(2).max(50),
-  title: yup.string().trim().min(2).max(50),
+  city: yup.string().trim().max(50),
+  state: yup.string().trim().max(50),
+  lat: yup.string().trim().max(50),
+  long: yup.string().trim().max(50),
+  title: yup.string().trim().max(50),
   force_rank: yup.string().required().trim().min(2).max(50),
   status: yup
     .string()
