@@ -8,7 +8,7 @@ const {
 } = require('../middleware');
 
 // TODO document shape of objects coming and going
-router.use(authRequired);
+// router.use(authRequired);
 
 /**
  * @swagger

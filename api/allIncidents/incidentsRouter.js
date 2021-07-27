@@ -84,6 +84,14 @@ router.get('/gettimeline', (req, res, next) => {
     .catch(() => next({ status: 500 }));
 });
 
+router.get('/scraperincidents', (req, res, next) => {
+  Incidents.getScraperIncidents()
+    .then((incidents) => {
+      res.status(200).json(incidents);
+    })
+    .catch(() => next({ status: 500 }));
+});
+
 // eslint-disable-next-line no-unused-vars
 router.use((err, _req, res, _next) => {
   res

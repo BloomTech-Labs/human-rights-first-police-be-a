@@ -478,7 +478,7 @@ router.get('/download', async (req, res) => {
       });
     }
 
-    console.log(incidents)
+    console.log(incidents);
 
     // Create CSV from data and serve it to User:
     parseAsync(incidents, { fields }).then((result) => {
