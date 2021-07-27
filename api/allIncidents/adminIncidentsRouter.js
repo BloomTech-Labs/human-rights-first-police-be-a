@@ -12,7 +12,7 @@ router.use(authRequired);
 
 /**
  * @swagger
- * /adminincidents/incidents:
+ * /dashboard/incidents:
  *  get:
  *    Summary: Path returning all pending incidents in reverse chronological order
  *    tags:
@@ -35,7 +35,7 @@ router.get('/incidents', async (req, res, next) => {
 
 /**
  * @swagger
- * /adminincidents/incidents/approved:
+ * /dashboard/incidents/approved:
  *  get:
  *    Summary: Path returning all approved incidents in reverse chronological order
  *    tags:
@@ -58,7 +58,7 @@ router.get('/incidents/approved', async (req, res, next) => {
 
 /**
  * @swagger
- * /adminincidents/incidents/approved:
+ * /dashboard/incidents/approved:
  *  get:
  *    Summary: Path returning all rejected incidents in reverse chronological order
  *    tags:
@@ -81,7 +81,7 @@ router.get('/incidents/rejected', async (req, res, next) => {
 
 /**
  * @swagger
- * /adminincidents/incidents/{incident_id}:
+ * /dashboard/incidents/{incident_id}:
  *  get:
  *    Summary: Path returning single incident by incident_id
  *    tags:
@@ -101,7 +101,7 @@ router.get('/incidents/:incident_id', checkIncidentExists, async (req, res) => {
 
 /**
  * @swagger
- * /adminincidents/incidents/{incident_id}:
+ * /dashboard/incidents/{incident_id}:
  *  put:
  *    Summary: Path updating single incident by incident_id
  *    tags:
@@ -127,7 +127,7 @@ router.put('/incidents/:incident_id', checkIncidentExists, (req, res, next) => {
 
 /**
  * @swagger
- * /adminincidents/incidents:
+ * /dashboard/incidents:
  *  put:
  *    Summary: Path for batch updating multiple incidents
  *    tags:
@@ -136,7 +136,7 @@ router.put('/incidents/:incident_id', checkIncidentExists, (req, res, next) => {
  *      - application/json
  *    responses:
  *      201:
- *        description: Success ... returns message: 'Incidents Successfully Updated'
+ *        description: Success ... returns message 'Incidents Successfully Updated'
  *      500:
  *        description: Server response error
  */
@@ -155,7 +155,7 @@ router.put('/incidents', async (req, res) => {
 
 /**
  * @swagger
- * /adminincidents/incidents:
+ * /dashboard/incidents:
  *  post:
  *    Summary: Path posting new incident
  *    tags:
@@ -183,7 +183,7 @@ router.post(
 
 /**
  * @swagger
- * /adminincidents/incidents/{incident_id}:
+ * /dashboard/incidents/{incident_id}:
  *  delete:
  *    Summary: Path deleting incident by id
  *    tags:
@@ -192,7 +192,7 @@ router.post(
  *      - application/json
  *    responses:
  *      200:
- *        description: Success ... returns message: 'Incident Successfully Deleted'
+ *        description: Success ... returns message 'Incident Successfully Deleted'
  *      500:
  *        description: Server response error
  */
