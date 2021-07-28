@@ -48,9 +48,41 @@ app.use(
 
 app.use(helmet());
 app.use(express.json());
+app.options('*', cors());
 app.use(
   cors({
-    origin: '*',
+    preflightContinue: false,
+    credentials: true,
+    exposedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'Access-Control-Allow-Origin',
+      'Access-Control-Allow-Credentials',
+      'Connection',
+      'Content-Length',
+      'Strict-Transport-Security',
+      'X-Content-Type-Options',
+      'X-DNS-Prefetch-Control',
+      'X-Download-Options',
+      'X-XSS-Protection',
+      'X-Frame-Options',
+    ],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'Access-Control-Allow-Origin',
+      'Access-Control-Allow-Credentials',
+      'Connection',
+      'Content-Length',
+      'Strict-Transport-Security',
+      'X-Content-Type-Options',
+      'X-DNS-Prefetch-Control',
+      'X-Download-Options',
+      'X-XSS-Protection',
+      'X-Frame-Options',
+    ],
+    origin: 'https://a.humanrightsfirst.dev',
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],
   })
 );
 app.use(logger('dev'));
