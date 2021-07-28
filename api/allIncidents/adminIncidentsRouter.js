@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Incidents = require('./incidentsModel');
 const {
-  //authRequired,
+  authRequired,
   checkIncidentExists,
   validateAndSanitizeIncidentObject,
 } = require('../middleware');
 
-//router.use(authRequired);
+router.use(authRequired);
 
 /**
  * @swagger
