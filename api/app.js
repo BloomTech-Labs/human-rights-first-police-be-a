@@ -48,6 +48,7 @@ app.use(
 
 app.use(helmet());
 app.use(express.json());
+app.options('/', cors());
 app.use(
   cors({
     origin: 'https://a.humanrightsfirst.dev',
