@@ -50,7 +50,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(
   cors({
-    origin: '*',
+    origin: 'https://a.humanrightsfirst.dev',
   })
 );
 app.use(logger('dev'));
