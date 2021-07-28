@@ -51,7 +51,7 @@ app.use(express.json());
 app.options('*', cors());
 app.use(
   cors({
-    preflightContinue: true,
+    preflightContinue: false,
     credentials: true,
     exposedHeaders: [
       'Content-Type',
