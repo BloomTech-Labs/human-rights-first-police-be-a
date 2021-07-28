@@ -93,13 +93,17 @@ const {
  *                  type: string
  *                  example: "Request Error"
  */
-router.get('/', validateAndSanitizeIncidentQueries, (req, res, next) => {
-  Incidents.getAllApprovedIncidents()
-    .then((incidents) => {
-      res.status(200).json(incidents);
-    })
-    .catch(() => next({ status: 500 }));
-});
+router.get(
+  '/getincidents',
+  validateAndSanitizeIncidentQueries,
+  (req, res, next) => {
+    Incidents.getAllApprovedIncidents()
+      .then((incidents) => {
+        res.status(200).json(incidents);
+      })
+      .catch(() => next({ status: 500 }));
+  }
+);
 
 // ### GET /allincidents/{incident_id} ###
 // - returns a singular incident based on {incident_id} passed in
