@@ -20,13 +20,13 @@ exports.incidentQuery = yup.object({
 
 exports.incidentObject = yup.object({
   incident_date: yup.string().trim(),
-  tweet_id: yup.string().trim().max(30),
-  user_name: yup.string().trim().max(100),
-  description: yup.string().required().trim().min(2).max(10000),
-  city: yup.string().trim().max(50),
-  state: yup.string().trim().max(50),
-  lat: yup.string().trim().max(50),
-  long: yup.string().trim().max(50),
+  tweet_id: yup.string().trim().max(30).nullable(),
+  user_name: yup.string().trim().max(100).nullable(),
+  description: yup.string().required().trim().max(10000),
+  city: yup.string().trim().max(50).nullable(),
+  state: yup.string().trim().max(50).nullable(),
+  lat: yup.number().max(50).nullable(),
+  long: yup.number().max(50).nullable(),
   title: yup.string().trim().max(50),
   force_rank: yup.string().required().trim().min(2).max(50),
   status: yup
