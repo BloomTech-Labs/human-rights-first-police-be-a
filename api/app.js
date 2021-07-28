@@ -56,6 +56,7 @@ app.use(
     exposedHeaders: [
       'Content-Type',
       'Authorization',
+      'authorization',
       'Access-Control-Allow-Origin',
       'Access-Control-Allow-Credentials',
       'Connection',
@@ -70,6 +71,7 @@ app.use(
     allowedHeaders: [
       'Content-Type',
       'Authorization',
+      'authorization',
       'Access-Control-Allow-Origin',
       'Access-Control-Allow-Credentials',
       'Connection',
