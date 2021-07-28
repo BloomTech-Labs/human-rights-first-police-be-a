@@ -28,7 +28,7 @@ const indexRouter = require('./index/indexRouter');
 const profileRouter = require('./profile/profileRouter');
 const dataRouter = require('./util/dataRouter');
 const adminIncidentsRouter = require('./allIncidents/adminIncidentsRouter');
-const newIncidentsRouter = require('./allIncidents/allincidentsRouter');
+const newIncidentsRouter = require('./allIncidents/incidentsRouter');
 
 //###[ Models ]###
 const { dsUpdateFetch, dsTwitterUpdateFetch } = require('./dsService/dsUtil');

@@ -28,7 +28,7 @@ exports.incidentObject = yup.object({
   lat: yup.number().max(50).nullable(),
   long: yup.number().max(50).nullable(),
   title: yup.string().trim().max(50),
-  force_rank: yup.string().required().trim().max(50),
+  force_rank: yup.string().required().trim().min(2).max(50),
   status: yup
     .string()
     .trim()

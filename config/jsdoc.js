@@ -25,7 +25,7 @@ module.exports = {
       //   description: 'Operations for data science service',
       // },
       {
-        name: 'allincidents',
+        name: 'incidents',
         description: 'Operations for incidents found in database',
       },
     ],

@@ -6,19 +6,17 @@ const {
   validateAndSanitizeIncidentQueries,
 } = require('../middleware');
 
-// TODO document shape of objects coming and going
-
 // ''' ---------> Incidents Routes <--------- '''
-// ### GET /showallincidents ###
+// ### GET /getincidents ###
 // - returns all incidents in the BE database
 // ⬇️ swagger docs code generation ⬇️
 /**
  * @swagger
- * /allincidents:
+ * /incidents/getincidents:
  *  get:
  *    summary: path returning all incidents in database in reverse chronological order
  *    tags:
- *      - allincidents
+ *      - incidents
  *    produces:
  *      - application/json
  *    responses:
@@ -97,7 +95,7 @@ router.get(
   '/getincidents',
   validateAndSanitizeIncidentQueries,
   (req, res, next) => {
-    Incidents.getAllApprovedIncidents()
+    Incidents.getIncidents()
       .then((incidents) => {
         res.status(200).json(incidents);
       })
@@ -105,12 +103,12 @@ router.get(
   }
 );
 
-// ### GET /allincidents/{incident_id} ###
+// ### GET /incidents/{incident_id} ###
 // - returns a singular incident based on {incident_id} passed in
 // ⬇️ swagger docs code generation ⬇️
 /**
  * @swagger
- * /allincidents/{incident_id}:
+ * /incidents/{incident_id}:
  *  get:
  *    Summary: Path returning single incident by incident_id
  *    parameters:
@@ -121,7 +119,7 @@ router.get(
  *        required: true
  *        description: unique id of the incident to get return data for
  *    tags:
- *      - allincidents
+ *      - incidents
  *    produces:
  *      - application/json
  *    responses:
@@ -171,18 +169,18 @@ router.get('/incident/:incident_id', checkIncidentExists, (req, res, next) => {
 
 /**
  * @swagger
- * /allincidents/gettimeline:
+ * /incidents/gettimeline:
  *  get:
  *    Summary: Path returning timeline of incidents in reverse chronological order.. Limit can be chosen in query or default to 5
  *    tags:
- *      - allincidents
+ *      - incidents
  *    produces:
  *      - application/json
  *    responses:
  *      200:
  *        description: Success ... returns an array of incident objects
  *      500:
- *        description: Server response error
+ *    description: Server response error
  */
 router.get('/gettimeline', (req, res, next) => {
   let limit = req.query.limit || 5;
