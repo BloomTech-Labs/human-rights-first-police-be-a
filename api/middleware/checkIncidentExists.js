@@ -1,7 +1,7 @@
 const Incidents = require('../allIncidents/incidentsModel');
 
 const checkIncidentExists = (req, res, next) => {
-  const id = req.params.incident_id;
+  const id = Number(req.params.incident_id);
 
   isNaN(id)
     ? next({
@@ -9,7 +9,7 @@ const checkIncidentExists = (req, res, next) => {
         message: `incident with incident_id ${id} not found`,
       })
     : Incidents.getIncidentById(id)
-        .then(([incident]) => {
+        .then((incident) => {
           if (incident) {
             req.incident = incident;
             next();

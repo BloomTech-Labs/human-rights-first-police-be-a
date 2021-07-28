@@ -26,16 +26,12 @@ const swaggerUIOptions = {
 //###[  Routers ]###
 const indexRouter = require('./index/indexRouter');
 const profileRouter = require('./profile/profileRouter');
-const incidentsRouter = require('./incidents/incidentsRouter');
-const twitterIncidentsRouter = require('./twitter_incidents/twitterIncidentsRouter');
 const dataRouter = require('./util/dataRouter');
+const adminIncidentsRouter = require('./allIncidents/adminIncidentsRouter');
+const newIncidentsRouter = require('./allIncidents/allincidentsRouter');
 
 //###[ Models ]###
-const {
-  dsUpdateFetch,
-  getLastId,
-  dsTwitterUpdateFetch,
-} = require('./dsService/dsUtil');
+const { dsUpdateFetch, dsTwitterUpdateFetch } = require('./dsService/dsUtil');
 
 const app = express();
 
@@ -64,9 +60,9 @@ app.use(cookieParser());
 // application routes
 app.use('/', indexRouter);
 app.use(['/profile', '/profiles'], profileRouter);
-app.use('/incidents', incidentsRouter);
+app.use('/incidents', newIncidentsRouter);
 app.use('/data', dataRouter);
-app.use('/dashboard', twitterIncidentsRouter);
+app.use('/dashboard', adminIncidentsRouter);
 
 // cron job to retrieve data from DS API
 cron.schedule(' 0 23 * * *', async function () {
