@@ -35,22 +35,23 @@ const findCreateProfile = async (jwt) => {
 const authRequired = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization || '';
-    const match = authHeader.match(/Bearer (.+)/);
+    // const match = authHeader.match(/Bearer (.+)/);
 
-    if (!match) throw new Error('Missing idToken');
+    // if (!match) throw new Error('Missing idToken');
 
-    const idToken = match[1];
+    // const idToken = match[1];
     oktaJwtVerifier
-      .verifyAccessToken(idToken, oktaVerifierConfig.expectedAudience)
+      .verifyAccessToken(authHeader, oktaVerifierConfig.expectedAudience)
       .then(async (data) => {
-        const profile = await findCreateProfile(data);
-        if (profile) {
-          res.locals.profile = profile;
-        } else {
-          throw new Error('Unable to process idToken');
-        }
+        // const profile = await findCreateProfile(data);
+        // if (profile) {
+        //   res.locals.profile = profile;
+        // } else {
+        //   throw new Error('Unable to process idToken');
+        // }
         next();
-      });
+      })
+      .catch(console.log);
   } catch (err) {
     next(createError(401, err.message));
   }
