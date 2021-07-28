@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const Incidents = require('./incidentsModel');
 const {
-  // authRequired,
+  authRequired,
   checkIncidentExists,
   validateAndSanitizeIncidentObject,
 } = require('../middleware');
 
 // TODO document shape of objects coming and going
-// router.use(authRequired);
+router.use(authRequired);
 
 /**
  * @swagger
