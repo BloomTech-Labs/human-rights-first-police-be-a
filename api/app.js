@@ -51,7 +51,8 @@ app.use(express.json());
 app.options('*', cors());
 app.use(
   cors({
-    origin: '*',
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    origin: 'https://a.humanrightsfirst.dev',
   })
 );
 app.use(logger('dev'));
