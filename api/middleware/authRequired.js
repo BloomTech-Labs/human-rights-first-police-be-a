@@ -51,7 +51,7 @@ const authRequired = async (req, res, next) => {
         // }
         next();
       })
-      .catch(console.log);
+      .catch(next);
   } catch (err) {
     next(createError(401, err.message));
   }
