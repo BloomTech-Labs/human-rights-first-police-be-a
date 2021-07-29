@@ -42,41 +42,30 @@ app.use(
 
 app.use(helmet());
 app.use(express.json());
+
+const corsHeaders = [
+  'Content-Type',
+  'Authorization',
+  'authorization',
+  'Access-Control-Allow-Origin',
+  'Access-Control-Allow-Credentials',
+  'Connection',
+  'Content-Length',
+  'Strict-Transport-Security',
+  'X-Content-Type-Options',
+  'X-DNS-Prefetch-Control',
+  'X-Download-Options',
+  'X-XSS-Protection',
+  'X-Frame-Options',
+];
+
 app.options('*', cors());
 app.use(
   cors({
     preflightContinue: false,
     credentials: true,
-    exposedHeaders: [
-      'Content-Type',
-      'Authorization',
-      'authorization',
-      'Access-Control-Allow-Origin',
-      'Access-Control-Allow-Credentials',
-      'Connection',
-      'Content-Length',
-      'Strict-Transport-Security',
-      'X-Content-Type-Options',
-      'X-DNS-Prefetch-Control',
-      'X-Download-Options',
-      'X-XSS-Protection',
-      'X-Frame-Options',
-    ],
-    allowedHeaders: [
-      'Content-Type',
-      'Authorization',
-      'authorization',
-      'Access-Control-Allow-Origin',
-      'Access-Control-Allow-Credentials',
-      'Connection',
-      'Content-Length',
-      'Strict-Transport-Security',
-      'X-Content-Type-Options',
-      'X-DNS-Prefetch-Control',
-      'X-Download-Options',
-      'X-XSS-Protection',
-      'X-Frame-Options',
-    ],
+    exposedHeaders: corsHeaders,
+    allowedHeaders: corsHeaders,
     origin: 'https://a.humanrightsfirst.dev',
     methods: ['GET', 'PUT', 'POST', 'DELETE'],
   })
