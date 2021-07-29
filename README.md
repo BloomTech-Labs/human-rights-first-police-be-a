@@ -1,17 +1,5 @@
 # Human Rights First: Blue Witness
 
-WE ARE USING AND PULLING DATA FROM DS DATABASE
-what routers are currently being used
-authrouter is currently not in place
-Validation middleware in util validation schema
-swagger docs link to deployed backend
-
-document any known limitations to endpoints
-
-instructions for setting up locally? ElephantSQL
-
-seeding legacyIncidents is for first time seeding of a new table with pre-approved incidents from outsource github repository
-
 You can find the deployed project at [Human Rights First - Blue Witness](https://a.humanrightsfirst.dev/).
 
 ## Most Recent Contributors
@@ -50,6 +38,10 @@ We are developing an interactive map that identifies reports of police use-of-fo
 - Swagger/jsdoc
 - Okta for validation
 
+## Endpoint Documentation
+
+See our [Swagger Documentation](https://hrf-blue-witness-a.herokuapp.com/api-docs) for information about the endpoints of our server.
+
 ## The backend server is connected to the data science database.
 
 #### [Server endpoint](https://hrf-blue-witness-a.herokuapp.com/)
@@ -68,8 +60,6 @@ The backend is sharing a database with the Data Science Team. The Data Science t
 
 ```
 PORT=
-DS_API_URL=
-DS_API_TOKEN=
 DATABASE_URL=
 OKTA_URL_ISSUER=
 OKTA_CLIENT_ID=
@@ -156,6 +146,10 @@ Checklist
 
 These contribution guidelines have been adapted from [this good-Contributing.md-template](https://gist.github.com/PurpleBooth/b24679402957c63ec426).
 
-## Documentation
+## Deprecated Code
 
-See our [Swagger Documentation](https://hrf-blue-witness-a.herokuapp.com/api-docs) for details on the frontend of our project.
+### If a new database needs to be seeded, legacy incidents can be acquired via commit #. There is also a function to reformat the data.
+
+### If you need the DS utils, including cron they can be restored from commit
+
+### If you need the profile migrations and functions in can be restored from commit # :hahaidk:
