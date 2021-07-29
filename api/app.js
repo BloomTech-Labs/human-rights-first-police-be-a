@@ -21,7 +21,6 @@ const swaggerUIOptions = {
 
 //###[  Routers ]###
 const indexRouter = require('./index/indexRouter');
-const dataRouter = require('./util/dataRouter');
 const adminIncidentsRouter = require('./allIncidents/adminIncidentsRouter');
 const newIncidentsRouter = require('./allIncidents/incidentsRouter');
 
@@ -77,7 +76,6 @@ app.use(cookieParser());
 // application routes
 app.use('/', indexRouter);
 app.use('/incidents', newIncidentsRouter);
-app.use('/data', dataRouter);
 app.use('/dashboard', adminIncidentsRouter);
 
 // catch 404 and forward to error handler
