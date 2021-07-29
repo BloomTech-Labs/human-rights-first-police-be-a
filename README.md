@@ -42,6 +42,10 @@ We are developing an interactive map that identifies reports of police use-of-fo
 
 See our [Swagger Documentation](https://hrf-blue-witness-a.herokuapp.com/api-docs) for information about the endpoints of our server.
 
+Or on your local deploy.
+
+- https://localhost:8000/api-docs
+
 ## The backend server is connected to the data science database.
 
 #### [Server endpoint](https://hrf-blue-witness-a.herokuapp.com/)
