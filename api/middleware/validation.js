@@ -1,7 +1,7 @@
 const {
   incidentQuery: incidentQuerySchema,
   incidentObject,
-} = require('../util/validationSchemas');
+} = require('../../config/validationSchemas');
 
 const validateAndSanitizeIncidentQueries = async (req, _res, next) => {
   if (!req.body) {

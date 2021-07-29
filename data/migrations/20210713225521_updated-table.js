@@ -1,7 +1,7 @@
 exports.up = function (knex) {
   return knex.schema
     .raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
-    .createTable('incidents', (incidents) => {
+    .createTable('force_ranks', (incidents) => {
       incidents.increments('incident_id');
       incidents.date('incident_date').notNullable();
       incidents.string('tweet_id');
@@ -17,20 +17,8 @@ exports.up = function (knex) {
       incidents.float('confidence');
       incidents.string('tags');
       incidents.string('src', 8000);
-    })
-    .createTable('profiles', function (table) {
-      table.string('id').notNullable().unique().primary();
-      table.string('email');
-      table.string('name');
-      table.string('avatarUrl');
-      table.timestamps(true, true);
     });
 };
 exports.down = function (knex) {
-  return knex.schema
-    .dropTableIfExists('incidents')
-    .dropTableIfExists('twitter_incidents') //To remove older db table
-    .dropTableIfExists('incidents_new') //To remove older db table
-    .dropTableIfExists('twitter_incidents_new') //To remove older db table
-    .dropTableIfExists('profiles');
+  return knex.schema.dropTableIfExists('force_ranks');
 };
