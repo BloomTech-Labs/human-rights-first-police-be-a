@@ -13,7 +13,7 @@ router.use(authRequired);
  * @swagger
  * /dashboard/incidents:
  *  get:
- *    Summary: Path returning all pending incidents in reverse chronological order
+ *    summary: Path returning all pending incidents in reverse chronological order
  *    tags:
  *      - adminincidents
  *    produces:
@@ -36,7 +36,7 @@ router.get('/incidents', async (req, res, next) => {
  * @swagger
  * /dashboard/incidents/approved:
  *  get:
- *    Summary: Path returning all approved incidents in reverse chronological order
+ *    summary: Path returning all approved incidents in reverse chronological order
  *    tags:
  *      - adminincidents
  *    produces:
@@ -59,7 +59,7 @@ router.get('/incidents/approved', async (req, res, next) => {
  * @swagger
  * /dashboard/incidents/approved:
  *  get:
- *    Summary: Path returning all rejected incidents in reverse chronological order
+ *    summary: Path returning all rejected incidents in reverse chronological order
  *    tags:
  *      - adminincidents
  *    produces:
@@ -82,7 +82,7 @@ router.get('/incidents/rejected', async (req, res, next) => {
  * @swagger
  * /dashboard/incidents/{incident_id}:
  *  get:
- *    Summary: Path returning single incident by incident_id
+ *    summary: Path returning single incident by incident_id
  *    tags:
  *      - adminincidents
  *    produces:
@@ -102,7 +102,7 @@ router.get('/incidents/:incident_id', checkIncidentExists, async (req, res) => {
  * @swagger
  * /dashboard/incidents/{incident_id}:
  *  put:
- *    Summary: Path updating single incident by incident_id
+ *    summary: Path updating single incident by incident_id
  *    tags:
  *      - adminincidents
  *    produces:
@@ -128,7 +128,7 @@ router.put('/incidents/:incident_id', checkIncidentExists, (req, res, next) => {
  * @swagger
  * /dashboard/incidents:
  *  put:
- *    Summary: Path for batch updating multiple incidents
+ *    summary: Path for batch updating multiple incidents
  *    tags:
  *      - adminincidents
  *    produces:
@@ -156,7 +156,7 @@ router.put('/incidents', async (req, res) => {
  * @swagger
  * /dashboard/incidents:
  *  post:
- *    Summary: Path posting new incident
+ *    summary: Path posting new incident
  *    tags:
  *      - adminincidents
  *    produces:
@@ -184,7 +184,7 @@ router.post(
  * @swagger
  * /dashboard/incidents/{incident_id}:
  *  delete:
- *    Summary: Path deleting incident by id
+ *    summary: Path deleting incident by id
  *    tags:
  *      - adminincidents
  *    produces:

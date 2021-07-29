@@ -110,7 +110,7 @@ router.get(
  * @swagger
  * /incidents/{incident_id}:
  *  get:
- *    Summary: Path returning single incident by incident_id
+ *    summary: Path returning single incident by incident_id
  *    parameters:
  *      - in: path
  *        name: incident_id
@@ -171,7 +171,7 @@ router.get('/incident/:incident_id', checkIncidentExists, (req, res, next) => {
  * @swagger
  * /incidents/gettimeline:
  *  get:
- *    Summary: Path returning timeline of incidents in reverse chronological order.. Limit can be chosen in query or default to 5
+ *    summary: Path returning timeline of incidents in reverse chronological order.. Limit can be chosen in query or default to 5
  *    tags:
  *      - incidents
  *    produces:
