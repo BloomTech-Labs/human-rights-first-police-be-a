@@ -4,13 +4,17 @@ You can find the deployed project at [Human Rights First - Blue Witness](https:/
 
 ## Most Recent Contributors
 
-|                                      [Jaison Alonso](https://github.com/abe-one)                                       |                                      [Francis Nguyen](https://github.com/francishtknguyen)                                       |                                      [Justin Peczenij](https://github.com/justinpeczenij)                                      |     |     |
-| :--------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------: | :-: | :-: |
+Feel free to reach out if you have any questions about the repo.
+
+|[Jaison Alonso](https://github.com/abe-one)|[Francis Nguyen](https://github.com/francishtknguyen)|[Justin Peczenij](https://github.com/justinpeczenij)|||
+| :-: | :-: | :-: | :-: | :-: |
 |        [<img src="https://avatars.githubusercontent.com/u/77995299?v=4" width = "200" />](https://github.com/)         |             [<img src="https://avatars.githubusercontent.com/u/78515635?v=4" width = "200" />](https://github.com/)              |            [<img src="https://avatars.githubusercontent.com/u/78557316?v=4" width = "200" />](https://github.com/)             |
 |                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/abe-one)                  |                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/francishtknguyen)                   |                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/justinpeczenij)                   |
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/abeone) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/francishtknguyen) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/justinpeczenij) |
 
 <br>
+
+All [Labs Engineering Standards](https://labs.lambdaschool.com/topics/node-js/) must be followed.
 
 ## Project Overview
 
@@ -26,6 +30,13 @@ We are developing an interactive map that identifies reports of police use-of-fo
 - Users can interact with a map to help visualize where these reports occur
 - Users can view a timeline of recent events to see how often these events are occurring
 - Administrators have the ability to approve, reject, and CRUD incidents
+
+### What to build next?
+
+- Further validation to increase security of the database.
+- Work with front end and data science to implement a way to get user responses into the database.
+- There is currently no way for an admin to send a Tweet to get more information about an incident from a user.
+- The idea we had was to give the admin the ability to create a tweet with the link to a pre-populated form that can either update the database with the needed information or store responses from the the users in a new table for the admin to look at when updating the incident. This will send the incident back to the admin dashboard as pending, where the incident can then be updated by the admin. This idea can be changed to whatever implementation you see fit.
 
 ## Tech Stack
 
@@ -45,6 +56,15 @@ See our [Swagger Documentation](https://hrf-blue-witness-a.herokuapp.com/api-doc
 Or on your local deploy.
 
 - https://localhost:8000/api-docs
+
+Swagger docs are created using open api v3 notations. The docs are found inline
+on the router files in `api/**/*Router.js` and use the yaml notation format.
+The root of the docs is in `config/jsdoc.js` using the json format.
+
+The following libraries have been used to build and serve the swagger docs live.
+
+- [express-ui](https://github.com/scottie1984/swagger-ui-express)
+- [swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc)
 
 ## The backend server is connected to the data science database.
 
@@ -74,7 +94,7 @@ In order for the app to function correctly, the user must set up their own envir
 
 # Testing
 
-Almost no testing has been implemented as of July 30, 2021.
+Almost no testing has been implemented as of July 30, 2021. Only sanity tests.
 
 # Installation Instructions
 
@@ -152,8 +172,24 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Deprecated Code
 
-### If a new database needs to be seeded, legacy incidents can be acquired via commit #. There is also a function to reformat the data.
+### If a new database needs to be seeded, legacy incidents can be acquired via commit
 
-### If you need the DS utils, including cron they can be restored from commit
+```
+#7efb8d6c90189023e25dc1e19239e83931778488
+```
 
-### If you need the profile migrations and functions in can be restored from commit # :hahaidk:
+There is also a function to reformat the data.
+
+### If you need the DS utils, including cron they can be restored from commit `
+
+```
+    #fee018b0b48bad3170f8b0641be22457c002d571
+```
+
+### If you need the profile migrations and functions in can be restored from commits:
+
+```
+    #92c6a439fb5d050e3bc0d51b1c2de20922ef19fe
+    #415987c7a0b223960ee5e3e232d2878a32d6e82f
+    #415987c7a0b223960ee5e3e232d2878a32d6e82f
+```
