@@ -6,8 +6,8 @@ You can find the deployed project at [Human Rights First - Blue Witness](https:/
 
 Feel free to reach out if you have any questions about the repo.
 
-|[Jaison Alonso](https://github.com/abe-one)|[Francis Nguyen](https://github.com/francishtknguyen)|[Justin Peczenij](https://github.com/justinpeczenij)|||
-| :-: | :-: | :-: | :-: | :-: |
+|                                      [Jaison Alonso](https://github.com/abe-one)                                       |                                      [Francis Nguyen](https://github.com/francishtknguyen)                                       |                                      [Justin Peczenij](https://github.com/justinpeczenij)                                      |     |     |
+| :--------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------: | :-: | :-: |
 |        [<img src="https://avatars.githubusercontent.com/u/77995299?v=4" width = "200" />](https://github.com/)         |             [<img src="https://avatars.githubusercontent.com/u/78515635?v=4" width = "200" />](https://github.com/)              |            [<img src="https://avatars.githubusercontent.com/u/78557316?v=4" width = "200" />](https://github.com/)             |
 |                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/abe-one)                  |                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/francishtknguyen)                   |                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/justinpeczenij)                   |
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/abeone) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/francishtknguyen) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/justinpeczenij) |
@@ -33,10 +33,10 @@ We are developing an interactive map that identifies reports of police use-of-fo
 
 ### What to build next?
 
-- Further validation to increase security of the database.
 - Work with front end and data science to implement a way to get user responses into the database.
 - There is currently no way for an admin to send a Tweet to get more information about an incident from a user.
 - The idea we had was to give the admin the ability to create a tweet with the link to a pre-populated form that can either update the database with the needed information or store responses from the the users in a new table for the admin to look at when updating the incident. This will send the incident back to the admin dashboard as pending, where the incident can then be updated by the admin. This idea can be changed to whatever implementation you see fit.
+- Further validation to increase security of the database against possible attacks.
 
 ## Tech Stack
 
@@ -47,7 +47,7 @@ We are developing an interactive map that identifies reports of police use-of-fo
 - PostgresSQL
 - Yup for validation
 - Swagger/jsdoc
-- Okta for validation
+- Okta for authorization
 
 ## Endpoint Documentation
 
