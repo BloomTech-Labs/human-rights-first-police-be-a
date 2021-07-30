@@ -2,10 +2,10 @@ module.exports = {
   definition: {
     openapi: '3.0.1',
     info: {
-      title: 'Lambda Labs Starter API',
+      title: 'HRF Blue Witness API',
       version: '0.0.1',
       description:
-        'A basic API server to act as a starting point for Labs projects',
+        'A basic API server to act as a starting point for Labs projects Blue Witness',
       license: {
         name: 'MIT',
         url: 'https://en.wikipedia.org/wiki/MIT_License',
@@ -20,13 +20,14 @@ module.exports = {
         name: 'profile',
         description: 'Operations for profile',
       },
-      // {
-      //   name: 'data',
-      //   description: 'Operations for data science service',
-      // },
       {
-        name: 'allincidents',
+        name: 'incidents',
         description: 'Operations for incidents found in database',
+      },
+      {
+        name: 'adminincidents',
+        description:
+          'Operations for admin dashboard incidents found in database',
       },
     ],
     externalDocs: {

@@ -9,10 +9,6 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const jsdocConfig = require('../config/jsdoc');
 const dotenv = require('dotenv');
 const config_result = dotenv.config();
-const RedditHelper = require('./incidents/incidentsModel');
-const TwitterHelper = require('./twitter_incidents/twitterIncidentsModel');
-
-const cron = require('node-cron');
 
 if (process.env.NODE_ENV != 'production' && config_result.error) {
   throw config_result.error;
@@ -25,13 +21,10 @@ const swaggerUIOptions = {
 
 //###[  Routers ]###
 const indexRouter = require('./index/indexRouter');
-const profileRouter = require('./profile/profileRouter');
-const dataRouter = require('./util/dataRouter');
 const adminIncidentsRouter = require('./allIncidents/adminIncidentsRouter');
-const newIncidentsRouter = require('./allIncidents/allincidentsRouter');
+const newIncidentsRouter = require('./allIncidents/incidentsRouter');
 
 //###[ Models ]###
-const { dsUpdateFetch, dsTwitterUpdateFetch } = require('./dsService/dsUtil');
 
 const app = express();
 
@@ -48,39 +41,30 @@ app.use(
 
 app.use(helmet());
 app.use(express.json());
+
+const corsHeaders = [
+  'Content-Type',
+  'Authorization',
+  'authorization',
+  'Access-Control-Allow-Origin',
+  'Access-Control-Allow-Credentials',
+  'Connection',
+  'Content-Length',
+  'Strict-Transport-Security',
+  'X-Content-Type-Options',
+  'X-DNS-Prefetch-Control',
+  'X-Download-Options',
+  'X-XSS-Protection',
+  'X-Frame-Options',
+];
+
 app.options('*', cors());
 app.use(
   cors({
-    preflightContinue: true,
+    preflightContinue: false,
     credentials: true,
-    exposedHeaders: [
-      'Content-Type',
-      'Authorization',
-      'Access-Control-Allow-Origin',
-      'Access-Control-Allow-Credentials',
-      'Connection',
-      'Content-Length',
-      'Strict-Transport-Security',
-      'X-Content-Type-Options',
-      'X-DNS-Prefetch-Control',
-      'X-Download-Options',
-      'X-XSS-Protection',
-      'X-Frame-Options',
-    ],
-    allowedHeaders: [
-      'Content-Type',
-      'Authorization',
-      'Access-Control-Allow-Origin',
-      'Access-Control-Allow-Credentials',
-      'Connection',
-      'Content-Length',
-      'Strict-Transport-Security',
-      'X-Content-Type-Options',
-      'X-DNS-Prefetch-Control',
-      'X-Download-Options',
-      'X-XSS-Protection',
-      'X-Frame-Options',
-    ],
+    exposedHeaders: corsHeaders,
+    allowedHeaders: corsHeaders,
     origin: 'https://a.humanrightsfirst.dev',
     methods: ['GET', 'PUT', 'POST', 'DELETE'],
   })
@@ -91,23 +75,8 @@ app.use(cookieParser());
 
 // application routes
 app.use('/', indexRouter);
-app.use(['/profile', '/profiles'], profileRouter);
 app.use('/incidents', newIncidentsRouter);
-app.use('/data', dataRouter);
 app.use('/dashboard', adminIncidentsRouter);
-
-// cron job to retrieve data from DS API
-cron.schedule(' 0 23 * * *', async function () {
-  try {
-    const [lastId] = await RedditHelper.getLastRedditID();
-    const [lastTwitterId] = await TwitterHelper.getLastID();
-    dsTwitterUpdateFetch(lastTwitterId.max);
-    dsUpdateFetch(lastId.max);
-    console.log("You've got mail");
-  } catch (error) {
-    console.log('Unable to get last id', error.message);
-  }
-});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
