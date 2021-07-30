@@ -7,7 +7,8 @@ All [Labs Engineering Standards](https://labs.lambdaschool.com/topics/node-js/) 
 ### Enviornment Variables
 
 - `PORT` - API port (optional, but helpful with FE running as well)
-- `DATABASE_URL` - connection string for postgres database
+- `BE_DATABASE_URL` - connection string for deprecated postgres database. This is being payed for for no reason.
+- `DS_DATABASE_URL` - connection string for ds database we are currently connected to
 - `OKTA_URL_ISSUER` - The complete issuer URL for verifying okta access tokens. `https://example.okta.com/oauth2/default`
 - `OKTA_CLIENT_ID` - the okta client ID.
 - `LOCAL_DATABASE` - connection string for your local database
