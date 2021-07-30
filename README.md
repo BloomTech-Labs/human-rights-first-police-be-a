@@ -1,116 +1,109 @@
-# Human Rights First: Police Brutality Across America.
+# Human Rights First: Blue Witness
 
-You can find the deployed project at [Human Rights First - Police Brutality Across America](https://main.d17v0exvwwwzgz.amplifyapp.com/).
+You can find the deployed project at [Human Rights First - Blue Witness](https://a.humanrightsfirst.dev/).
 
-## Contributors
+## Most Recent Contributors
 
-|                                                       [Mark Rivera](https://github.com/MarkRivera)                                                       |                                [Michael Rockingham](https://github.com/mrockingham)                                 |                                   [Jen Stewart](https://github.com/jstewart8053)                                    |                                 [Anthony Carrillo](https://github.com/anthony2698)                                  |                                                                                                                                           |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://avatars3.githubusercontent.com/u/6520868?s=460&u=64f1fbd9fe4ee6c48f4a0a02147d1c606d443d59&v=4" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012BRSM0CE-4185df18f7ee-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/ESZCHB482-W016369SB7T-5bc27b0171fc-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012JQ3D2AX-e0654ed5ac8d-512" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "0" />](https://github.com/) |
-|                                      [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                       |               [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)                |              [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Mister-Corn)               |             [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)              |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)                           |
-|                      [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                       |    [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)    |    [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)    |    [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)    |               [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)               |
+Feel free to reach out if you have any questions about the repo.
+
+|[Jaison Alonso](https://github.com/abe-one)|[Francis Nguyen](https://github.com/francishtknguyen)|[Justin Peczenij](https://github.com/justinpeczenij)|||
+| :-: | :-: | :-: | :-: | :-: |
+|        [<img src="https://avatars.githubusercontent.com/u/77995299?v=4" width = "200" />](https://github.com/)         |             [<img src="https://avatars.githubusercontent.com/u/78515635?v=4" width = "200" />](https://github.com/)              |            [<img src="https://avatars.githubusercontent.com/u/78557316?v=4" width = "200" />](https://github.com/)             |
+|                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/abe-one)                  |                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/francishtknguyen)                   |                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/justinpeczenij)                   |
+| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/abeone) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/francishtknguyen) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/justinpeczenij) |
 
 <br>
-<br>
+
+All [Labs Engineering Standards](https://labs.lambdaschool.com/topics/node-js/) must be followed.
 
 ## Project Overview
 
-[Trello Board](https://trello.com/b/QWXanExQ/team-c-2009)
+[Technical Architecture and Userflow Screenshot](https://files.slack.com/files-pri/TSZCHB482-F029B6UQXHC/hrf-police-ds_1.25x.png)
 
-[Technical Architecture and Userflow](https://whimsical.com/8sQcpjw3K2XdAiM9aeMkft)
+[Technical Architecture and Userflow Whimsical Board](https://whimsical.com/hrf-police-ds-W8Uq6mnxh5DAFZJ9wregft)
 
-Our team is developing an interactive map that identifies instances of police use of force across the United States of America for Human Rights First, an independent advocacy and action organization.
+We are developing an interactive map that identifies reports of police use-of-force across the United States of America for Human Rights First, a not-for-profit independent advocacy and action organization.
 
 ### Key Features
 
-- User can view incidents of police brutality and get more information on specific incidents
-- User can seearch map based on type of force, location, and date
+- User can view reports of police brutality and obtain sources to do further research
+- Users can interact with a map to help visualize where these reports occur
+- Users can view a timeline of recent events to see how often these events are occurring
+- Administrators have the ability to approve, reject, and CRUD incidents
 
-## 1️⃣ Tech Stack
+### What to build next?
 
-### Data Science API built using:
+- Work with front end and data science to implement a way to get user responses into the database.
+- There is currently no way for an admin to send a Tweet to get more information about an incident from a user.
+- The idea we had was to give the admin the ability to create a tweet with the link to a pre-populated form that can either update the database with the needed information or store responses from the the users in a new table for the admin to look at when updating the incident. This will send the incident back to the admin dashboard as pending, where the incident can then be updated by the admin. This idea can be changed to whatever implementation you see fit.
+- Further validation to increase security of the database against possible attacks.
+- The heroku server is set up to deploy automatically upon updating `main`, however, this doesn't actually work. Maybe check it out. `Workaround is to deploy manually`
 
-- Pandas
-- scikit-learn
-- spacy
-- nltk
-- PRAW
-- Tweepy
+## Tech Stack
 
-### Reasons for selection:
+### Backend API built using:
 
-- Works well with FastAPI
-- Recommended to us
-- Wanted to learn an in-demand framework
+- Node
+- Express
+- PostgresSQL
+- Yup for validation
+- Swagger/jsdoc
+- Okta for authorization
 
-#### Data Science API deployed to AWS
+## Endpoint Documentation
 
-#### [Back end](https://humanrightsfirst-a-api.herokuapp.com/) built using:
+See our [Swagger Documentation](https://hrf-blue-witness-a.herokuapp.com/api-docs) for information about the endpoints of our server.
 
-#### [Back end Repo](https://github.com/Lambda-School-Labs/human-rights-first-be-a/)
+Or on your local deploy.
 
-### dependencies
+- https://localhost:8000/api-docs
 
-    "@okta/jwt-verifier": "^1.0.0",
-    "axios": "^0.19.2",
-    "cookie-parser": "~1.4.4",
-    "cors": "^2.8.5",
-    "debug": "~2.6.9",
-    "dotenv": "^8.2.0",
-    "express": "^4.16.4",
-    "faker": "^4.1.0",
-    "helmet": "^3.23.1",
-    "http-errors": "~1.6.3",
-    "json2csv": "^5.0.5",
-    "knex": "^0.21.6",
-    "luxon": "^1.25.0",
-    "morgan": "~1.9.1",
-    "node-cron": "^2.0.3",
-    "pg": "^8.2.1",
-    "swagger-jsdoc": "^4.0.0",
-    "swagger-ui-express": "^4.1.4"
+Swagger docs are created using open api v3 notations. The docs are found inline
+on the router files in `api/**/*Router.js` and use the yaml notation format.
+The root of the docs is in `config/jsdoc.js` using the json format.
 
----
+The following libraries have been used to build and serve the swagger docs live.
 
-# APIs
+- [express-ui](https://github.com/scottie1984/swagger-ui-express)
+- [swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc)
 
-## 2️⃣ Data Science API
+## The backend server is connected to the data science database.
 
-We are sending json objects to the backend with information about instances of police use of force. This information includes location data (city, state, and geocode) and relevant details about the incident, like the type of force that was used.
+#### [Server endpoint](https://hrf-blue-witness-a.herokuapp.com/)
 
-## 2️⃣ PRAW
+#### [Back End Repo](https://github.com/Lambda-School-Labs/human-rights-first-be-a/)
 
-PRAW, The Python Reddit API Wrapper, makes it easy for users to analyze Reddit data. We used PRAW to scrape Reddit for potential instances of police of force.
+#### [Front End Repo](https://github.com/Lambda-School-Labs/human-rights-first-police-fe-a)
 
-## 3️⃣ Tweepy
+#### [Data Science Repo](https://github.com/Lambda-School-Labs/human-rights-first-police-ds-a)
 
-Tweepy is a Python library that allows users to access the Twitter API. We used Tweepy to scan Twitter to find instances of police use of force.
+# PostgreSQL Database
 
-# 3️⃣ Environment Variables
+The backend is sharing a database with the Data Science Team. The Data Science team will be scraping data into the same database that the backend server pulls data from. The current migrations can be used for testing locally on a development environment as the table schemas should be identical (hopefully).
 
-In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
+# Environment Variables
 
-OKTA_URL_ISSUER = https://auth.lambdalabs.dev/oauth2/default
+```
+PORT=
+DATABASE_URL=
+OKTA_URL_ISSUER=
+OKTA_CLIENT_ID=
+LOCAL_DATABASE=
+```
 
-OKTA_CLIENT_ID = 0oalwp37fU2aV9UEG4x6
-
-DATABASE_URL = postgres://ugkakqld:oZSXjtaGFA1r1psfCfIfv1ZEJID1j4KM@raja.db.elephantsql.com:5432/ugkakqld?ssl=true
+In order for the app to function correctly, the user must set up their own environment variables. You should receive an environment variables notion doc to help you get setup, or reach out to past contributors.
 
 # Testing
 
-No testing implemented as of January 31st, 2021.
+Almost no testing has been implemented as of July 30, 2021. Only sanity tests.
 
 # Installation Instructions
 
 Run 'npm install' to install all necessary dependencies.
 
-## Other Scripts
+### Important Command
 
-    * npm run server - must be executed from /server folder - runs local server for development
-
-    * npm run cleardb - must be executed from /server folder - deletes all records from Incidents table
-
-    * npm run initialfetch - must be executed from /server folder - performs initial population of Incidents table
+Run 'npm run server' to spin up a local development server on port 8000.
 
 # Contributing
 
@@ -137,18 +130,67 @@ If you have developed a patch, bug fix, or new feature that would improve this a
 
 Remember that this project is licensed under the MIT license, and by submitting a pull request, you agree that your work will be, too.
 
-#### Pull Request Guidelines
+### Pull Request Guidelines
 
-- Ensure any install or build dependencies are removed before the end of the layer when doing a build.
-- Update the README.md with details of changes to the interface, including new plist variables, exposed ports, useful file locations and container parameters.
-- Ensure that your code conforms to our existing code conventions and test coverage.
-- Include the relevant issue number, if applicable.
-- You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
+Please see [pull_request_template.md](/pull_request_template.md)
+
+```
+Description
+Fixes # (issue)
+
+Type of change
+Please delete options that are not relevant.
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] This change requires a documentation update
+
+Change Status
+- [ ] Complete, tested, ready to review and merge
+- [ ] Complete, but not tested (may need new tests)
+- [ ] Incomplete/work-in-progress, PR is for discussion/feedback
+
+How Has This Been Tested?
+- [ ] Test A
+- [ ] Test B
+
+Checklist
+- [ ] My code follows the style guidelines of this project
+- [ ] I have performed a self-review of my own code
+- [ ] My code has been reviewed by at least one peer
+- [ ] I have commented my code, particularly in hard-to-understand areas
+- [ ] I have made corresponding changes to the documentation
+- [ ] My changes generate no new warnings
+- [ ] I have added tests that prove my fix is effective or that my feature works
+- [ ] New and existing unit tests pass locally with my changes
+- [ ] There are no merge conflicts
+
+```
 
 ### Attribution
 
 These contribution guidelines have been adapted from [this good-Contributing.md-template](https://gist.github.com/PurpleBooth/b24679402957c63ec426).
 
-## Documentation
+## Deprecated Code
 
-See [Frontend Documentation](https://github.com/Lambda-School-Labs/Labs27-C-HRF-FE) for details on the frontend of our project.
+### If a new database needs to be seeded, legacy incidents can be acquired via commit
+
+```
+#7efb8d6c90189023e25dc1e19239e83931778488
+```
+
+There is also a function to reformat the data.
+
+### If you need the DS utils, including cron they can be restored from commit `
+
+```
+    #fee018b0b48bad3170f8b0641be22457c002d571
+```
+
+### If you need the profile migrations and functions in can be restored from commits:
+
+```
+    #92c6a439fb5d050e3bc0d51b1c2de20922ef19fe
+    #415987c7a0b223960ee5e3e232d2878a32d6e82f
+    #415987c7a0b223960ee5e3e232d2878a32d6e82f
+```
