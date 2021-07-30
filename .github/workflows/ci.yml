@@ -20,21 +20,19 @@ jobs:
     runs-on: ubuntu-latest
 
     # The steps for the job, executed in sequence
-    steps:	
+    steps:
       # A GitHub action for checking out the current branch
       - uses: actions/checkout@v2
 
       # A GitHub action to setup Node.js
       - uses: actions/setup-node@v1
         with:
-          node-version: "12"
+          node-version: '12'
 
       # Run the NPM install command before proceeding
       - run: npm install
 
       - run: npm run lint
-
-      - run: cp .env.sample .env
 
       # A GitHub action for running tests and publishing coverage
       - uses: paambaati/codeclimate-action@v2.6.0
@@ -45,6 +43,6 @@ jobs:
           # Run our `coverage` script in our `package.json`
           coverageCommand: npm run coverage
           # By default, this looks for a `coverage` folder in the root of your project, but you may need to change this
-          coverageLocations: "./coverage/clover.xml:clover"
+          coverageLocations: './coverage/clover.xml:clover'
           # Great for troubleshooting
           debug: true
