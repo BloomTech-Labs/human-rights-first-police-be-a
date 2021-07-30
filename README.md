@@ -85,7 +85,8 @@ The backend is sharing a database with the Data Science Team. The Data Science t
 
 ```
 PORT=
-DATABASE_URL=
+BE_DATABASE_URL=
+DS_DATABASE_URL=
 OKTA_URL_ISSUER=
 OKTA_CLIENT_ID=
 LOCAL_DATABASE=
