@@ -1,14 +1,5 @@
-// const supertest = require('supertest');
-// const server = require('../../../api/allIncidents/incidentsRouter');
-// const { request } = require('../../../api/app');
-
 const request = require('supertest');
 const server = require('../../.././api/app');
-
-// let res = '';
-// beforeEach(async () => {
-//   res = await request(server).get('/incidents/getincidents');
-// });
 
 describe('Sanity Test', () => {
   it('should run a sanity test ', () => {
