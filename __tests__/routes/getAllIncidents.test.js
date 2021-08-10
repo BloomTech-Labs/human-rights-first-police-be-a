@@ -1,5 +1,5 @@
 const request = require('supertest');
-const server = require('../../.././api/app');
+const server = require('../../api/app');
 
 describe('Sanity Test', () => {
   it('should run a sanity test ', () => {
