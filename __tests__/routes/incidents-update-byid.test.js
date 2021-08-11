@@ -1,15 +1,27 @@
-const request = require('supertest');
-const server = require('../../api/allIncidents/incidentsRouter');
+const db = require('../../data/db-config')
+const Incidents = require('../../api/allIncidents/incidentsModel');
+
+beforeAll(async () => {
+  await db.migrate.rollback();
+  await db.migrate.latest();
+});
+beforeEach(async () => {
+  await db('force_ranks').del();
+  await db.seed.run();
+});
 
 describe('initial test', () => {
-  it('app should run as expected', () => {
+  test('app should run as expected', () => {
     expect(true).not.toBe(false);
   });
 });
 
 describe('main tests', () => {
-  it('should fetch correct DB data', async () => {
-    const res = await request(server).get('/incidents/getincidents');
-    expect(res.status).toBe(200);
+  test('update information as specified', async () => {
+    const incidentOne = await Incidents.getIncidentById(1);
+    console.log(incidentOne);
+    const changes = { user_name: 'test'};
+    const i1update = await Incidents.updateIncident(1, changes);
+    expect(changes).not.toBe(incidentOne.user_name);
   });
 });
