@@ -3,7 +3,7 @@ exports.up = function (knex) {
     .raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
     .createTable('force_ranks', (incidents) => {
       incidents.increments('incident_id');
-      incidents.date('incident_date').notNullable();
+      incidents.string('incident_date').notNullable();
       incidents.string('tweet_id');
       incidents.string('user_name');
       incidents.varchar('description', 10000).notNullable();

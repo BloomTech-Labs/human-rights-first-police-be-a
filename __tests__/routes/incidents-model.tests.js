@@ -5,10 +5,15 @@ beforeAll(async () => {
   await db.migrate.rollback();
   await db.migrate.latest();
 });
+beforeEach(async () => {
+  await db('force_ranks').del();
+  await db.seed.run();
+});
 
 describe('getIncidentById', () => {
   test('returns the incident by the given id', async () => {
     const incidentOne = await Incidents.getIncidentById(1);
+    console.log(incidentOne.incident_id);
     expect(incidentOne).toMatchObject({
       incident_id: 1,
       incident_date: '2021-03-01T00:00:00.000Z',
@@ -24,11 +29,11 @@ describe('getIncidentById', () => {
       force_rank: 'Rank 2 - Empty-hand',
       status: 'pending',
       confidence: 20,
-      tags: JSON.stringify(['police', 'kick', 'beat']),
-      src: JSON.stringify([
+      tags: ['police', 'kick', 'beat'],
+      src: [
         'https://vimeo.com/540571411',
         'https://twitter.com/warpspdskeleton/status/1387075760805060609',
-      ]),
+      ],
     });
   });
 });
