@@ -95,7 +95,7 @@ router.get(
   '/getincidents',
   validateAndSanitizeIncidentQueries,
   (req, res, next) => {
-    Incidents.getIncidents()
+    Incidents.getAllApprovedIncidents()
       .then((incidents) => {
         res.status(200).json(incidents);
       })

@@ -1,7 +1,12 @@
 const request = require('supertest');
-const db = require('../../data/db-config');
-const Incidents = require('../../api/allIncidents/incidentsModel');
-const server = require('../../api/allIncidents/adminIncidentsRouter');
+const server = require('../../api/app');
+const authRequired = require('../../api/middleware/authRequired');
+jest.mock('../../api/middleware/authRequired');
+
+// Allows you to pass Admin authentication
+beforeEach(() => {
+  authRequired.mockImplementation((req, res, next) => next());
+});
 
 describe('sanity', () => {
   it('checks for basic testing sanity', async () => {
@@ -9,9 +14,18 @@ describe('sanity', () => {
   });
 });
 
+//Checks getAllPendingIncidents inside Admin Router
 describe('[GET] /dashboard/incidents', () => {
   it('returns a status 200 OK', async () => {
-    const res = await request(server).get('/incidents');
+    const res = await request(server).get('/dashboard/incidents/');
+    expect(res.status).toBe(200);
+  });
+});
+
+//Checks getAllApprovedIncidents inside Admin Router
+describe('[GET] /dashboard/incidents/approved', () => {
+  it('returns a status 200 OK', async () => {
+    const res = await request(server).get('/dashboard/incidents/approved');
     expect(res.status).toBe(200);
   });
 });
