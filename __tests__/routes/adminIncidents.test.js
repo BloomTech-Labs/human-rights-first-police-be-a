@@ -29,6 +29,8 @@ describe('[PUT] /dashboard/incidents/:ID', () => {
       .put('/dashboard/incidents/1')
       .send({ status: 'approved' });
     expect(res.status).toBe(201);
+
+    expect(res.body.status).toBe('approved');
   });
 });
 
