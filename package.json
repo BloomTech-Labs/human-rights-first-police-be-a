@@ -12,7 +12,7 @@
     "lint:fix": "npx eslint --fix .",
     "format": "npx prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md)\"",
     "knex": "npx knex --knexfile knexfile.js",
-    "tests": "npx jest --runInBand  --forceExit ",
+    "tests": "npx jest --runInBand --forceExit --detectOpenHandles",
     "coverage": "CI=true npx jest --coverage --detectOpenHandles --forceExit",
     "logs": "heroku logs -a hrf-blue-witness-a -t",
     "latest": "npm run knex migrate:latest",
