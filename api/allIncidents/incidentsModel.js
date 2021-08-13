@@ -19,7 +19,6 @@ module.exports = {
  */
 async function getIncidents() {
   const incidents = await db('force_ranks')
-    .where({ status: 'approved' })
     .orderBy('incident_date', 'desc');
 
   const formattedIncidents = incidents.map((incident) => {

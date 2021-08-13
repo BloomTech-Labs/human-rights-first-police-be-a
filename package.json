@@ -65,6 +65,7 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.24",
     "cross-env": "^7.0.2",
     "eslint": "^7.3.1",
     "eslint-config-prettier": "^6.11.0",
