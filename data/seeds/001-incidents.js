@@ -1,10 +1,10 @@
 exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex('incidents')
+  return knex('force_ranks')
     .del()
     .then(function () {
       // Inserts seed entries
-      return knex('incidents').insert([
+      return knex('force_ranks').insert([
         {
           incident_id: 1,
           incident_date: '2021-03-01T00:00:00.000Z',
