@@ -34,6 +34,18 @@ describe('[GET] /dashboard/incidents', () => {
   });
 });
 
+//Checks updateIncident updates data inside Admin Router
+describe('[PUT] /dashboard/incidents/:ID', () => {
+  it('returns a status 201 ', async () => {
+    const res = await request(server)
+      .put('/dashboard/incidents/1')
+      .send({ status: 'approved' });
+    expect(res.status).toBe(201);
+
+    expect(res.body.status).toBe('approved');
+  });
+});
+
 //Checks getAllApprovedIncidents inside Admin Router
 describe('[GET] /dashboard/incidents/approved', () => {
   it('returns a status 200 OK', async () => {
