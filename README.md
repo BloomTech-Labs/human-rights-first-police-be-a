@@ -46,7 +46,7 @@ We are developing an interactive map that identifies reports of police use-of-fo
 - Node
 - Express
 - PostgresSQL
-- Yup for validation
+- Yup for validation.
 - Swagger/jsdoc
 - Okta for authorization
 

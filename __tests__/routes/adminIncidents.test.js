@@ -20,6 +20,18 @@ describe('[GET] /dashboard/incidents', () => {
     const res = await request(server).get('/dashboard/incidents/');
     expect(res.status).toBe(200);
   });
+
+  it('returns only Pending incidents', async () => {
+    const res = await request(server).get('/dashboard/incidents/');
+    let pendingIncidents = 0;
+    for (let i = 0; i < res.body.length; i++) {
+      if (res.body[i].status == 'pending') {
+        pendingIncidents += 1;
+      }
+    }
+
+    expect(res.body.length).toBe(pendingIncidents);
+  });
 });
 
 //Checks updateIncident updates data inside Admin Router
@@ -39,5 +51,16 @@ describe('[GET] /dashboard/incidents/approved', () => {
   it('returns a status 200 OK', async () => {
     const res = await request(server).get('/dashboard/incidents/approved');
     expect(res.status).toBe(200);
+  });
+
+  it('returns only Approved incidents', async () => {
+    const res = await request(server).get('/dashboard/incidents/approved');
+    let approvedIncidents = 0;
+    for (let i = 0; i < res.body.length; i++) {
+      if (res.body[i].status == 'approved') {
+        approvedIncidents += 1;
+      }
+    }
+    expect(res.body.length).toBe(approvedIncidents);
   });
 });
