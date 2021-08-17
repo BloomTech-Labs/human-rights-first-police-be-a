@@ -65,7 +65,7 @@ app.use(
     credentials: true,
     exposedHeaders: corsHeaders,
     allowedHeaders: corsHeaders,
-    origin: ['https://a.humanrightsfirst.dev','http://localhost:3000'],
+    origin: ['https://a.humanrightsfirst.dev', 'http://localhost:3000'],
     methods: ['GET', 'PUT', 'POST', 'DELETE'],
   })
 );
