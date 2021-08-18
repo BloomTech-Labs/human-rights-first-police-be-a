@@ -1,14 +1,5 @@
-const db = require('../../data/db-config')
-const Incidents = require('../../api/allIncidents/incidentsModel');
-
-beforeAll(async () => {
-  await db.migrate.rollback();
-  await db.migrate.latest();
-});
-beforeEach(async () => {
-  await db('force_ranks').del();
-  await db.seed.run();
-});
+const request = require('supertest');
+const server = require('../../api/allIncidents/AdminIncidentsRouter');
 
 describe('initial test', () => {
   test('app should run as expected', () => {
@@ -17,11 +8,12 @@ describe('initial test', () => {
 });
 
 describe('main tests', () => {
-  test('update information as specified', async () => {
-    const incidentOne = await Incidents.getIncidentById(1);
-    console.log(incidentOne);
-    const changes = { user_name: 'test'};
-    const i1update = await Incidents.updateIncident(1, changes);
-    expect(changes).not.toBe(incidentOne.user_name);
+  it('Should delete specific indicent', async () => {
+    const resGet = await request(server).get('/incidents/4')
+    const resDelete = await request(server).delete('/incidents/4');
+    expect(resGet.body).toContainEqual(
+      expect.objectContaining({ incident_id: 4 })
+    );
+    expect(resDelete.body).toBe(null);
   });
 });
