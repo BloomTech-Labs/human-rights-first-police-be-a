@@ -4,6 +4,7 @@ const Incidents = require('./incidentsModel');
 const {
   checkIncidentExists,
   validateAndSanitizeIncidentQueries,
+  checkTweetIdExists,
 } = require('../middleware');
 
 // ''' ---------> Incidents Routes <--------- '''
@@ -95,7 +96,7 @@ router.get(
   '/getincidents',
   validateAndSanitizeIncidentQueries,
   (req, res, next) => {
-    Incidents.getAllApprovedIncidents()
+    Incidents.getIncidents()
       .then((incidents) => {
         res.status(200).json(incidents);
       })
@@ -103,12 +104,12 @@ router.get(
   }
 );
 
-// ### GET /incidents/{incident_id} ###
+// ### GET /{incident_id} ###
 // - returns a singular incident based on {incident_id} passed in
 // ⬇️ swagger docs code generation ⬇️
 /**
  * @swagger
- * /incidents/{incident_id}:
+ * /{incident_id}:
  *  get:
  *    summary: Path returning single incident by incident_id
  *    parameters:
@@ -158,9 +159,74 @@ router.get(
  *      500:
  *        description: Server response error
  */
-router.get('/incident/:incident_id', checkIncidentExists, (req, res, next) => {
+router.get('/:incident_id', checkIncidentExists, (req, res, next) => {
   let incident = req.incident;
   if (incident.status === 'approved') {
+    res.status(200).json(incident);
+  } else {
+    next({ status: 400, message: 'Incident unavailable' });
+  }
+});
+
+// ### GET /getTweet/{tweet_id} ###
+// - returns a singular incident based on {tweet_id} passed in
+// ⬇️ swagger docs code generation ⬇️
+/**
+ * @swagger
+ * /getTweet/{tweet_id}:
+ *  get:
+ *    summary: Path returning single incident by tweet_id
+ *    parameters:
+ *      - in: path
+ *        name: tweet_id
+ *        schema:
+ *        type: string
+ *        required: true
+ *        description: unique id of the incident to get return data for
+ *    tags:
+ *      - incidents
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      200:
+ *        description: Success ... returns incident object
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              required:
+ *                - api
+ *              properties:
+ *                data:
+ *                  type: array
+ *                  example:   [{
+    incident_id: 1,
+    incident_date: '2021-03-01T00:00:00.000Z',
+    tweet_id: '1366291653267513344',
+    user_name: 'shafiur',
+    description:
+      '#March1Coup: WATCH as 7 helmeted police beat a civilian with truncheons. Then kick him as he lies on the ground.  S… https://t.co/IJ2cRwRfCL',
+    city: 'San Francisco',
+    state: 'CA',
+    lat: null,
+    long: null,
+    title: null,
+    force_rank: 'Rank 2 - Empty-hand',
+    status: 'pending',
+    confidence: 20,
+    tags: ['police','kick', 'beat',],
+    src: [
+      'https://vimeo.com/540571411',
+      'https://twitter.com/warpspdskeleton/status/1387075760805060609',
+    ]
+  }]
+ *      500:
+ *        description: Server response error
+ */
+
+router.get('/getTweet/:tweet_id', checkTweetIdExists, (req, res, next) => {
+  let incident = req.incident;
+  if (incident) {
     res.status(200).json(incident);
   } else {
     next({ status: 400, message: 'Incident unavailable' });

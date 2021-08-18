@@ -4,6 +4,7 @@ const db = require('../../data/db-config');
 module.exports = {
   getIncidents,
   getIncidentById,
+  getIncidentByTweetId,
   getTimelineIncidents,
   getAllPendingIncidents,
   getAllRejectedIncidents,
@@ -36,6 +37,17 @@ async function getIncidentById(id) {
   const [incident] = await db('force_ranks').where('incident_id', id);
   incident.tags = JSON.parse(incident.tags);
   incident.src = JSON.parse(incident.src);
+  return incident;
+}
+/**
+ * 
+ * @param {string} tweet_id 
+ * 
+ */
+async function getIncidentByTweetId(tweet_id) {
+  const [incident] = await db('force_ranks').where('tweet_id', tweet_id);
+  // incident.tags = JSON.parse(incident.tags);
+  // incident.src = JSON.parse(incident.src);
   return incident;
 }
 /**

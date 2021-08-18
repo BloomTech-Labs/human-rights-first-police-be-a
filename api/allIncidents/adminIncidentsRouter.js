@@ -24,7 +24,7 @@ router.use(authRequired);
  *      500:
  *        description: Server response error
  */
-router.get('/incidents', async (req, res, next) => {
+router.get('/incidents/pending', async (req, res, next) => {
   Incidents.getAllPendingIncidents()
     .then((incidents) => {
       res.status(200).json(incidents);
