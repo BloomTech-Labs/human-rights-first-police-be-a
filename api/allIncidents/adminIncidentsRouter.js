@@ -57,7 +57,7 @@ router.get('/incidents/approved', async (req, res, next) => {
 
 /**
  * @swagger
- * /dashboard/incidents/approved:
+ * /dashboard/incidents/rejected:
  *  get:
  *    summary: Path returning all rejected incidents in reverse chronological order
  *    tags:
