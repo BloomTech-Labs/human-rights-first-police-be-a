@@ -39,6 +39,18 @@ describe('tests incident model functions', () => {
     let getAll = await Incidents.getIncidents();
     expect(getAll).toHaveLength(5);
   });
+  test('getAllApprovedIncidents returns all rejected incidents', async () => {
+    let getApproved = await Incidents.getAllApprovedIncidents();
+    expect(getApproved).toEqual(
+      expect.arrayContaining([expect.objectContaining({ status: 'approved' })])
+    );
+  });
+  test('getAllRejectedIncidents returns all rejected incidents', async () => {
+    let getRejected = await Incidents.getAllRejectedIncidents();
+    expect(getRejected).toEqual(
+      expect.arrayContaining([expect.objectContaining({ status: 'rejected' })])
+    );
+  });
   test('getAllPendingIncidents returns all pending incidents', async () => {
     let getPending = await Incidents.getAllPendingIncidents();
     expect(getPending).toEqual(
