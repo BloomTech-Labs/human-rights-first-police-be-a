@@ -4,6 +4,7 @@ const Incidents = require('./incidentsModel');
 const {
   checkIncidentExists,
   validateAndSanitizeIncidentQueries,
+  checkTweetIdExists,
 } = require('../middleware');
 
 // ''' ---------> Incidents Routes <--------- '''
@@ -95,7 +96,7 @@ router.get(
   '/getincidents',
   validateAndSanitizeIncidentQueries,
   (req, res, next) => {
-    Incidents.getAllApprovedIncidents()
+    Incidents.getIncidents()
       .then((incidents) => {
         res.status(200).json(incidents);
       })
@@ -158,9 +159,18 @@ router.get(
  *      500:
  *        description: Server response error
  */
-router.get('/incident/:incident_id', checkIncidentExists, (req, res, next) => {
+router.get('/:incident_id', checkIncidentExists, (req, res, next) => {
   let incident = req.incident;
   if (incident.status === 'approved') {
+    res.status(200).json(incident);
+  } else {
+    next({ status: 400, message: 'Incident unavailable' });
+  }
+});
+
+router.get('/getTweet/:tweet_id', checkTweetIdExists, (req, res, next) => {
+  let incident = req.incident;
+  if (incident) {
     res.status(200).json(incident);
   } else {
     next({ status: 400, message: 'Incident unavailable' });
