@@ -39,7 +39,7 @@ describe('tests incident model functions', () => {
     let getAll = await Incidents.getIncidents();
     expect(getAll).toHaveLength(5);
   });
-  test('getAllApprovedIncidents returns all rejected incidents', async () => {
+  test('getAllApprovedIncidents returns all approved incidents', async () => {
     let getApproved = await Incidents.getAllApprovedIncidents();
     expect(getApproved).toEqual(
       expect.arrayContaining([expect.objectContaining({ status: 'approved' })])
