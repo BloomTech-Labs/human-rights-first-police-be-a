@@ -6,13 +6,17 @@ You can find the deployed project at [Human Rights First - Blue Witness](https:/
 
 Feel free to reach out if you have any questions about the repo.
 
-|[Jaison Alonso](https://github.com/abe-one)|[Francis Nguyen](https://github.com/francishtknguyen)|[Justin Peczenij](https://github.com/justinpeczenij)|||
+|[Bruno Paula](https://www.brunopaula.com)|[Ryder Kline](https://github.com/RyderBlues)|[Joseph Witzke](https://github.com/joseph-witzke)| [Dylan Rinella](https://www.brunopaula.com)||
 | :-: | :-: | :-: | :-: | :-: |
-|        [<img src="https://avatars.githubusercontent.com/u/77995299?v=4" width = "200" />](https://github.com/)         |             [<img src="https://avatars.githubusercontent.com/u/78515635?v=4" width = "200" />](https://github.com/)              |            [<img src="https://avatars.githubusercontent.com/u/78557316?v=4" width = "200" />](https://github.com/)             |
-|                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/abe-one)                  |                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/francishtknguyen)                   |                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/justinpeczenij)                   |
-| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/abeone) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/francishtknguyen) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/justinpeczenij) |
+| [<img src="https://avatars.githubusercontent.com/u/10413679?v=4" width = "200" />](https://www.brunopaula.com)| [<img src="https://avatars.githubusercontent.com/u/73312607?v=4" width = "200" />](https://github.com/RyderBlues)             |            [<img src="https://avatars.githubusercontent.com/u/74194503?v=4" width = "200" />](https://github.com/joseph-witzke)          |
+| [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/devbrunopaula)                  |         [ <img src="https://github.com/favicon.ico" width="15"> ](https://github.com/RyderBlues)                   |                                                        [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/joseph-witzke)                   | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/dylan-rinella)                   |
+| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/bruno-paula/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/ryder-kline-65ba1a20a/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/joseph-witzke/) |
+
 
 <br>
+
+
+
 
 All [Labs Engineering Standards](https://labs.lambdaschool.com/topics/node-js/) must be followed.
 
