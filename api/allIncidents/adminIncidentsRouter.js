@@ -108,7 +108,7 @@ router.get('/incidents/:incident_id', checkIncidentExists, async (req, res) => {
  *    produces:
  *      - application/json
  *    responses:
- *      201:
+ *      200:
  *        description: Success ... returns updated incident object
  *      500:
  *        description: Server response error
@@ -119,7 +119,7 @@ router.put('/incidents/:incident_id', checkIncidentExists, (req, res, next) => {
 
   Incidents.updateIncident(id, req.body)
     .then((updatedIncident) => {
-      res.status(201).json(updatedIncident);
+      res.status(200).json(updatedIncident);
     })
     .catch(next);
 });
@@ -134,7 +134,7 @@ router.put('/incidents/:incident_id', checkIncidentExists, (req, res, next) => {
  *    produces:
  *      - application/json
  *    responses:
- *      201:
+ *      200:
  *        description: Success ... returns message 'Incidents Successfully Updated'
  *      500:
  *        description: Server response error
@@ -190,7 +190,7 @@ router.post(
  *    produces:
  *      - application/json
  *    responses:
- *      200:
+ *      201:
  *        description: Success ... returns message 'Incident Successfully Deleted'
  *      500:
  *        description: Server response error

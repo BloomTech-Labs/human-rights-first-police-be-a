@@ -142,6 +142,10 @@ async function updateIncident(id, changes) {
   if (changes.tags) changes.tags = JSON.stringify(changes.tags);
   try {
     await db('force_ranks').where('incident_id', id).update(changes);
+    // let x = await db('force_ranks').where('incident_id', id);
+    // console.log(x)
+    // // if x.status = approved Or x = rejected run vvvvvvvvv line 147
+    // // await db('conversations').where('incident_id', id).update('conversation_status', 13);
     return getIncidentById(id);
   } catch (error) {
     throw new Error(error.message);
