@@ -160,7 +160,7 @@ router.get(
  */
 router.get('/incident/:incident_id', checkIncidentExists, (req, res, next) => {
   let incident = req.incident;
-  if (incident.status === 'approved') {
+  if (incident.status) {
     res.status(200).json(incident);
   } else {
     next({ status: 400, message: 'Incident unavailable' });
