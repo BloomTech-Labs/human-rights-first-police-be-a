@@ -146,7 +146,7 @@ router.put('/incidents', async (req, res) => {
     await changes.forEach((change) => {
       Incidents.updateIncident(change.incident_id, change);
     });
-    res.status(201).json({ message: 'Incidents Successfully Updated' });
+    res.status(200).json({ message: 'Incidents Successfully Updated' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
