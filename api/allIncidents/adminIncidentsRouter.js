@@ -7,7 +7,7 @@ const {
   validateAndSanitizeIncidentObject,
 } = require('../middleware');
 
-// router.use(authRequired);
+router.use(authRequired);
 
 /**
  * @swagger
