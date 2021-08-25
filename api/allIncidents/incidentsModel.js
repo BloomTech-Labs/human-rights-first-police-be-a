@@ -142,14 +142,13 @@ async function updateIncident(id, changes) {
   if (changes.tags) changes.tags = JSON.stringify(changes.tags);
   try {
     await db('force_ranks').where('incident_id', id).update(changes);
-    const x = await db('force_ranks').where('incident_id', id).first();
-    console.log('CONSOLE', x);
-     if (x.status === 'approved' || x.status === 'rejected') {
-      console.log('hello')
-      // // await db('conversations').where('incident_id', id).update('conversation_status', 13);
-    // return getIncidentById(id);
-     }
-    
+    const incident = await db('force_ranks').where('incident_id', id).first();
+    const conversation = await db('conversations').where('incident_id', id).first();
+     if (conversation && (incident.status === 'approved' || incident.status === 'rejected')) {
+      await db('conversations')
+        .where('incident_id', id).update('conversation_status', 13);
+      }
+      return getIncidentById(id);
   } catch (error) {
     throw new Error(error.message);
   }
