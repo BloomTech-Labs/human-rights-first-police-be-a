@@ -138,10 +138,10 @@ async function createIncident(incident) {
  * Function to Edit and return a specific Twitter incident by provided id
  */
 async function updateIncident(id, changes) {
-  if (changes.src) changes.src = JSON.stringify(changes.src);
-  if (changes.tags) changes.tags = JSON.stringify(changes.tags);
+  if (changes.src) changes.src = JSON.stringify(changes.src); // ignore
+  if (changes.tags) changes.tags = JSON.stringify(changes.tags); // ignore
   try {
-    await db('force_ranks').where('incident_id', id).update(changes);
+    await db('force_ranks').where('incident_id', id).update(changes); //update the incident on force_ranks with frontend changes
     const incident = await db('force_ranks').where('incident_id', id).first();
     const conversation = await db('conversations').where('incident_id', id).first();
      if (conversation && (incident.status === 'approved' || incident.status === 'rejected')) {
@@ -150,7 +150,7 @@ async function updateIncident(id, changes) {
       }
       return getIncidentById(id);
   } catch (error) {
-    throw new Error(error.message);
+    console.log(error);
   }
 }
 /**
