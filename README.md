@@ -35,14 +35,6 @@ We are developing an interactive map that identifies reports of police use-of-fo
 - Users can view a timeline of recent events to see how often these events are occurring
 - Administrators have the ability to approve, reject, and CRUD incidents
 
-### What to build next?
-
-- Work with front end and data science to implement a way to get user responses into the database.
-- There is currently no way for an admin to send a Tweet to get more information about an incident from a user.
-- The idea we had was to give the admin the ability to create a tweet with the link to a pre-populated form that can either update the database with the needed information or store responses from the the users in a new table for the admin to look at when updating the incident. This will send the incident back to the admin dashboard as pending, where the incident can then be updated by the admin. This idea can be changed to whatever implementation you see fit.
-- Further validation to increase security of the database against possible attacks.
-- The heroku server is set up to deploy automatically upon updating `main`, however, this doesn't actually work. Maybe check it out. `Workaround is to deploy manually`
-
 ## Tech Stack
 
 ### Backend API built using:
@@ -100,7 +92,7 @@ In order for the app to function correctly, the user must set up their own envir
 
 # Testing
 
-Almost no testing has been implemented as of July 30, 2021. Only sanity tests.
+A decent amount of testing has been completed. More may be needed going forward if more functionality is added. Current tests were broken with recent updates and will need slight fixes.
 
 # Installation Instructions
 
