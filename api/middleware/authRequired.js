@@ -7,18 +7,23 @@ const oktaJwtVerifier = new OktaJwtVerifier(oktaVerifierConfig.config);
  * A simple middleware that asserts valid access tokens and sends 401 responses
  * if the token is not present or fails validation.
  */
-const authRequired = async (req, res, next) => {
-  try {
-    const authHeader = req.headers.authorization || '';
-    oktaJwtVerifier
-      .verifyAccessToken(authHeader, oktaVerifierConfig.expectedAudience)
-      .then(async () => {
-        next();
-      })
-      .catch(next);
-  } catch (err) {
-    next(createError(401, err.message));
+const authRequired = (req, res, next) => {
+  const authHeader = req.headers.authorization || '';
+  const match = authHeader.match(/Bearer (.+)/);
+  if (!match) {
+    throw new Error('No idToken');
   }
+  const idToken = match[1];
+  oktaJwtVerifier
+    .verifyAccessToken(idToken, oktaVerifierConfig.expectedAudience)
+    .then((res) => {
+      //if you need anything from the user object from Okta, you'll have it available in the next sequence of middleware as res.claims
+      //you can even put this on req.body
+      next(res.claims);
+    })
+    .catch((err) => {
+      next(createError(401, err.message));
+    });
 };
 
 module.exports = authRequired;
