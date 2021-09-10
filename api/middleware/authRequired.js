@@ -14,12 +14,11 @@ const authRequired = (req, res, next) => {
     throw new Error('No idToken');
   }
   const idToken = match[1];
+  // eslint-disable-next-line prettier/prettier
   oktaJwtVerifier
     .verifyAccessToken(idToken, oktaVerifierConfig.expectedAudience)
-    .then((res) => {
-      //if you need anything from the user object from Okta, you'll have it available in the next sequence of middleware as res.claims
-      //you can even put this on req.body
-      next(res.claims);
+    .then(() => {
+      next();
     })
     .catch((err) => {
       next(createError(401, err.message));
