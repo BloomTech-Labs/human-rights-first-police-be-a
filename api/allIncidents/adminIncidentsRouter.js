@@ -27,7 +27,6 @@ router.use(authRequired);
 router.get('/incidents', async (req, res, next) => {
   Incidents.getAllPendingIncidents()
     .then((incidents) => {
-      console.log('Admin Dashboard Incidents Router RES', res);
       res.status(200).json(incidents);
     })
     .catch(next);
