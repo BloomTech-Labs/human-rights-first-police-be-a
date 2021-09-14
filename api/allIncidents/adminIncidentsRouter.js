@@ -30,7 +30,10 @@ router.get('/incidents', async (req, res, next) => {
       console.log('Admin Dashboard Incidents Router RES', res);
       res.status(200).json(incidents);
     })
-    .catch(next);
+    .catch((err, next) => {
+      console.log('ADMIN DASHBOARD INCIDENTS ENDPOINT FAILED', err);
+      next();
+    });
 });
 
 /**
@@ -53,7 +56,10 @@ router.get('/incidents/approved', async (req, res, next) => {
     .then((incidents) => {
       res.status(200).json(incidents);
     })
-    .catch(next);
+    .catch((err, next) => {
+      console.log('ADMIN DASHBOARD APPROVED INCIDENTS ENDPOINT FAILED', err);
+      next();
+    });
 });
 
 /**
