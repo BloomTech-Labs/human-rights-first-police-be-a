@@ -18,8 +18,7 @@ module.exports = {
  * Returns all incidents in the db sorted by newest incident first
  */
 async function getIncidents() {
-  const incidents = await db('force_ranks')
-    .orderBy('incident_date', 'desc');
+  const incidents = await db('force_ranks').orderBy('incident_date', 'desc');
 
   const formattedIncidents = incidents.map((incident) => {
     incident.tags = JSON.parse(incident.tags);
@@ -114,7 +113,12 @@ function getLastID() {
  * Ideally google maps API can take city/state and populate lat/long on backend.
  */
 async function createIncident(incident) {
+  const newMax = await db('force_ranks').max('incident_id').first();
+  const { max } = newMax;
+  const newIncidentId = max + 1;
+
   const newIncident = {
+    incident_id: newIncidentId,
     incident_date: incident.incident_date,
     tweet_id: incident.tweet_id || null,
     city: incident.city || null,
@@ -130,6 +134,7 @@ async function createIncident(incident) {
     user_name: incident.user_name || null,
     src: JSON.stringify(incident.src) || null,
   };
+
   return db('force_ranks').insert(newIncident);
 }
 /**
@@ -143,14 +148,20 @@ async function updateIncident(id, changes) {
   try {
     await db('force_ranks').where('incident_id', id).update(changes); //update the incident on force_ranks
     const incident = await db('force_ranks').where('incident_id', id).first();
-    const conversation = await db('conversations').where('incident_id', id).first();
-     if (conversation && (incident.status === 'approved' || incident.status === 'rejected')) {
+    const conversation = await db('conversations')
+      .where('incident_id', id)
+      .first();
+    if (
+      conversation &&
+      (incident.status === 'approved' || incident.status === 'rejected')
+    ) {
       await db('conversations')
-        .where('incident_id', id).update('conversation_status', 13);
-      }
-      return getIncidentById(id);
+        .where('incident_id', id)
+        .update('conversation_status', 13);
+    }
+    return getIncidentById(id);
   } catch (error) {
-      console.log('error in ');
+    console.log('error in ');
   }
 }
 /**
