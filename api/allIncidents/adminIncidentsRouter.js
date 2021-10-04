@@ -173,8 +173,12 @@ router.post(
   validateAndSanitizeIncidentObject,
   async (req, res, next) => {
     Incidents.createIncident(req.sanitizedIncident)
-      .then(() => {
-        res.status(201).json({ message: 'Incident Successfully Created' });
+      .then((result) => {
+        console.log(result);
+        res.status(201).json({
+          message: 'Incident Successfully Created',
+          incident_id: result.newIncidentId,
+        });
       })
       .catch(next);
   }
