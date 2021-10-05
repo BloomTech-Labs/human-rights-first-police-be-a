@@ -174,7 +174,6 @@ router.post(
   async (req, res, next) => {
     Incidents.createIncident(req.sanitizedIncident)
       .then((result) => {
-        console.log(result);
         res.status(201).json({
           message: 'Incident Successfully Created',
           incident_id: result.newIncidentId,
