@@ -135,7 +135,9 @@ async function createIncident(incident) {
     src: JSON.stringify(incident.src) || null,
   };
 
-  return db('force_ranks').insert(newIncident);
+  const result = await db('force_ranks').insert(newIncident);
+  result.newIncidentId = newIncidentId;
+  return result;
 }
 /**
  * @param {string} id
